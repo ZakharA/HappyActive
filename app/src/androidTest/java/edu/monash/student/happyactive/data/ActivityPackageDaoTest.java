@@ -18,6 +18,8 @@ import java.util.List;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -42,4 +44,11 @@ public class ActivityPackageDaoTest {
         List<ActivityPackage> activityPackages = activityPackageDao.getAllActivityPackages();
         assertThat(activityPackages.size(), equalTo(0));
     }
+
+    @Test
+    public void addActivityPackageWithoutTasksTest() throws Exception {
+        ActivityPackage newPackage = new ActivityPackage("Cooking a meal", "Cook something awsome together with your grandparent");
+        activityPackageDao.insertActivity(newPackage);
+    }
+
 }
