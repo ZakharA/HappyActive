@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.relationships;
+package edu.monash.student.happyactive.data.relationships;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
