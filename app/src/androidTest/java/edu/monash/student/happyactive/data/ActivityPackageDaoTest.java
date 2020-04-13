@@ -26,12 +26,14 @@ import static org.junit.Assert.assertThat;
 public class ActivityPackageDaoTest {
     private ActivityPackageDao activityPackageDao;
     private AppDatabase appDatabase;
+    private ActivityPackage newPackage;
 
     @Before
     public void createDB(){
         Context context = ApplicationProvider.getApplicationContext();
         appDatabase = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
         activityPackageDao = appDatabase.activityPackageDao();
+        newPackage = new ActivityPackage("Cooking a meal", "Cook something awsome together with your grandparent");
     }
 
     @After
@@ -46,9 +48,10 @@ public class ActivityPackageDaoTest {
     }
 
     @Test
-    public void addActivityPackageWithoutTasksTest() throws Exception {
-        ActivityPackage newPackage = new ActivityPackage("Cooking a meal", "Cook something awsome together with your grandparent");
-        activityPackageDao.insertActivity(newPackage);
+    public void addAndCheckActivityPackageWithoutTasksTest() throws Exception {
+        long id = activityPackageDao.insertActivity(newPackage);
+        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
+        assertThat(id, equalTo(activityPackageFound.id));
     }
 
 }

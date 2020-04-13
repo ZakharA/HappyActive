@@ -17,7 +17,7 @@ public interface ActivityPackageDao {
     public List<ActivityPackage> getAllActivityPackages();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertActivity(ActivityPackage activityPackage);
+    public long insertActivity(ActivityPackage activityPackage);
 
     @Query("SELECT * FROM activitypackage WHERE id = :id")
     public ActivityPackage findById(long id);
