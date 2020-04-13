@@ -9,6 +9,6 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 @Dao
 public interface ActivityPackageDao {
-    @Query("Select * FROM activitypackage")
+    @Query("Select * FROM activityPackage")
     public List<ActivityPackage> getAllActivityPackages();
 }

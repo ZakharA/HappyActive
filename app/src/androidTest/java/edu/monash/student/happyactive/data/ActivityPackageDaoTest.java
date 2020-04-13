@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
+
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -37,8 +38,7 @@ public class ActivityPackageDaoTest {
     }
 
     @Test
-    public void writeUserAndReadInList() throws Exception {
-
+    public void ActivityPackageTableExistsTest() throws Exception {
         List<ActivityPackage> activityPackages = activityPackageDao.getAllActivityPackages();
         assertThat(activityPackages.size(), equalTo(0));
     }
