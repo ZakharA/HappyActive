@@ -54,4 +54,11 @@ public class ActivityPackageDaoTest {
         assertThat(id, equalTo(activityPackageFound.id));
     }
 
+    @Test
+    public void checkActivityDeletedTask() throws Exception {
+        long id = activityPackageDao.insertActivity(newPackage);
+        activityPackageDao.deletePackage(id);
+        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
+        assertThat(activityPackageFound, equalTo(null));
+    }
 }
