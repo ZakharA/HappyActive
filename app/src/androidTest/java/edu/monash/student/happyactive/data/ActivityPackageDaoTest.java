@@ -2,12 +2,15 @@ package edu.monash.student.happyactive.data;
 
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -19,32 +22,35 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class ActivityPackageDaoTest {
     private ActivityPackageDao activityPackageDao;
-    private AppDatabase appDatabase;
+    private ActivityPackageDatabase activityPackageDatabase;
     private ActivityPackage newPackage;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void createDB(){
         Context context = ApplicationProvider.getApplicationContext();
-        appDatabase = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
-        activityPackageDao = appDatabase.activityPackageDao();
+        activityPackageDatabase = Room.inMemoryDatabaseBuilder(context, ActivityPackageDatabase.class).build();
+        activityPackageDao = activityPackageDatabase.activityPackageDao();
         newPackage = new ActivityPackage("Cooking a meal", "Cook something awsome together with your grandparent");
     }
 
     @After
     public void closeDb() throws IOException {
-        appDatabase.close();
+        activityPackageDatabase.close();
     }
 
     @Test
     public void ActivityPackageTableExistsTest() throws Exception {
-        List<ActivityPackage> activityPackages = activityPackageDao.getAllActivityPackages();
-        assertThat(activityPackages.size(), equalTo(0));
+        LiveData<List<ActivityPackage>> activityPackages = activityPackageDao.getAllActivityPackages();
+        List<ActivityPackage> unPack = LiveDataTestUtil.getValue(activityPackages);
+        assertThat(unPack.size(), equalTo(0));
     }
 
     @Test
