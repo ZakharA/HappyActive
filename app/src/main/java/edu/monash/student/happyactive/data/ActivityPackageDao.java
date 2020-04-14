@@ -14,14 +14,14 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 @Dao
 public interface ActivityPackageDao {
     @Query("SELECT * FROM activityPackage")
-    public List<ActivityPackage> getAllActivityPackages();
+    List<ActivityPackage> getAllActivityPackages();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long insertActivity(ActivityPackage activityPackage);
+    long insertActivity(ActivityPackage activityPackage);
 
     @Query("SELECT * FROM activityPackage WHERE id = :id")
-    public ActivityPackage findById(long id);
+    ActivityPackage findById(long id);
 
     @Query("DELETE FROM activityPackage WHERE id = :id")
-    public void deletePackage(long id);
+    void deletePackage(long id);
 }
