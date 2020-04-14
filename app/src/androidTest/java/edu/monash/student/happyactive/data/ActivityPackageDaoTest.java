@@ -15,12 +15,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.Task;
+import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -66,5 +70,21 @@ public class ActivityPackageDaoTest {
         activityPackageDao.deletePackage(id);
         ActivityPackage activityPackageFound = activityPackageDao.findById(id);
         assertThat(activityPackageFound, equalTo(null));
+    }
+
+    @Test
+    public void addAndCheckActivityWithTasksTest() throws Exception {
+        ActivityPackage firstActivity = new ActivityPackage("Cooking", "Cook something amazing together");
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Groceries", "Buy ingredients"));
+        tasks.add(new Task("Cook", "Start cooking"));
+        tasks.add(new Task("Photo", "Take a photo of the dish"));
+
+        activityPackageDao.insertNew(firstActivity, tasks);
+        LiveData<List<ActivityPackageWithTasks>> activityPackageWithTasks = activityPackageDao.getAll();
+        List<ActivityPackageWithTasks> unPack = LiveDataTestUtil.getValue(activityPackageWithTasks);
+        assertThat(unPack.size(), greaterThan(0));
+        assertThat(unPack.get(0).tasksList.size(), equalTo(3));
+
     }
 }
