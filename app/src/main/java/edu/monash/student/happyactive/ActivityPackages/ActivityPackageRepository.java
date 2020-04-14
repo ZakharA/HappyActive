@@ -9,6 +9,7 @@ import java.util.List;
 import edu.monash.student.happyactive.data.ActivityPackageDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageRepository {
     private ActivityPackageDao activityPackageDao;
@@ -22,5 +23,8 @@ public class ActivityPackageRepository {
 
     public LiveData<List<ActivityPackage>> getAllActivityPackages(){
         return allActivityPackages;
+    }
+    public LiveData<ActivityPackageWithTasks> getActivityWithTasks(long id) {
+        return activityPackageDao.getActivityPackageWithTasksById(id);
     }
 }

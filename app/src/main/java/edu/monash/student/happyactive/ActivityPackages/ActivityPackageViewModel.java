@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageViewModel extends AndroidViewModel {
 
@@ -23,5 +24,8 @@ public class ActivityPackageViewModel extends AndroidViewModel {
 
     public LiveData<List<ActivityPackage>> getAllActivityPackages() {
         return allActivityPackages;
+    }
+    public LiveData<ActivityPackageWithTasks> getActivityPackageWithTasks(long id) {
+        return activityPackageRepository.getActivityWithTasks(id);
     }
 }
