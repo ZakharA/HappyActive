@@ -87,4 +87,31 @@ public class ActivityPackageDaoTest {
         assertThat(unPack.get(0).tasksList.size(), equalTo(3));
 
     }
+
+    @Test
+    public void getActivityPackageWithTaskTest() throws Exception {
+        ActivityPackage firstPackage = new ActivityPackage("Cooking", "Cook something amazing together");
+        List<Task> firstTaskList = new ArrayList<>();
+        firstTaskList.add(new Task("Groceries", "Buy ingredients"));
+        firstTaskList.add(new Task("Cook", "Start cooking"));
+        firstTaskList.add(new Task("Photo", "Take a photo of the dish"));
+
+        ActivityPackage secondPackage = new ActivityPackage("Magical Walking", "Take a walk in a park");
+        List<Task> secondTaskList = new ArrayList<>();
+        secondTaskList.add(new Task("Park", "What are you waiting for, go ..."));
+
+
+        activityPackageDao.insertNew(firstPackage, firstTaskList);
+        activityPackageDao.insertNew(secondPackage, secondTaskList);
+
+        LiveData<List<ActivityPackage>> activities = activityPackageDao.getAllActivityPackages();
+        long secondPackageId = LiveDataTestUtil.getValue(activities).get(1).id;
+
+        LiveData<ActivityPackageWithTasks> secondPackageWithTask = activityPackageDao.getActivityPackageWithTasksById(secondPackageId);
+        ActivityPackageWithTasks unPack = LiveDataTestUtil.getValue(secondPackageWithTask);
+        assertThat(unPack.activityPackage.title, equalTo("Magical Walking"));
+        assertThat(unPack.tasksList.size(), equalTo(1));
+        assertThat(unPack.tasksList.get(0).title, equalTo("Park"));
+
+    }
 }

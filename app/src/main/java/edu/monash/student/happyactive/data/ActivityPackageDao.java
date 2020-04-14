@@ -33,6 +33,10 @@ public abstract class ActivityPackageDao {
     @Query("SELECT * FROM ActivityPackage")
     public abstract LiveData<List<ActivityPackageWithTasks>> getAll();
 
+    @Transaction
+    @Query("SELECT * FROM ActivityPackage WHERE id = :id")
+    public abstract LiveData<ActivityPackageWithTasks> getActivityPackageWithTasksById(long id);
+
     @Insert
     public abstract void insertTaskList(List<Task> tasks);
 
