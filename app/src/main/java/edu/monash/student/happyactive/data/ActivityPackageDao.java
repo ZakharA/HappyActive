@@ -2,6 +2,7 @@ package edu.monash.student.happyactive.data;
 
 import android.app.Activity;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -14,7 +15,7 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 @Dao
 public interface ActivityPackageDao {
     @Query("SELECT * FROM activityPackage")
-    List<ActivityPackage> getAllActivityPackages();
+    LiveData<List<ActivityPackage>> getAllActivityPackages();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertActivity(ActivityPackage activityPackage);

@@ -1,6 +1,9 @@
 package edu.monash.student.happyactive.data;
 
+import android.content.Context;
+
 import androidx.room.Database;
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
@@ -12,6 +15,22 @@ import edu.monash.student.happyactive.data.entities.Task;
 
 @Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class}, exportSchema = true, version = 1)
 @TypeConverters({DateConverters.class})
-public abstract class AppDatabase extends RoomDatabase {
+public abstract class ActivityPackageDatabase extends RoomDatabase {
+
     public abstract ActivityPackageDao activityPackageDao();
+    private static ActivityPackageDatabase INSTANCE;
+
+    public static ActivityPackageDatabase getDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (ActivityPackageDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            ActivityPackageDatabase.class, "word_database")
+                            .fallbackToDestructiveMigration()
+                            .build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 }
