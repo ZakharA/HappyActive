@@ -12,8 +12,10 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
+import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 @Dao
 public abstract class ActivityPackageDao {
@@ -51,4 +53,19 @@ public abstract class ActivityPackageDao {
         insertTaskList(tasks);
     }
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract long insertSession(ActivitySession activitySession);
+
+    @Query("SELECT * FROM activitySession")
+    public abstract LiveData<List<ActivitySession>> getAllSessionsRecords();
+
+    @Transaction
+    @Query("SELECT * FROM activityPackage WHERE id = :id")
+    public abstract LiveData<List<ActivityWithSessions>> getActivityWithSessionById(long id);
+
+    public void insertActivityWithSession(ActivityPackage activityPackage, ActivitySession session){
+        long id = insertActivity(activityPackage);
+        session.activityId = id;
+        insertSession(session);
+    }
 }

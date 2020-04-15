@@ -20,12 +20,13 @@ import java.util.List;
 
 
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
+import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -113,5 +114,27 @@ public class ActivityPackageDaoTest {
         assertThat(unPack.tasksList.size(), equalTo(1));
         assertThat(unPack.tasksList.get(0).title, equalTo("Park"));
 
+    }
+
+    @Test
+    public void addNewSessionTest() throws Exception {
+        ActivitySession newSession = new ActivitySession();
+        newSession.activityId = 100;
+        newSession.currentTaskId = 12;
+        activityPackageDao.insertSession(newSession);
+        List<ActivitySession> unPack = LiveDataTestUtil.getValue(activityPackageDao.getAllSessionsRecords());
+        assertThat(unPack.size(), greaterThan(0));
+    }
+
+    @Test
+    public void addNewActivityWithSessionTest() throws Exception {
+        ActivitySession newSession = new ActivitySession();
+        newSession.currentTaskId = 12;
+        activityPackageDao.insertActivityWithSession(newPackage, newSession);
+        List<ActivityWithSessions> unPack =  LiveDataTestUtil.getValue(activityPackageDao.getActivityWithSessionById(1L));
+        assertThat(unPack.size(), greaterThan(0));
+        assertThat(unPack.get(0).activityPackage.title, equalTo("Cooking a meal"));
+        assertThat(unPack.get(0).sessionList.get(0).activityId, equalTo(1L));
+        assertThat(unPack.get(0).sessionList.get(0).currentTaskId, equalTo(12L));
     }
 }
