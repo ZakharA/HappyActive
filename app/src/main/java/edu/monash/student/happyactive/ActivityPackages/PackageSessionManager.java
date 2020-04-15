@@ -63,7 +63,7 @@ public class PackageSessionManager {
 
     }
 
-    private boolean isInProgress(Task task) {
+    public boolean isInProgress(Task task) {
         return task == taskInProgress;
     }
 
