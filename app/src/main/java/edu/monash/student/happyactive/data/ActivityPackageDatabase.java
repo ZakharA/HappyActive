@@ -19,6 +19,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
 
     public abstract ActivityPackageDao activityPackageDao();
     public abstract ActivitySessionDao activitySessionDao();
+    public abstract ActivityJournalDao activityJournalDao();
     private static ActivityPackageDatabase INSTANCE;
 
     public static ActivityPackageDatabase getDatabase(final Context context) {
