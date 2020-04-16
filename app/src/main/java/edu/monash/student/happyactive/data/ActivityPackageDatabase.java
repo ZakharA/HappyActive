@@ -18,6 +18,7 @@ import edu.monash.student.happyactive.data.entities.Task;
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
     public abstract ActivityPackageDao activityPackageDao();
+    public abstract ActivitySessionDao activitySessionDao();
     private static ActivityPackageDatabase INSTANCE;
 
     public static ActivityPackageDatabase getDatabase(final Context context) {
