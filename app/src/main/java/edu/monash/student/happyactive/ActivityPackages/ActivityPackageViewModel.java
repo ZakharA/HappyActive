@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
@@ -27,5 +29,21 @@ public class ActivityPackageViewModel extends AndroidViewModel {
     }
     public LiveData<ActivityPackageWithTasks> getActivityPackageWithTasks(long id) {
         return activityPackageRepository.getActivityWithTasks(id);
+    }
+
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+        @NonNull
+        private final Application application;
+
+        public Factory(@NonNull Application application){
+            this.application = application;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        @NonNull
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new ActivityPackageViewModel(application);
+        }
     }
 }

@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Date;
 import java.util.List;
@@ -53,5 +55,24 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.status = ActivityPackageStatus.COMPLETED;
         activitySession.completedDateTime = new Date();
         activityPackageRepository.saveSession(activitySession);
+    }
+
+
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+        @NonNull
+        private final Application application;
+        private final ActivityPackage activityPackage;
+
+        public Factory(@NonNull Application application, ActivityPackage activityPackage){
+            this.application = application;
+            this.activityPackage = activityPackage;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        @NonNull
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new ActivitySessionViewModel(application, activityPackage);
+        }
     }
 }
