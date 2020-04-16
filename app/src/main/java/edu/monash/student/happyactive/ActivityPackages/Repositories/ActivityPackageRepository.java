@@ -12,6 +12,7 @@ import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
+import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageRepository {
@@ -32,4 +33,13 @@ public class ActivityPackageRepository {
     public LiveData<ActivityPackageWithTasks> getActivityWithTasks(long id) {
         return activityPackageDao.getActivityPackageWithTasksById(id);
     }
+
+    public long insertNewActivityPackage(ActivityPackage activityPackage) {
+        return activityPackageDao.insertActivity(activityPackage);
+    }
+
+    public long insertNewActivityWithTasks(ActivityPackage activityPackage, List<Task> tasks) {
+        return activityPackageDao.insertNew(activityPackage, tasks);
+    }
+
 }

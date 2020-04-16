@@ -16,16 +16,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
@@ -36,29 +40,48 @@ public class ActivityRepositoryTest {
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
+    private ActivityPackage activityPackage;
+    private List<Task> tasks;
+    private int activitiesInTotal;
     @Before
-    public void createRepository(){
+    public void createRepository() throws Exception{
         Application application = ApplicationProvider.getApplicationContext();
         activityPackageRepository = new ActivityPackageRepository(application);
+        activityPackage = new ActivityPackage("title", "description");
+        tasks = new ArrayList<>();
+        tasks.add(new Task("task1", "task1 description"));
+        List<ActivityPackage> packages = LiveDataTestUtil.getValue(activityPackageRepository.getAllActivityPackages());
+        activitiesInTotal = packages.size();
+    }
+
+    @Test
+    public void insertNewActivityPackageTest() throws Exception{
+        long id = activityPackageRepository.insertNewActivityPackage(activityPackage);
+        assertThat(id, greaterThanOrEqualTo(0l));
+    }
+
+    @Test
+    public void insertNewActivityPackageWithTaskTest() throws Exception{
+        long activityId = activityPackageRepository.insertNewActivityWithTasks(activityPackage, tasks);
+        LiveData<ActivityPackageWithTasks> result = activityPackageRepository.getActivityWithTasks(activityId);
+        ActivityPackageWithTasks packageWithTasks = LiveDataTestUtil.getValue(result);
+        assertThat(packageWithTasks.activityPackage.id, equalTo(activityId));
+        assertThat(packageWithTasks.tasksList.size(), equalTo(1));
     }
 
     @Test
     public void getAllActivityPackagesTest() throws Exception{
         LiveData<List<ActivityPackage>> result = activityPackageRepository.getAllActivityPackages();
         List<ActivityPackage> list = LiveDataTestUtil.getValue(result);
-        assertThat(list.size(), equalTo(3));
+        assertThat(list.size(), greaterThanOrEqualTo(activitiesInTotal));
     }
 
     @Test
-    public void getActivityPackageByIdTest() throws Exception{
+    public void getActivityPackageWithTasksByIdTest() throws Exception{
         LiveData<ActivityPackageWithTasks> liveResult = activityPackageRepository.getActivityWithTasks(1L);
         ActivityPackageWithTasks result = LiveDataTestUtil.getValue(liveResult);
-        assertThat(result.activityPackage.id, equalTo(1L));
-        assertThat(result.tasksList.size(), equalTo(4));
-        assertThat(result.tasksList.get(0).activityId, equalTo(1L));
-        assertThat(result.tasksList.get(1).activityId, equalTo(1L));
-        assertThat(result.tasksList.get(2).activityId, equalTo(1L));
-        assertThat(result.tasksList.get(3).activityId, equalTo(1L));
+        assertThat(result.activityPackage.id, equalTo(1l));
+        assertThat(result.tasksList.size(), equalTo(0));
+
     }
 }

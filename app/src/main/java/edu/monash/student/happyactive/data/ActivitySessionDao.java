@@ -17,7 +17,7 @@ import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 @Dao
 public abstract class ActivitySessionDao {
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.REPLACE, entity = ActivitySession.class)
     public abstract void updateSession(ActivitySession activitySession);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -39,5 +39,6 @@ public abstract class ActivitySessionDao {
         session.status = ActivityPackageStatus.CANCELED;
         updateSession(session);
     }
-
+    @Query("SELECT * FROM activitysession WHERE activityId = :acitivityId AND id = :id")
+    public abstract ActivitySession findSessionByActivityId(long acitivityId, long id);
 }

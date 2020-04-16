@@ -41,11 +41,12 @@ public abstract class ActivityPackageDao {
     @Query("SELECT * FROM task")
     public abstract  List<Task> getAllTasks();
 
-    public void insertNew(ActivityPackage activityPackage, List<Task> tasks) {
+    public long insertNew(ActivityPackage activityPackage, List<Task> tasks) {
         long id = insertActivity(activityPackage);
         for(Task task : tasks) {
             task.activityId = id;
         }
         insertTaskList(tasks);
+        return id;
     }
 }
