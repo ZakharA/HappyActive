@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.ActivityPackages;
+package edu.monash.student.happyactive.data;
 
 public enum ActivityPackageStatus {
     STARTED,

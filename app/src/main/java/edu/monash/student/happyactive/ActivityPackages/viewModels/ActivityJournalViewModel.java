@@ -5,18 +5,20 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageRepository;
+import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
+import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 
 public class ActivityJournalViewModel extends AndroidViewModel {
-    private ActivityPackageRepository activityPackageRepository;
+
+    private ActivitySessionRepository activitySessionRepository;
 
     public ActivityJournalViewModel(@NonNull Application application) {
         super(application);
-        activityPackageRepository = new ActivityPackageRepository(application);
+        activitySessionRepository = new ActivitySessionRepository(application);
     }
 
     public void addNewJournalEntry(ActivityJournal journalEntry) {
-        activityPackageRepository.addNewJournalEntry(journalEntry);
+        activitySessionRepository.addNewJournalEntry(journalEntry);
     }
 }

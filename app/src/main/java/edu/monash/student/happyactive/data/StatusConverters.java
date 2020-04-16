@@ -2,8 +2,6 @@ package edu.monash.student.happyactive.data;
 
 import androidx.room.TypeConverter;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
-
 public class StatusConverters {
     @TypeConverter
     public static ActivityPackageStatus getStatus(Integer numeral){

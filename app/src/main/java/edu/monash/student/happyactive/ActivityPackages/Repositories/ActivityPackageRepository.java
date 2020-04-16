@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.ActivityPackages;
+package edu.monash.student.happyactive.ActivityPackages.Repositories;
 
 import android.app.Application;
 
@@ -15,6 +15,7 @@ import edu.monash.student.happyactive.data.entities.SessionPhoto;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageRepository {
+
     private ActivityPackageDao activityPackageDao;
     private LiveData<List<ActivityPackage>> allActivityPackages;
 
@@ -27,23 +28,8 @@ public class ActivityPackageRepository {
     public LiveData<List<ActivityPackage>> getAllActivityPackages(){
         return allActivityPackages;
     }
+
     public LiveData<ActivityPackageWithTasks> getActivityWithTasks(long id) {
         return activityPackageDao.getActivityPackageWithTasksById(id);
-    }
-
-    public void saveSession(ActivitySession session) {
-        activityPackageDao.insertSession(session);
-    }
-
-    public void updateSession(ActivitySession session) {
-        activityPackageDao.updateSession(session);
-    }
-
-    public void cancelSession(ActivitySession session) {
-        activityPackageDao.cancelSession(session);
-    }
-
-    public void addNewJournalEntry(ActivityJournal journalEntry) {
-        activityPackageDao.addNewJournalEntry(journalEntry);
     }
 }

@@ -11,9 +11,7 @@ import androidx.room.Update;
 import java.util.Date;
 import java.util.List;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 

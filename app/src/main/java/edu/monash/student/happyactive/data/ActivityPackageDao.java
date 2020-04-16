@@ -1,25 +1,17 @@
 package edu.monash.student.happyactive.data;
 
-import android.app.Activity;
-
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
-import java.util.Date;
 import java.util.List;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
-import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
-import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 @Dao
 public abstract class ActivityPackageDao {

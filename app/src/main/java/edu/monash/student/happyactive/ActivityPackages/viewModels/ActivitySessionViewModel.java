@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Date;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageRepository;
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
+import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
+import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
+import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -19,6 +20,7 @@ import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
+    private ActivitySessionRepository activitySessionRepository;
     private ActivityPackageRepository activityPackageRepository;
     private LiveData<ActivityPackageWithTasks> acitivtyPackageWithTasks;
     private ActivitySession activitySession;
@@ -56,7 +58,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     public void saveSessionAfterActivityIsCompleted(){
         activitySession.status = ActivityPackageStatus.COMPLETED;
         activitySession.completedDateTime = new Date();
-        activityPackageRepository.saveSession(activitySession);
+        activitySessionRepository.saveSession(activitySession);
     }
 
 

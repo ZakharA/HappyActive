@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageRepository;
+import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
