@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Date;
 
+import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
-import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;

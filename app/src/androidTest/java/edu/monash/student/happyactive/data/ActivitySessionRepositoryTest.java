@@ -14,17 +14,12 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class ActivitySessionRepositoryTest {

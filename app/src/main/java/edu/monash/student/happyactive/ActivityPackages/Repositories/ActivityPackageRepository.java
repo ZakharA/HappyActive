@@ -8,10 +8,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.ActivityPackageDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
-import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.data.entities.ActivitySession;
-import edu.monash.student.happyactive.data.entities.SessionPhoto;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 

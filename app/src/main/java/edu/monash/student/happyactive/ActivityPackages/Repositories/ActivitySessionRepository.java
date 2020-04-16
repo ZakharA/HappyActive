@@ -9,7 +9,6 @@ import java.util.List;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class ActivitySessionRepository {
