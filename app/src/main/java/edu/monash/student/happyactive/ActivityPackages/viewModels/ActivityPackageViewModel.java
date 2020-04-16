@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.ActivityPackages;
+package edu.monash.student.happyactive.ActivityPackages.viewModels;
 
 import android.app.Application;
 
@@ -10,12 +10,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
+import edu.monash.student.happyactive.ActivityPackages.ActivityPackageRepository;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageViewModel extends AndroidViewModel {
 
-    private  ActivityPackageRepository activityPackageRepository;
+    private ActivityPackageRepository activityPackageRepository;
     private LiveData<List<ActivityPackage>>  allActivityPackages;
 
     public ActivityPackageViewModel(@NonNull Application application) {
