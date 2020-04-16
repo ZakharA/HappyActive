@@ -8,9 +8,12 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
+import java.util.Date;
 import java.util.List;
 
+import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
@@ -68,4 +71,13 @@ public abstract class ActivityPackageDao {
         session.activityId = id;
         insertSession(session);
     }
+
+    public  void cancelSession(ActivitySession session){
+        session.completedDateTime = new Date();
+        session.status = ActivityPackageStatus.CANCELED;
+        updateSession(session);
+    }
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void updateSession(ActivitySession activitySession);
 }

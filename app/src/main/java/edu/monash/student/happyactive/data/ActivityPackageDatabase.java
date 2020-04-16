@@ -25,7 +25,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
             synchronized (ActivityPackageDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            ActivityPackageDatabase.class, "word_database")
+                            ActivityPackageDatabase.class, "happyActiveDB")
                             .fallbackToDestructiveMigration()
                             .build();
                 }
