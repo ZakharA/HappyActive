@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.ActivityPackageDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
@@ -40,5 +41,9 @@ public class ActivityPackageRepository {
 
     public void cancelSession(ActivitySession session) {
         activityPackageDao.cancelSession(session);
+    }
+
+    public void addNewJournalEntry(ActivityJournal journalEntry) {
+        activityPackageDao.addNewJournalEntry(journalEntry);
     }
 }
