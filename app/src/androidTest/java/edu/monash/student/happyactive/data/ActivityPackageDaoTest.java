@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import edu.monash.student.happyactive.ActivityPackages.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
@@ -118,22 +117,4 @@ public class ActivityPackageDaoTest {
 
     }
 
-    @Test
-    public void addNewSessionTest() throws Exception {
-        ActivitySession newSession = new ActivitySession(100, 12, ActivityPackageStatus.STARTED);
-        activityPackageDao.insertSession(newSession);
-        List<ActivitySession> unPack = LiveDataTestUtil.getValue(activityPackageDao.getAllSessionsRecords());
-        assertThat(unPack.size(), greaterThan(0));
-    }
-
-    @Test
-    public void addNewActivityWithSessionTest() throws Exception {
-        ActivitySession newSession = new ActivitySession(newPackage.id, 12, ActivityPackageStatus.STARTED);
-        activityPackageDao.insertActivityWithSession(newPackage, newSession);
-        List<ActivityWithSessions> unPack =  LiveDataTestUtil.getValue(activityPackageDao.getActivityWithSessionById(1L));
-        assertThat(unPack.size(), greaterThan(0));
-        assertThat(unPack.get(0).activityPackage.title, equalTo("Cooking a meal"));
-        assertThat(unPack.get(0).sessionList.get(0).activityId, equalTo(1L));
-        assertThat(unPack.get(0).sessionList.get(0).currentTaskId, equalTo(12L));
-    }
 }
