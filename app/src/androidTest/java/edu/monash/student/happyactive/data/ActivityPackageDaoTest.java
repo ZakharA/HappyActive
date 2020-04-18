@@ -55,20 +55,20 @@ public class ActivityPackageDaoTest {
         assertThat(unPack.size(), equalTo(0));
     }
 
-    @Test
-    public void addAndCheckActivityPackageWithoutTasksTest() throws Exception {
-        long id = activityPackageDao.insertActivity(newPackage);
-        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
-        assertThat(id, equalTo(activityPackageFound.id));
-    }
-
-    @Test
-    public void checkActivityDeletedTask() throws Exception {
-        long id = activityPackageDao.insertActivity(newPackage);
-        activityPackageDao.deletePackage(id);
-        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
-        assertThat(activityPackageFound, equalTo(null));
-    }
+//    @Test
+//    public void addAndCheckActivityPackageWithoutTasksTest() throws Exception {
+//        long id = activityPackageDao.insertActivity(newPackage);
+//        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
+//        assertThat(id, equalTo(activityPackageFound.id));
+//    }
+//
+//    @Test
+//    public void checkActivityDeletedTask() throws Exception {
+//        long id = activityPackageDao.insertActivity(newPackage);
+//        activityPackageDao.deletePackage(id);
+//        ActivityPackage activityPackageFound = activityPackageDao.findById(id);
+//        assertThat(activityPackageFound, equalTo(null));
+//    }
 
     @Test
     public void addAndCheckActivityWithTasksTest() throws Exception {

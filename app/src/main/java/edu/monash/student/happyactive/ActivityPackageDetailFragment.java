@@ -71,7 +71,7 @@ public class ActivityPackageDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPackageViewModel =  new ViewModelProvider(requireActivity(), new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
-        mPackageViewModel.getActivityPackageById(selectedActivityId).observe(this, activity -> {
+        mPackageViewModel.getActivityPackageById(selectedActivityId).observe(getViewLifecycleOwner(), activity -> {
             appBarLayout.setTitle(activity.title);
             ((TextView) rootView.findViewById(R.id.activitypackage_detail)).setText(activity.description);
         });

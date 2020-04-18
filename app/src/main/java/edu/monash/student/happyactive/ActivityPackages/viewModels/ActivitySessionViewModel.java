@@ -5,10 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
@@ -22,37 +25,19 @@ import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTask
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;
     private ActivityPackageRepository activityPackageRepository;
-    private LiveData<ActivityPackageWithTasks> acitivtyPackageWithTasks;
     private ActivitySession activitySession;
-    private PackageSessionManager sessionManager;
 
-    public ActivitySessionViewModel(@NonNull Application application, ActivityPackage activityPackage) {
+    private final MutableLiveData<Task> currentTaskOnDisplay = new MutableLiveData<>();
+    private final MutableLiveData<Task> taskInProgress = new MutableLiveData<>();
+    private List<Task> tasks;
+    private Iterator<Task> iterator;
+
+
+    public ActivitySessionViewModel(@NonNull Application application, long activityPackageId) {
         super(application);
         activityPackageRepository = new ActivityPackageRepository(application);
-        LiveData<ActivityPackageWithTasks> packageWithTasksLiveData = activityPackageRepository.getActivityWithTasks(activityPackage.id);
-        activitySession = new ActivitySession(activityPackage.id, 0, ActivityPackageStatus.STARTED);
-        sessionManager = new PackageSessionManager(activityPackage.id, packageWithTasksLiveData.getValue().tasksList);
-    }
-
-    public LiveData<ActivityPackageWithTasks> getActivityPackageWithTasks(long id) {
-        acitivtyPackageWithTasks = activityPackageRepository.getActivityWithTasks(id);
-        return acitivtyPackageWithTasks;
-    }
-
-    public Task getTaskToDisplay(){
-        return sessionManager.getCurrentTaskOnDisplay();
-    }
-
-    public Task completeTaskInProgress(){
-        return sessionManager.completeTaskInProgress();
-    }
-
-    public Task getPreviousTask(){
-        return sessionManager.getPreviousTask();
-    }
-
-    public boolean isInProgress() {
-        return sessionManager.isInProgress(sessionManager.getCurrentTaskOnDisplay());
+        activitySessionRepository = new ActivitySessionRepository(application);
+        activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
     }
 
     public void saveSessionAfterActivityIsCompleted(){
@@ -62,12 +47,87 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     }
 
 
+
+//    public Task getCurrentTaskOnDisplay() {
+//        return currentTaskOnDisplay;
+//    }
+//
+//    public Task getTaskInProgress() {
+//        return taskInProgress;
+//    }
+
+
+
+//    public Task completeTaskInProgress() {
+//
+//    }
+//
+//    public Task getPreviousTask(){
+//        int currentTaskIndex =tasks.indexOf(currentTaskOnDisplay);
+//        if ( currentTaskIndex != 0) {
+//            currentTaskOnDisplay = tasks.get(currentTaskIndex - 1);
+//            return currentTaskOnDisplay;
+//        } else {
+//            return null; // TODO replace null with something better
+//        }
+//
+//    }
+//
+//    public Task getTaskAfter(Task currentTaskOnDisplay) {
+//        if (!isLastInList(currentTaskOnDisplay) && !isInProgress(currentTaskOnDisplay)){
+//            currentTaskOnDisplay = tasks.get(getIndex(currentTaskOnDisplay) + 1);
+//            return currentTaskOnDisplay;
+//        } else {
+//             return taskInProgress;
+//        }
+//
+//    }
+//
+//    public boolean isInProgress(Task task) {
+//        return task == taskInProgress;
+//    }
+//
+//    private boolean isLastInList(Task currentTaskOnDisplay) {
+//        return currentTaskOnDisplay.id == getLastTaskId();
+//    }
+
+    private int getIndex(Task task) {
+        return tasks.indexOf(task);
+    }
+
+    private long getLastTaskId() {
+        return tasks.get(tasks.size() - 1).id;
+    }
+
+    private int getLastTaskIndex() {
+        return tasks.size() - 1;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void completeTaskInProgress() {
+        if (iterator.hasNext()) {
+            final Task task = iterator.next();
+            currentTaskOnDisplay.setValue(task);
+            //taskInProgress.setValue(task);
+        } else {
+            //return getTaskAfter(currentTaskOnDisplay);
+        }
+    }
+
+    public LiveData<Task> getTaskToDisplay() {
+        return currentTaskOnDisplay;
+    }
+
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;
-        private final ActivityPackage activityPackage;
+        private final long activityPackage;
 
-        public Factory(@NonNull Application application, ActivityPackage activityPackage){
+        public Factory(@NonNull Application application, long activityPackage){
             this.application = application;
             this.activityPackage = activityPackage;
         }

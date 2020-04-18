@@ -71,7 +71,7 @@ public class ActivityRepositoryTest {
         LiveData<ActivityPackageWithTasks> liveResult = activityPackageRepository.getActivityWithTasks(1L);
         ActivityPackageWithTasks result = LiveDataTestUtil.getValue(liveResult);
         assertThat(result.activityPackage.id, equalTo(1l));
-        assertThat(result.tasksList.size(), equalTo(0));
+        assertThat(result.tasksList.size(), equalTo(4));
 
     }
 }
