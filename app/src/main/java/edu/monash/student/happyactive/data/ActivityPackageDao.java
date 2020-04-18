@@ -22,7 +22,7 @@ public abstract class ActivityPackageDao {
     public abstract long insertActivity(ActivityPackage activityPackage);
 
     @Query("SELECT * FROM activityPackage WHERE id = :id")
-    public abstract ActivityPackage findById(long id);
+    public abstract LiveData<ActivityPackage> findById(long id);
 
     @Query("DELETE FROM activityPackage WHERE id = :id")
     public abstract void deletePackage(long id);

@@ -39,4 +39,7 @@ public class ActivityPackageRepository {
         return activityPackageDao.insertNew(activityPackage, tasks);
     }
 
+    public LiveData<ActivityPackage> getActivityPackageById(long argItemId) {
+        return  activityPackageDao.findById(argItemId);
+    }
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,6 +19,7 @@ public class ActivityPackageViewModel extends AndroidViewModel {
 
     private ActivityPackageRepository activityPackageRepository;
     private LiveData<List<ActivityPackage>>  allActivityPackages;
+    private MutableLiveData<ActivityPackage> selectedPackage = new MutableLiveData<ActivityPackage>();
 
     public ActivityPackageViewModel(@NonNull Application application) {
         super(application);
@@ -30,6 +32,18 @@ public class ActivityPackageViewModel extends AndroidViewModel {
     }
     public LiveData<ActivityPackageWithTasks> getActivityPackageWithTasks(long id) {
         return activityPackageRepository.getActivityWithTasks(id);
+    }
+
+    public LiveData<ActivityPackage> getActivityPackageById(long argItemId) {
+        return  activityPackageRepository.getActivityPackageById(argItemId);
+    }
+
+    public void setSelectedActivityPackage(ActivityPackage activityPackage){
+        selectedPackage.setValue(activityPackage);
+    }
+
+    public LiveData<ActivityPackage> getSelectedPackage() {
+        return selectedPackage;
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ActivityPackageListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
-    private ActivityPackageViewModel mActivityPackageViewModel;
+    protected ActivityPackageViewModel mActivityPackageViewModel;
     private SimpleItemRecyclerViewAdapter adapter;
 
     @Override
@@ -98,10 +97,12 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                ActivityPackage activityPackage = (ActivityPackage) view.getTag();
+                //mParentActivity.mActivityPackageViewModel.setSelectedActivityPackage(activityPackage);
+
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ActivityPackageDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putLong(ActivityPackageDetailFragment.ARG_ITEM_ID, activityPackage.id);
                     ActivityPackageDetailFragment fragment = new ActivityPackageDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -110,7 +111,7 @@ public class ActivityPackageListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ActivityPackageDetailActivity.class);
-                    intent.putExtra(ActivityPackageDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(ActivityPackageDetailFragment.ARG_ITEM_ID, activityPackage.id);
 
                     context.startActivity(intent);
                 }
