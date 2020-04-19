@@ -13,7 +13,7 @@ import java.util.Date;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
 
-public class OverallActivityHome extends AppCompatActivity {
+public class OverallHomeActivity extends AppCompatActivity {
 
 
     private TextView overallStepCount;
