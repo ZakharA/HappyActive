@@ -17,8 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SessionActivity">
-        </activity>
+        <activity android:name=".PackageDetails"></activity>
         <activity
             android:name=".ActivityPackageListActivity"
             android:label="@string/title_activitypackage_list"
@@ -29,15 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ActivityPackageDetailActivity"
-            android:label="@string/title_activitypackage_detail"
-            android:parentActivityName=".ActivityPackageListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.monash.student.happyactive.ActivityPackageListActivity" />
-        </activity>
+        <activity android:name=".SessionActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
