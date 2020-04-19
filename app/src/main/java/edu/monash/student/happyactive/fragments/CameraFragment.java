@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments;
 
 import android.os.Bundle;
 
@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import edu.monash.student.happyactive.R;
 
 
 public class CameraFragment extends Fragment {

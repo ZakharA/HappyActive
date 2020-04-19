@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -16,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import edu.monash.student.happyactive.ActivityPackageDetailActivity;
+import edu.monash.student.happyactive.ActivityPackageListActivity;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
+import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 /**

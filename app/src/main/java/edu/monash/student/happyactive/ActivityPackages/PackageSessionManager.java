@@ -8,8 +8,8 @@ import java.util.List;
 import edu.monash.student.happyactive.data.entities.Task;
 
 public class PackageSessionManager {
-    public MutableLiveData<Task> currentTaskOnDisplay = new MutableLiveData<>();
-    private MutableLiveData<Task> taskInProgress = new MutableLiveData<>();
+    private Task currentTaskOnDisplay;
+    private Task taskInProgress ;
     private long activityId;
     private List<Task> tasks;
     private Iterator<Task> iterator;
@@ -18,50 +18,56 @@ public class PackageSessionManager {
         this.activityId = activityId;
     }
 
-//    public Task getCurrentTaskOnDisplay() {
-//        return currentTaskOnDisplay;
-//    }
-//
-//    public Task getTaskInProgress() {
-//        return taskInProgress;
-//    }
+    public Task getCurrentTaskOnDisplay() {
+        return currentTaskOnDisplay;
+    }
+
+    public Task getTaskInProgress() {
+        return taskInProgress;
+    }
 
     public long getActivityId() {
         return activityId;
     }
 
-//    public Task completeTaskInProgress() {
-//
-//    }
-//
-//    public Task getPreviousTask(){
-//        int currentTaskIndex =tasks.indexOf(currentTaskOnDisplay);
-//        if ( currentTaskIndex != 0) {
-//            currentTaskOnDisplay = tasks.get(currentTaskIndex - 1);
-//            return currentTaskOnDisplay;
-//        } else {
-//            return null; // TODO replace null with something better
-//        }
-//
-//    }
-//
-//    public Task getTaskAfter(Task currentTaskOnDisplay) {
-//        if (!isLastInList(currentTaskOnDisplay) && !isInProgress(currentTaskOnDisplay)){
-//            currentTaskOnDisplay = tasks.get(getIndex(currentTaskOnDisplay) + 1);
-//            return currentTaskOnDisplay;
-//        } else {
-//             return taskInProgress;
-//        }
-//
-//    }
-//
-//    public boolean isInProgress(Task task) {
-//        return task == taskInProgress;
-//    }
-//
-//    private boolean isLastInList(Task currentTaskOnDisplay) {
-//        return currentTaskOnDisplay.id == getLastTaskId();
-//    }
+    public Task completeTaskInProgress() {
+        if (iterator.hasNext() && isInProgress(currentTaskOnDisplay)) {
+            taskInProgress = iterator.next();
+            currentTaskOnDisplay = taskInProgress;
+            return taskInProgress;
+        } else {
+            return getTaskAfter(currentTaskOnDisplay);
+        }
+    }
+
+    public Task getPreviousTask(){
+        int currentTaskIndex =tasks.indexOf(currentTaskOnDisplay);
+        if ( currentTaskIndex != 0) {
+            currentTaskOnDisplay = tasks.get(currentTaskIndex - 1);
+            return currentTaskOnDisplay;
+        } else {
+            return null; // TODO replace null with something better
+        }
+
+    }
+
+    public Task getTaskAfter(Task currentTaskOnDisplay) {
+        if (!isLastInList(currentTaskOnDisplay) && !isInProgress(currentTaskOnDisplay)){
+            currentTaskOnDisplay = tasks.get(getIndex(currentTaskOnDisplay) + 1);
+            return currentTaskOnDisplay;
+        } else {
+             return taskInProgress;
+        }
+
+    }
+
+    public boolean isInProgress(Task task) {
+        return task == taskInProgress;
+    }
+
+    private boolean isLastInList(Task currentTaskOnDisplay) {
+        return currentTaskOnDisplay.id == getLastTaskId();
+    }
 
     private int getIndex(Task task) {
         return tasks.indexOf(task);
@@ -82,17 +88,12 @@ public class PackageSessionManager {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
         this.iterator = tasks.iterator();
-        this.taskInProgress.setValue(tasks.get(0));
-        this.currentTaskOnDisplay.setValue(tasks.get(0));
+        initTaskSession();
     }
 
-    public void completeTaskInProgress() {
-        if (iterator.hasNext()) {
-            Task task = iterator.next();
-            taskInProgress.setValue(task);
-            currentTaskOnDisplay.setValue(task);
-         } else {
-            //return getTaskAfter(currentTaskOnDisplay);
-        }
+    private void initTaskSession() {
+        Task firstTask = iterator.next();
+        currentTaskOnDisplay = firstTask;
+        taskInProgress = firstTask;
     }
 }

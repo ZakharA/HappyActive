@@ -15,6 +15,8 @@ import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
 
+import edu.monash.student.happyactive.fragments.ActivityPackageDetailFragment;
+
 /**
  * An activity representing a single ActivityPackage detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,

@@ -6,4 +6,8 @@
     <string name="title_activitypackage_list">ActivityPackages</string>
     <string name="title_activitypackage_detail">ActivityPackage Detail</string>
     <string name="task_done">Done</string>
+    <string name="task_title">task</string>
+    <string name="task_descpription">description</string>
+    <string name="task_description">Description</string>
+    <string name="task_done_button">Done</string>
 </resources>

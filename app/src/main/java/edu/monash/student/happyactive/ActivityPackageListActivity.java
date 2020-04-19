@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.fragments.ActivityPackageDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

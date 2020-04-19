@@ -30,9 +30,6 @@ public class ActivityPackageViewModel extends AndroidViewModel {
     public LiveData<List<ActivityPackage>> getAllActivityPackages() {
         return allActivityPackages;
     }
-    public LiveData<ActivityPackageWithTasks> getActivityPackageWithTasks(long id) {
-        return activityPackageRepository.getActivityWithTasks(id);
-    }
 
     public LiveData<ActivityPackage> getActivityPackageById(long argItemId) {
         return  activityPackageRepository.getActivityPackageById(argItemId);
