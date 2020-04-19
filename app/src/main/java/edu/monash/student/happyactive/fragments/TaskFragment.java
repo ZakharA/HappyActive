@@ -1,5 +1,6 @@
 package edu.monash.student.happyactive.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.w3c.dom.Text;
 
@@ -59,6 +62,7 @@ public class TaskFragment extends Fragment {
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         Button doneButton = view.findViewById(R.id.done_task_button);
+        Button cancelButton = view.findViewById(R.id.cancel_session_button);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +74,29 @@ public class TaskFragment extends Fragment {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
                 }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+                builder.setTitle(getResources().getString(R.string.dialog_cancel_session))
+                        .setNegativeButton(getResources().getText(R.string.no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mSessionViewModel.cancelSession();
+                                //#TODO redirect to main screen
+                            }
+                        })
+                        .show();
+
             }
         });
         return view;

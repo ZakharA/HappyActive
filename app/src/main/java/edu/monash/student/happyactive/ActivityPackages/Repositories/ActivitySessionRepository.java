@@ -27,7 +27,7 @@ public class ActivitySessionRepository {
     }
 
     public void cancelSession(ActivitySession session) {
-        activitySessionDao.cancelSession(session);
+        new cancelAsyncTask(activitySessionDao).execute(session);
     }
 
     public void addNewJournalEntry(ActivityJournal journalEntry) {
@@ -77,5 +77,20 @@ public class ActivitySessionRepository {
         protected void onPostExecute(Long aLong) {
             super.onPostExecute(aLong);
         }
+    }
+
+    private static class cancelAsyncTask extends AsyncTask<ActivitySession, Void, Void> {
+        private ActivitySessionDao mSessionDao;
+
+        public cancelAsyncTask(ActivitySessionDao mSessionDao) {
+            this.mSessionDao = mSessionDao;
+        }
+
+        @Override
+        protected Void doInBackground(ActivitySession... activitySessions) {
+            mSessionDao.cancelSession(activitySessions[0]);
+            return null;
+        }
+
     }
 }

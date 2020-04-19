@@ -11,4 +11,9 @@
     <string name="task_description">Description</string>
     <string name="task_done_button">Done</string>
     <string name="complete_activity_text">Complete</string>
+    <string name="cancel_session_button">Cancel</string>
+    <string name="content_description_media">image</string>
+    <string name="dialog_cancel_session">do you want to cancel activity?</string>
+    <string name="no">NO</string>
+    <string name="yes">YES</string>
 </resources>

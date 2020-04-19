@@ -68,6 +68,11 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySessionRepository.insertNewSession(activitySession);
     }
 
+    public void cancelSession() {
+        activitySession.currentTaskId = sessionManager.completeTaskInProgress().id;
+        activitySessionRepository.cancelSession(activitySession);
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;
