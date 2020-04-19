@@ -29,14 +29,6 @@ public class ActivityPackageDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitypackage_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
-
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -56,7 +48,7 @@ public class ActivityPackageDetailActivity extends AppCompatActivity {
             ActivityPackageDetailFragment fragment = new ActivityPackageDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activitypackage_detail_container, fragment)
+                    .add(R.id.detail_fragment, fragment)
                     .commit();
         }
     }

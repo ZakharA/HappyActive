@@ -16,4 +16,5 @@
     <string name="dialog_cancel_session">do you want to cancel activity?</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
+    <string name="start_activity_button">"Start "</string>
 </resources>

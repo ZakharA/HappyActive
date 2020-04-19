@@ -57,7 +57,6 @@ public class ActivityPackageDetailFragment extends Fragment {
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             Activity activity = this.getActivity();
             selectedActivityId = activity.getIntent().getExtras().getLong(ActivityPackageDetailFragment.ARG_ITEM_ID);
-            appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
         }
     }
@@ -65,7 +64,7 @@ public class ActivityPackageDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activitypackage_detail, container, false);
+        rootView = inflater.inflate(R.layout.activity_activitypackage_detail, container, false);
         return rootView;
     }
 
@@ -74,8 +73,7 @@ public class ActivityPackageDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mPackageViewModel =  new ViewModelProvider(requireActivity(), new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
         mPackageViewModel.getActivityPackageById(selectedActivityId).observe(getViewLifecycleOwner(), activity -> {
-            appBarLayout.setTitle(activity.title);
-            ((TextView) rootView.findViewById(R.id.activitypackage_detail)).setText(activity.description);
+            //((TextView) rootView.findViewById(R.id.detail_fragment)).setText(activity.description);
         });
     }
 }

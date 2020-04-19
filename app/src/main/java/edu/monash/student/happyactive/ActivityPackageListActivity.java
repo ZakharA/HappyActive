@@ -53,7 +53,7 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        if (findViewById(R.id.activitypackage_detail_container) != null) {
+        if (findViewById(R.id.activitypackage_detail) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -98,7 +98,7 @@ public class ActivityPackageListActivity extends AppCompatActivity {
                     ActivityPackageDetailFragment fragment = new ActivityPackageDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.activitypackage_detail_container, fragment)
+                            .replace(R.id.activitypackage_detail, fragment)
                             .commit();
                 } else {
                     Context context = view.getContext();
