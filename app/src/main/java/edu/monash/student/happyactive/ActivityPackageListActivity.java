@@ -3,46 +3,36 @@ package edu.monash.student.happyactive;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.fragments.ActivityPackageDetailFragment;
+import edu.monash.student.happyactive.dummy.DummyContent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An activity representing a list of ActivityPackages. This activity
+ * An activity representing a list of activityPackages. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ActivityPackageDetailActivity} representing
+ * lead to a {@link activityPackageDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ActivityPackageListActivity extends AppCompatActivity {
+public class activityPackageListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    protected ActivityPackageViewModel mActivityPackageViewModel;
-    private SimpleItemRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +43,16 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        if (findViewById(R.id.activitypackage_detail) != null) {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        if (findViewById(R.id.activitypackage_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -64,66 +63,46 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.activitypackage_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
-
-        mActivityPackageViewModel = new ViewModelProvider(this,
-                new ActivityPackageViewModel.Factory(this.getApplication())).get(ActivityPackageViewModel.class);
-        mActivityPackageViewModel.getAllActivityPackages().observe(this, new Observer<List<ActivityPackage>>() {
-            @Override
-            public void onChanged(List<ActivityPackage> activityPackages) {
-                adapter.setValues(activityPackages);
-            }
-        });
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        adapter = new SimpleItemRecyclerViewAdapter(this, new ArrayList<ActivityPackage>(), mTwoPane);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final ActivityPackageListActivity mParentActivity;
-        private  List<ActivityPackage> mValues;
+        private final activityPackageListActivity mParentActivity;
+        private final List<DummyContent.DummyItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityPackage activityPackage = (ActivityPackage) view.getTag();
-                //mParentActivity.mActivityPackageViewModel.setSelectedActivityPackage(activityPackage);
-
+                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putLong(ActivityPackageDetailFragment.ARG_ITEM_ID, activityPackage.id);
-                    ActivityPackageDetailFragment fragment = new ActivityPackageDetailFragment();
+                    arguments.putString(activityPackageDetailFragment.ARG_ITEM_ID, item.id);
+                    activityPackageDetailFragment fragment = new activityPackageDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.activitypackage_detail, fragment)
+                            .replace(R.id.activitypackage_detail_container, fragment)
                             .commit();
                 } else {
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, ActivityPackageDetailActivity.class);
-                    intent.putExtra(ActivityPackageDetailFragment.ARG_ITEM_ID, activityPackage.id);
+                    Intent intent = new Intent(context, activityPackageDetailActivity.class);
+                    intent.putExtra(activityPackageDetailFragment.ARG_ITEM_ID, item.id);
 
                     context.startActivity(intent);
                 }
             }
         };
 
-        SimpleItemRecyclerViewAdapter(ActivityPackageListActivity parent,
-                                      List<ActivityPackage> items,
+        SimpleItemRecyclerViewAdapter(activityPackageListActivity parent,
+                                      List<DummyContent.DummyItem> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
-        }
-
-        public List<ActivityPackage> getValues() {
-            return mValues;
-        }
-
-        public void setValues(List<ActivityPackage> mValues) {
-            this.mValues = mValues;
         }
 
         @Override
@@ -135,8 +114,8 @@ public class ActivityPackageListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(String.valueOf( mValues.get(position).title));
-            holder.mContentView.setText(mValues.get(position).description);
+            holder.mIdView.setText(mValues.get(position).id);
+            holder.mContentView.setText(mValues.get(position).content);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
