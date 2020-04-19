@@ -135,8 +135,8 @@ public class ActivityPackageListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(String.valueOf( mValues.get(position).id));
-            holder.mContentView.setText(mValues.get(position).title);
+            holder.mIdView.setText(String.valueOf( mValues.get(position).title));
+            holder.mContentView.setText(mValues.get(position).description);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
