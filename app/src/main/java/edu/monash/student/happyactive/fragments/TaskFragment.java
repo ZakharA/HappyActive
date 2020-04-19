@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.SessionActivity;
 import edu.monash.student.happyactive.data.entities.Task;
 
 /**
@@ -37,6 +38,7 @@ public class TaskFragment extends Fragment {
     private TextView mTaskTitle;
     private ActivitySessionViewModel mSessionViewModel;
     private ProgressBar mProgressBar;
+    private long activityId;
 
     public TaskFragment() {
         // Required empty public constructor
@@ -58,6 +60,9 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_task, container, false);
 
+        SessionActivity activity = (SessionActivity) getActivity();
+        activityId = activity.getActivityId();
+
         mTaskTitle = view.findViewById(R.id.task_title);
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
@@ -76,6 +81,7 @@ public class TaskFragment extends Fragment {
                 }
             }
         });
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +112,10 @@ public class TaskFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSessionViewModel = new ViewModelProvider(requireActivity(), // get activitypackage id from activity
-                new ActivitySessionViewModel.Factory(getActivity().getApplication(), 1l)).get(ActivitySessionViewModel.class);
+        mSessionViewModel = new ViewModelProvider(requireActivity(),
+                new ActivitySessionViewModel.Factory(getActivity().getApplication(), activityId)).get(ActivitySessionViewModel.class);
 
-        mSessionViewModel.getTasksOf(1).observe(getViewLifecycleOwner(), activityPackageWithTasks -> {
+        mSessionViewModel.getTasksOf(activityId).observe(getViewLifecycleOwner(), activityPackageWithTasks -> {
             mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
             try {
                 mSessionViewModel.initSession();
