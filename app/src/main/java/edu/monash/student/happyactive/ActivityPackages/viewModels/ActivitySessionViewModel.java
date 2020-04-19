@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
@@ -36,7 +37,8 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     public void saveSessionAfterActivityIsCompleted(){
         activitySession.status = ActivityPackageStatus.COMPLETED;
         activitySession.completedDateTime = new Date();
-        activitySessionRepository.saveSession(activitySession);
+        activitySession.currentTaskId = sessionManager.getLastTaskId();
+        activitySessionRepository.updateSession(activitySession);
     }
 
     public LiveData<ActivityPackageWithTasks> getTasksOf(long packageId){
@@ -44,7 +46,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     }
 
     public Task completeCurrentTask() {
-        return sessionManager.completeTaskInProgress();
+        Task nextTask = sessionManager.completeTaskInProgress();
+        activitySession.currentTaskId = nextTask.id;
+        activitySessionRepository.updateSession(activitySession);
+        return nextTask;
     }
 
     public Task getTaskOnDisplay() {
@@ -53,6 +58,14 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public void setTaskInSessionManger(List<Task> tasksList) {
         sessionManager.setTasks(tasksList);
+    }
+
+    public boolean isActivityCompleted() {
+        return sessionManager.isCompleted();
+    }
+
+    public void initSession() throws ExecutionException, InterruptedException {
+        activitySessionRepository.insertNewSession(activitySession);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

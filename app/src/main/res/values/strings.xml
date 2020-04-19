@@ -10,4 +10,5 @@
     <string name="task_descpription">description</string>
     <string name="task_description">Description</string>
     <string name="task_done_button">Done</string>
+    <string name="complete_activity_text">Complete</string>
 </resources>

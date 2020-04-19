@@ -73,7 +73,7 @@ public class PackageSessionManager {
         return tasks.indexOf(task);
     }
 
-    private long getLastTaskId() {
+    public long getLastTaskId() {
         return tasks.get(tasks.size() - 1).id;
     }
 
@@ -95,5 +95,9 @@ public class PackageSessionManager {
         Task firstTask = iterator.next();
         currentTaskOnDisplay = firstTask;
         taskInProgress = firstTask;
+    }
+
+    public boolean isCompleted() {
+        return !iterator.hasNext() && (currentTaskOnDisplay == taskInProgress) ? true : false;
     }
 }

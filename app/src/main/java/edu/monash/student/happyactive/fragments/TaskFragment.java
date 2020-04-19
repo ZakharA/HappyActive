@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
@@ -63,7 +64,12 @@ public class TaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mProgressBar.incrementProgressBy(1);
-                updateTaskCard(mSessionViewModel.completeCurrentTask());
+                if(!mSessionViewModel.isActivityCompleted()) {
+                    updateTaskCard(mSessionViewModel.completeCurrentTask());
+                } else {
+                    doneButton.setText(R.string.complete_activity_text);
+                    mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                }
             }
         });
         return view;
@@ -72,10 +78,17 @@ public class TaskFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         mSessionViewModel = new ViewModelProvider(requireActivity(), // get activitypackage id from activity
                 new ActivitySessionViewModel.Factory(getActivity().getApplication(), 1l)).get(ActivitySessionViewModel.class);
+
         mSessionViewModel.getTasksOf(1).observe(getViewLifecycleOwner(), activityPackageWithTasks -> {
             mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
+            try {
+                mSessionViewModel.initSession();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             setUpProgressBar(activityPackageWithTasks.tasksList);
             updateTaskCard(mSessionViewModel.getTaskOnDisplay());
         });
