@@ -57,7 +57,7 @@ public class ActivitySessionRepositoryTest {
 
         activitySessionRepository.cancelSession(sessionResult);
         ActivitySession cancelledSession = activitySessionRepository.findSessionByActivityId(1L, sessionId);
-        assertThat(cancelledSession.status, equalTo(ActivityPackageStatus.CANCELED));
+        assertThat(sessionResult.status, equalTo(ActivityPackageStatus.CANCELED));
     }
 
 }
