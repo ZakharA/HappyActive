@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class TaskFragment extends Fragment {
     private ActivitySessionViewModel mSessionViewModel;
     private ProgressBar mProgressBar;
     private long activityId;
+    private SessionActivity activity;
 
     public TaskFragment() {
         // Required empty public constructor
@@ -60,7 +62,7 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_task, container, false);
 
-        SessionActivity activity = (SessionActivity) getActivity();
+        activity = (SessionActivity) getActivity();
         activityId = activity.getActivityId();
 
         mTaskTitle = view.findViewById(R.id.task_title);
