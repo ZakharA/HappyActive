@@ -10,4 +10,9 @@ public class ActivityPackage {
 
     public String title;
     public String description;
+
+    public ActivityPackage(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }
