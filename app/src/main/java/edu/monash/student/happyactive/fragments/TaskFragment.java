@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class TaskFragment extends Fragment {
     private ProgressBar mProgressBar;
     private long activityId;
     private SessionActivity activity;
+    private ImageView mImageView;
 
     public TaskFragment() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class TaskFragment extends Fragment {
         activityId = activity.getActivityId();
 
         mTaskTitle = view.findViewById(R.id.task_title);
+        mImageView = view.findViewById(R.id.task_image);
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         Button doneButton = view.findViewById(R.id.done_task_button);
@@ -136,5 +139,7 @@ public class TaskFragment extends Fragment {
     private void updateTaskCard(Task task){
         mTaskTitle.setText(task.title);
         mTaskDescription.setText(task.description);
+        mImageView.setImageResource(getResources()
+                .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
     }
 }
