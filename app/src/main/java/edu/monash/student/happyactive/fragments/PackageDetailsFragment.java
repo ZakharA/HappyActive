@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
@@ -69,6 +70,8 @@ public class PackageDetailsFragment extends Fragment {
                 new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
         mPackageViewModel.getActivityPackageById(selectedActivityId).observe(getViewLifecycleOwner(), activity -> {
+            ((ImageView) view.findViewById(R.id.detail_image)).setImageResource(getResources()
+                            .getIdentifier(activity.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
             ((TextView) view.findViewById(R.id.activity_title)).setText(activity.title);
             ((TextView) view.findViewById(R.id.activity_description)).setText(activity.description);
         });

@@ -2,6 +2,7 @@ package edu.monash.student.happyactive;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
@@ -39,7 +42,8 @@ public class ActivityPackageListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     protected ActivityPackageViewModel mActivityPackageViewModel;
     private SimpleItemRecyclerViewAdapter adapter;
-
+    public static Resources mResources;
+    public static String mPackageName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,8 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.activitypackage_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+        mPackageName = getPackageName();
 
         mActivityPackageViewModel = new ViewModelProvider(this,
                 new ActivityPackageViewModel.Factory(this.getApplication())).get(ActivityPackageViewModel.class);
@@ -61,6 +67,7 @@ public class ActivityPackageListActivity extends AppCompatActivity {
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         adapter = new SimpleItemRecyclerViewAdapter(this, new ArrayList<ActivityPackage>(), mTwoPane);
+        mResources = getResources();
         recyclerView.setAdapter(adapter);
     }
 
@@ -111,8 +118,8 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(String.valueOf( mValues.get(position).title));
             holder.mContentView.setText(mValues.get(position).description);
-
             holder.itemView.setTag(mValues.get(position));
+            holder.mImageView.setImageResource(mResources.getIdentifier(mValues.get(position).imagePath.split("[.]")[0],  "drawable", mPackageName));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
@@ -124,11 +131,13 @@ public class ActivityPackageListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mIdView;
             final TextView mContentView;
+            final ImageView mImageView;
 
             ViewHolder(View view) {
                 super(view);
                 mIdView = (TextView) view.findViewById(R.id.id_text);
                 mContentView = (TextView) view.findViewById(R.id.content);
+                mImageView = (ImageView) view.findViewById(R.id.package_image);
             }
         }
     }

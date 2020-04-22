@@ -17,6 +17,7 @@ android:orientation="horizontal">
 
         <!-- Media -->
         <ImageView
+            android:id="@+id/package_image"
             android:layout_width="98dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/content_description_media"
