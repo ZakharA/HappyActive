@@ -31,7 +31,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activityPackageRepository = new ActivityPackageRepository(application);
         activitySessionRepository = new ActivitySessionRepository(application);
         activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
-        sessionManager = new PackageSessionManager(activityPackageId);
+        //sessionManager = new PackageSessionManager(activityPackageId, tasks);
     }
 
     public void saveSessionAfterActivityIsCompleted(){
