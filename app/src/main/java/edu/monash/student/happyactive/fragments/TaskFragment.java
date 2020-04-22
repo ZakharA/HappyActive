@@ -85,6 +85,11 @@ public class TaskFragment extends Fragment {
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                    CameraFragment nextFrag= new CameraFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.session_fragment_container, nextFrag, "findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
                 }
             }
         });
