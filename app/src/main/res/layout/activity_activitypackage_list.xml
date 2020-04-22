@@ -5,16 +5,19 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
-tools:context=".ActivityPackageListActivity">
+tools:context=".ActivityPackageListActivity"
+    android:id="@+id/coordinatorLayout">
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+
+    <include
+        layout="@layout/activitypackage_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        tools:layout_conversion_absoluteHeight="0dp"
+        tools:layout_conversion_absoluteWidth="0dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-        <include layout="@layout/activitypackage_list" />
-    </FrameLayout>
 
 
 

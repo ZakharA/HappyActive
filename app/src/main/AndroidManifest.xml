@@ -22,11 +22,7 @@
             android:name=".OverallHomeActivity"
             android:label="OverallHomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <service android:name=".ActivityPackages.StepCounterService" />
         <activity android:name=".PackageDetails"></activity>
@@ -34,15 +30,16 @@
             android:name=".ActivityPackageListActivity"
             android:label="@string/title_activitypackage_list"
             android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".SessionActivity" />
-        <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SessionActivity" />
+        <activity android:name=".MainActivity">
+
+
         </activity>
 
         <provider
