@@ -1,6 +1,7 @@
 package edu.monash.student.happyactive.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import edu.monash.student.happyactive.ActivityPackageListActivity;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.SessionActivity;
@@ -103,7 +105,8 @@ public class TaskFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mSessionViewModel.cancelSession();
-                                //#TODO redirect to main screen
+                                Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
+                                startActivity(intent);
                             }
                         })
                         .show();
