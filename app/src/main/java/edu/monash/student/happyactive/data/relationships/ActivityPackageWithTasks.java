@@ -12,7 +12,8 @@ public class ActivityPackageWithTasks {
     @Embedded public ActivityPackage activityPackage;
     @Relation(
             parentColumn = "id",
-            entityColumn = "activityId"
+            entityColumn = "activityId",
+            entity = Task.class
     )
     public List<Task> tasksList;
 }

@@ -1,27 +1,54 @@
 package edu.monash.student.happyactive.data;
 
-import android.app.Activity;
+
+import androidx.lifecycle.LiveData;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.Task;
+import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 @Dao
-public interface ActivityPackageDao {
+public abstract class ActivityPackageDao {
     @Query("SELECT * FROM activityPackage")
-    List<ActivityPackage> getAllActivityPackages();
+    public abstract LiveData<List<ActivityPackage>> getAllActivityPackages();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertActivity(ActivityPackage activityPackage);
+    public abstract long insertActivity(ActivityPackage activityPackage);
 
     @Query("SELECT * FROM activityPackage WHERE id = :id")
-    ActivityPackage findById(long id);
+    public abstract LiveData<ActivityPackage> findById(long id);
 
     @Query("DELETE FROM activityPackage WHERE id = :id")
-    void deletePackage(long id);
+    public abstract void deletePackage(long id);
+
+    @Transaction
+    @Query("SELECT * FROM ActivityPackage")
+    public abstract LiveData<List<ActivityPackageWithTasks>> getAll();
+
+    @Transaction
+    @Query("SELECT * FROM ActivityPackage WHERE id = :id")
+    public abstract LiveData<ActivityPackageWithTasks> getActivityPackageWithTasksById(long id);
+
+    @Insert
+    public abstract void insertTaskList(List<Task> tasks);
+
+    @Query("SELECT * FROM task")
+    public abstract  List<Task> getAllTasks();
+
+    public long insertNew(ActivityPackage activityPackage, List<Task> tasks) {
+        long id = insertActivity(activityPackage);
+        for(Task task : tasks) {
+            task.activityId = id;
+        }
+        insertTaskList(tasks);
+        return id;
+    }
 }

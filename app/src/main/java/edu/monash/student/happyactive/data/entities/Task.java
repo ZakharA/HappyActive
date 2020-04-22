@@ -11,6 +11,12 @@ public class Task {
     public long activityId;
     public String title;
     public String description;
+    public String imagePath;
+
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }
 
 

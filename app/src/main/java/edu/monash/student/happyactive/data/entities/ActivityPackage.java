@@ -10,9 +10,20 @@ public class ActivityPackage {
 
     public String title;
     public String description;
+    public String imagePath;
 
     public ActivityPackage(String title, String description) {
         this.title = title;
         this.description = description;
     }
+
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
 }
