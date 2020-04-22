@@ -11,6 +11,7 @@
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="409dp"
+        android:contentDescription="@string/home_image"
         app:srcCompat="@drawable/happy_active_home" />
 
     <LinearLayout
@@ -31,17 +32,16 @@
 
             <TextView
                 android:id="@+id/TotalStepsHomeLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Step Count during Activities"
+                android:text="@string/total_step_count_during_activities"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/overallStepCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:layout_editor_absoluteX="122dp"
                 tools:layout_editor_absoluteY="117dp" />
@@ -56,17 +56,16 @@
 
             <TextView
                 android:id="@+id/TotalTimeHomeLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Time Spent on Activities"
+                android:text="@string/total_time_spent_on_activities"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/overallTimeSpent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:layout_editor_absoluteX="125dp"
                 tools:layout_editor_absoluteY="349dp" />
@@ -81,17 +80,16 @@
 
             <TextView
                 android:id="@+id/TotalActivitiesHomeLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Activities Completed"
+                android:text="@string/total_activities_completed"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/overallActivitiesCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 tools:layout_editor_absoluteX="127dp"
                 tools:layout_editor_absoluteY="516dp" />
