@@ -22,4 +22,6 @@
     <string name="total_time_spent_on_activities">Total Time Spent on Activities:</string>
     <string name="total_step_count_during_activities">Total Step Count during Activities:</string>
     <string name="home_image">Home Image</string>
+    <string name="average_steps_across_activities">Average Steps Across Activities</string>
+    <string name="average_time_across_activiites">Average Time Across Activiites</string>
 </resources>
