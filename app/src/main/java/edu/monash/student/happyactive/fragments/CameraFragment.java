@@ -58,7 +58,6 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
         mPhotoImageView = view.findViewById(R.id.session_photo);
-        mPhotoImageView.setRotation(90);
         view.findViewById(R.id.camera_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,16 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/task_completed_label"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/task_completed_bar"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform" />
+
         <ProgressBar
             android:id="@+id/task_progress_bar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/task_completed_label"
             android:layout_marginStart="8dp"
+
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="8dp"
+            android:indeterminate="false" />
 
         <Button
             android:id="@+id/cancel_session_button"
@@ -29,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_progress_bar"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="@string/cancel_session_button"
@@ -83,7 +98,8 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/task_description"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary" />
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 

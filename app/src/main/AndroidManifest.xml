@@ -21,8 +21,7 @@
         <activity android:name=".PackageDetails"></activity>
         <activity
             android:name=".ActivityPackageListActivity"
-            android:label="@string/title_activitypackage_list"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activitypackage_list">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
