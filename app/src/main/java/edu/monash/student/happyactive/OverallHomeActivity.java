@@ -35,7 +35,13 @@ public class OverallHomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final Integer totalSteps) {
                 // Update the UI, in this case, a TextView.
-                overallStepCount.setText(totalSteps.toString());
+                if (totalSteps != null) {
+                    overallStepCount.setText(totalSteps.toString()+"steps");
+                }
+                else {
+                    overallStepCount.setText("0 steps");
+                }
+
             }
         };
 
@@ -43,7 +49,13 @@ public class OverallHomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final Date totalTime) {
                 // Update the UI, in this case, a TextView.
-                overallTimeSpent.setText(totalTime.toString());
+                if (totalTime != null) {
+                    overallTimeSpent.setText(totalTime.toString() + "hours");
+                }
+                else {
+                    overallTimeSpent.setText("0 hours");
+                }
+
             }
         };
 
@@ -51,7 +63,13 @@ public class OverallHomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final Integer totalActivities) {
                 // Update the UI, in this case, a TextView.
-                overallActivitiesCompleted.setText(totalActivities.toString());
+                if (totalActivities != null) {
+                    overallActivitiesCompleted.setText(totalActivities.toString());
+                }
+                else {
+                    overallActivitiesCompleted.setText("0");
+                }
+
             }
         };
 

@@ -10,20 +10,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import edu.monash.student.happyactive.Reports.ReportsRepositories.CompareHistoryRepository;
 import edu.monash.student.happyactive.Reports.ReportsRepositories.OverallActivityRepository;
+import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class CompareHistoryViewModel extends AndroidViewModel {
 
-    private OverallActivityRepository overallActivityRepository;
+    private CompareHistoryRepository compareHistoryRepository;
     private List<ActivitySession> dataForCompletedActivities;
     private String avgTime = "";
     private Double avgSteps = 0.0;
 
     public CompareHistoryViewModel(@NonNull Application application) {
         super(application);
-        overallActivityRepository = new OverallActivityRepository(application);
-        dataForCompletedActivities = overallActivityRepository.getDataForCompletedActivity();
+        compareHistoryRepository = new CompareHistoryRepository(application);
+        dataForCompletedActivities = compareHistoryRepository.getDataForCompletedActivity();
         calculateAvgStepCountAndTime();
     }
 
@@ -32,7 +34,7 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         long totalTime = 0;
         for (ActivitySession activity : this.dataForCompletedActivities) {
             totalSteps += activity.stepCount;
-            long diffInMillies = Math.abs(activity.CompletedDateTime.getTime() - activity.StartDateTime.getTime());
+            long diffInMillies = Math.abs(activity.completedDateTime.getTime() - activity.startDateTime.getTime());
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
             totalTime += diff;
         }
