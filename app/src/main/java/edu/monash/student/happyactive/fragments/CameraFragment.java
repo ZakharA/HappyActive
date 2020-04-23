@@ -21,12 +21,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import edu.monash.student.happyactive.ActivityPackageListActivity;
 import edu.monash.student.happyactive.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -37,6 +40,7 @@ public class CameraFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mPhotoImageView;
     private Uri photoURI;
+    private FloatingActionButton photoButton;
 
 
     public CameraFragment() { }
@@ -58,7 +62,8 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
         mPhotoImageView = view.findViewById(R.id.session_photo);
-        view.findViewById(R.id.camera_button).setOnClickListener(new View.OnClickListener() {
+        photoButton = view.findViewById(R.id.camera_button);
+        photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
@@ -121,6 +126,15 @@ public class CameraFragment extends Fragment {
                 e.printStackTrace();
             }
             mPhotoImageView.setImageBitmap(bitmap);
+            buttonTransition();
         }
+    }
+
+    public void buttonTransition(){
+        CongratulationFragment nextFrag= new CongratulationFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.session_fragment_container, nextFrag, "CongratulationFragment")
+                .addToBackStack(null)
+                .commit();
     }
 }

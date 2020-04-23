@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import java.util.List;
 
@@ -20,11 +22,22 @@ public class ActivityPackageViewModel extends AndroidViewModel {
     private ActivityPackageRepository activityPackageRepository;
     private LiveData<List<ActivityPackage>>  allActivityPackages;
     private MutableLiveData<ActivityPackage> selectedPackage = new MutableLiveData<ActivityPackage>();
+    private  LiveData<PagedList<ActivityPackage>>  activityPackagesPages;
 
     public ActivityPackageViewModel(@NonNull Application application) {
         super(application);
         activityPackageRepository = new ActivityPackageRepository(application);
         allActivityPackages = activityPackageRepository.getAllActivityPackages();
+    }
+
+    PagedList.Config pagedListConfig = (new PagedList.Config.Builder()).setEnablePlaceholders(true)
+            .setPrefetchDistance(10)
+            .setPageSize(20).build();
+
+    public LiveData<PagedList<ActivityPackage>> getActivityPackagesPages(){
+        activityPackagesPages = new LivePagedListBuilder<>(activityPackageRepository.getActivityPackagesAsList(),
+                pagedListConfig).build();
+        return activityPackagesPages;
     }
 
     public LiveData<List<ActivityPackage>> getAllActivityPackages() {
