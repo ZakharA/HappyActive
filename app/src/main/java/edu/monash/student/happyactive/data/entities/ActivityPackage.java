@@ -17,6 +17,7 @@ public class ActivityPackage {
         this.description = description;
     }
 
+
     public String getImagePath() {
         return imagePath;
     }
@@ -24,4 +25,5 @@ public class ActivityPackage {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
 }

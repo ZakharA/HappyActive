@@ -1,0 +1,3 @@
+country,steps_mean,weartime_mean,must_label_ind
+Japan,6009.77068005,14.3791120322,True
+Australia,4941.48572785,13.0732802219,False

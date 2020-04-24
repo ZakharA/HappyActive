@@ -29,15 +29,18 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class ActivityPackageDaoTest {
     private ActivityPackageDao activityPackageDao;
+
     private ActivityPackageDatabase activityPackageDatabase;
     private ActivityPackage newPackage;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
+
     @Before
     public void createDB(){
         Context context = ApplicationProvider.getApplicationContext();
+
         activityPackageDatabase = Room.inMemoryDatabaseBuilder(context, ActivityPackageDatabase.class).build();
         activityPackageDao = activityPackageDatabase.activityPackageDao();
         newPackage = new ActivityPackage("Cooking a meal", "Cook something awsome together with your grandparent");
