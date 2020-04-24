@@ -17,6 +17,10 @@ public class PackageSessionManager {
         this.tasks = tasks;
     }
 
+    public PackageSessionManager(long activityId) {
+        this.activityId = activityId;
+    }
+
     public Task getCurrentTaskOnDisplay() {
         return currentTaskOnDisplay;
     }

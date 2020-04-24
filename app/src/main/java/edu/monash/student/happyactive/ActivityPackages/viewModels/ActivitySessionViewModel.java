@@ -32,7 +32,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySessionRepository = new ActivitySessionRepository(application);
         activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
         activitySession.setStepCount(0);
-        sessionManager = new PackageSessionManager(activityPackageId);
+        sessionManager = new PackageSessionManager(activityPackageId );
     }
 
     public void saveSessionAfterActivityIsCompleted(){
