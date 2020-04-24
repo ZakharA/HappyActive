@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import edu.monash.student.happyactive.Reports.ReportsRepositories.PostActivityStatsRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -17,11 +20,27 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
         postActivityStatsRepository = new PostActivityStatsRepository(application);
     }
 
-    public ActivitySession getDataForCurrentSession(Integer currentId) {
+    public LiveData<ActivitySession> getDataForCurrentSession(Integer currentId) {
         return postActivityStatsRepository.getDataForCurrentSession(currentId);
     }
 
     public void setStatusCompletedPostActivity(Integer currentId) {
         postActivityStatsRepository.setStatusCompletedPostActivity(currentId);
+    }
+
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+        @NonNull
+        private final Application application;
+
+        public Factory(@NonNull Application application){
+            this.application = application;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        @NonNull
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new PostActivityStatsViewModel(application);
+        }
     }
 }

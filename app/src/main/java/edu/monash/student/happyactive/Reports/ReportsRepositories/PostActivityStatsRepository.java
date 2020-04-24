@@ -20,7 +20,7 @@ public class PostActivityStatsRepository {
         postActivityStatsDao = db.postActivityStatsDao();
     }
 
-    public ActivitySession getDataForCurrentSession(Integer currentId) {
+    public LiveData<ActivitySession> getDataForCurrentSession(Integer currentId) {
         return postActivityStatsDao.getDataForCurrentSession(currentId);
     }
 

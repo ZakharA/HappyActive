@@ -17,6 +17,15 @@
         android:roundIcon="@mipmap/happy_active_home_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PostActivityStatsActivity">
+            android:label="PostActivityStatsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".CompareHistoryActivity"
             android:label="CompareHistoryActivity"
@@ -36,10 +45,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <service android:name=".ActivityPackages.StepCounterService" />
-        <activity android:name=".PackageDetails"></activity>
+
+        <activity android:name=".PackageDetails" />
         <activity
             android:name=".ActivityPackageListActivity"
             android:label="@string/title_activitypackage_list"
@@ -51,10 +61,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SessionActivity" />
-        <activity android:name=".MainActivity">
-
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
