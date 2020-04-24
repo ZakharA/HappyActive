@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.monash.student.happyactive.ActivityPackages.ActivityPackagesPagedAdapter;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.fragments.PackageDetailsFragment;
@@ -39,106 +43,37 @@ public class ActivityPackageListActivity extends AppCompatActivity {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private boolean mTwoPane;
     protected ActivityPackageViewModel mActivityPackageViewModel;
-    private SimpleItemRecyclerViewAdapter adapter;
-    public static Resources mResources;
     public static String mPackageName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitypackage_list);
 
-        View recyclerView = findViewById(R.id.activitypackage_list);
+        RecyclerView recyclerView = findViewById(R.id.activitypackage_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
 
         mPackageName = getPackageName();
 
         mActivityPackageViewModel = new ViewModelProvider(this,
                 new ActivityPackageViewModel.Factory(this.getApplication())).get(ActivityPackageViewModel.class);
-        mActivityPackageViewModel.getAllActivityPackages().observe(this, new Observer<List<ActivityPackage>>() {
-            @Override
-            public void onChanged(List<ActivityPackage> activityPackages) {
-                adapter.setValues(activityPackages);
-            }
-        });
+
+        ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback);
+        mActivityPackageViewModel.getActivityPackagesPages().observe(this, activityPackagesPagedAdapter::submitList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator (new DefaultItemAnimator());
+        recyclerView.setAdapter(activityPackagesPagedAdapter);
+
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        adapter = new SimpleItemRecyclerViewAdapter(this, new ArrayList<ActivityPackage>(), mTwoPane);
-        mResources = getResources();
-        recyclerView.setAdapter(adapter);
-    }
-
-    public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final ActivityPackageListActivity mParentActivity;
-        private  List<ActivityPackage> mValues;
-        private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityPackage activityPackage = (ActivityPackage) view.getTag();
-                //mParentActivity.mActivityPackageViewModel.setSelectedActivityPackage(activityPackage);
-
-                Context context = view.getContext();
-                Intent intent = new Intent(context, PackageDetails.class);
-                intent.putExtra(PackageDetailsFragment.ACTIVITY_ID, activityPackage.id);
-
-                context.startActivity(intent);
-            }
-        };
-
-        SimpleItemRecyclerViewAdapter(ActivityPackageListActivity parent,
-                                      List<ActivityPackage> items,
-                                      boolean twoPane) {
-            mValues = items;
-            mParentActivity = parent;
-            mTwoPane = twoPane;
-        }
-
-        public List<ActivityPackage> getValues() {
-            return mValues;
-        }
-
-        public void setValues(List<ActivityPackage> mValues) {
-            this.mValues = mValues;
-        }
-
+    private DiffUtil.ItemCallback<ActivityPackage> diffCallback = new DiffUtil.ItemCallback<ActivityPackage>() {
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.activitypackage_list_content, parent, false);
-            return new ViewHolder(view);
+        public boolean areItemsTheSame(@NonNull ActivityPackage activityPackage, @NonNull ActivityPackage newActivityPackage) {
+            return activityPackage.id == newActivityPackage.id;
         }
-
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(String.valueOf( mValues.get(position).title));
-            holder.mContentView.setText(mValues.get(position).description);
-            holder.itemView.setTag(mValues.get(position));
-            holder.mImageView.setImageResource(mResources.getIdentifier(mValues.get(position).imagePath.split("[.]")[0],  "drawable", mPackageName));
-            holder.itemView.setOnClickListener(mOnClickListener);
+        public boolean areContentsTheSame(@NonNull ActivityPackage activityPackage, @NonNull ActivityPackage newActivityPackage) {
+            return activityPackage.id == newActivityPackage.id;
         }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
-            final ImageView mImageView;
-
-            ViewHolder(View view) {
-                super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
-                mImageView = (ImageView) view.findViewById(R.id.package_image);
-            }
-        }
-    }
+    };
 }

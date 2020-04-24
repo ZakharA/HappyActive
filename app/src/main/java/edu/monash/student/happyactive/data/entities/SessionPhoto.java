@@ -10,4 +10,23 @@ public class SessionPhoto {
 
     public long sessionId;
     public String path;
+
+    public SessionPhoto() {
+    }
+
+    public long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(long sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }
