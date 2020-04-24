@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import edu.monash.student.happyactive.OverallHomeActivity;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.SessionActivity;
 
@@ -25,6 +26,10 @@ public class ReminderService extends IntentService {
         super(name);
     }
 
+    public ReminderService() {
+        super("ReminderService");
+    }
+
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         showNotification();
@@ -34,11 +39,11 @@ public class ReminderService extends IntentService {
         Uri soundUri = RingtoneManager
                 .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notification = new NotificationCompat.Builder(this, "test")
-                .setContentTitle("Alarm title")
-                .setContentText("Alarm text")
+                .setContentTitle("Happy Active")
+                .setContentText("Let's plan an activity for tomorrow!")
                 .setContentIntent(
                         PendingIntent.getActivity(this, 0, new Intent(this,
-                                        SessionActivity.class),
+                                        OverallHomeActivity.class),
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                 .setSound(soundUri).setSmallIcon(R.drawable.happy_active_home)
                 .build();
