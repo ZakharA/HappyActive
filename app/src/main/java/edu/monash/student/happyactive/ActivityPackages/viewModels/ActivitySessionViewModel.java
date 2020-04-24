@@ -70,6 +70,8 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public void cancelSession() {
         activitySession.currentTaskId = sessionManager.completeTaskInProgress().id;
+        activitySession.status = ActivityPackageStatus.CANCELED;
+        activitySession.completedDateTime = new Date();
         activitySessionRepository.cancelSession(activitySession);
     }
 
