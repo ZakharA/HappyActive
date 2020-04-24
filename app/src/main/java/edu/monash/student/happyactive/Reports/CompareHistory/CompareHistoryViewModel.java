@@ -4,42 +4,46 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import edu.monash.student.happyactive.Reports.ReportsRepositories.CompareHistoryRepository;
-import edu.monash.student.happyactive.Reports.ReportsRepositories.OverallActivityRepository;
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class CompareHistoryViewModel extends AndroidViewModel {
 
     private CompareHistoryRepository compareHistoryRepository;
-    private List<ActivitySession> dataForCompletedActivities;
-    private String avgTime = "";
-    private Double avgSteps = 0.0;
+    private LiveData<List<ActivitySession>> dataForCompletedActivities;
 
     public CompareHistoryViewModel(@NonNull Application application) {
         super(application);
         compareHistoryRepository = new CompareHistoryRepository(application);
         dataForCompletedActivities = compareHistoryRepository.getDataForCompletedActivity();
-        calculateAvgStepCountAndTime();
     }
 
-    public void calculateAvgStepCountAndTime() {
+    public Map<String, String> calculateAvgStepCountAndTime(List<ActivitySession> dataForCompletedActivities) {
         Double totalSteps = 0.0;
         long totalTime = 0;
-        for (ActivitySession activity : this.dataForCompletedActivities) {
-            totalSteps += activity.stepCount;
-            long diffInMillies = Math.abs(activity.completedDateTime.getTime() - activity.startDateTime.getTime());
-            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        Map<String, String> dataMap = new HashMap<String, String>();
+        for (ActivitySession activity : dataForCompletedActivities) {
+            totalSteps += activity.getStepCount();
+            long diffInMillis = Math.abs(activity.getCompletedDateTime().getTime() - activity.getStartDateTime().getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
             totalTime += diff;
         }
-        this.setAvgTime(calculateAverageOfTime(totalTime));
-        this.setAvgSteps(totalSteps/this.dataForCompletedActivities.size());
+        if (totalSteps > 0.0) {
+            Double avgSteps = totalSteps/dataForCompletedActivities.size();
+            String avgTime = calculateAverageOfTime(totalTime);
+            dataMap.put("AvgSteps", avgSteps.toString()+ " steps");
+            dataMap.put("AbgTime", avgTime);
+        }
+        return dataMap;
     }
 
     public static String calculateAverageOfTime(Long totalTimeMs) {
@@ -53,19 +57,23 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         return avgTime;
     }
 
-    public String getAvgTime() {
-        return avgTime;
+    public LiveData<List<ActivitySession>> getDataForCompletedActivities() {
+        return dataForCompletedActivities;
     }
 
-    public void setAvgTime(String avgTime) {
-        this.avgTime = avgTime;
-    }
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+        @NonNull
+        private final Application application;
 
-    public Double getAvgSteps() {
-        return avgSteps;
-    }
+        public Factory(@NonNull Application application){
+            this.application = application;
+        }
 
-    public void setAvgSteps(Double avgSteps) {
-        this.avgSteps = avgSteps;
+        @SuppressWarnings("unchecked")
+        @Override
+        @NonNull
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new CompareHistoryViewModel(application);
+        }
     }
 }
