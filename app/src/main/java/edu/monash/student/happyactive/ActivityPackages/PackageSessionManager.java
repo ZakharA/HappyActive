@@ -1,7 +1,5 @@
 package edu.monash.student.happyactive.ActivityPackages;
 
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,8 +12,9 @@ public class PackageSessionManager {
     private List<Task> tasks;
     private Iterator<Task> iterator;
 
-    public PackageSessionManager(long activityId) {
+    public PackageSessionManager(long activityId, List<Task> tasks) {
         this.activityId = activityId;
+        this.tasks = tasks;
     }
 
     public Task getCurrentTaskOnDisplay() {
