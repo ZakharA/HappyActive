@@ -80,6 +80,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mProgressBar.incrementProgressBy(1);
+                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                 if(!mSessionViewModel.isActivityCompleted()) {
                     updateTaskCard(mSessionViewModel.completeCurrentTask());
                 } else {
@@ -109,6 +110,7 @@ public class TaskFragment extends Fragment {
                         .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                                 mSessionViewModel.cancelSession();
                                 Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
                                 startActivity(intent);

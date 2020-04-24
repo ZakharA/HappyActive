@@ -31,6 +31,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activityPackageRepository = new ActivityPackageRepository(application);
         activitySessionRepository = new ActivitySessionRepository(application);
         activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
+        activitySession.setStepCount(0);
         sessionManager = new PackageSessionManager(activityPackageId);
     }
 
@@ -65,7 +66,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     }
 
     public void initSession() throws ExecutionException, InterruptedException {
-        activitySessionRepository.insertNewSession(activitySession);
+        activitySession.id = activitySessionRepository.insertNewSession(activitySession);
     }
 
     public void cancelSession() {
@@ -73,6 +74,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.status = ActivityPackageStatus.CANCELED;
         activitySession.completedDateTime = new Date();
         activitySessionRepository.cancelSession(activitySession);
+    }
+
+    public void updateSteps(int numberOfSteps) {
+        activitySession.stepCount = numberOfSteps;
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
