@@ -23,8 +23,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.ActivityPackageListActivity;
+import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityJournalViewModel;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPhotoLiveModel;
 import edu.monash.student.happyactive.R;
 
@@ -48,7 +51,10 @@ public class CameraFragment extends Fragment {
     private Uri photoURI;
     private FloatingActionButton photoButton;
     private ActivityPhotoLiveModel mActivityPhotoLiveModel;
+    private ActivityJournalViewModel mActivityJournalViewModel;
+
     private long sessionId;
+    private TextInputLayout feelingsTextView;
 
     public CameraFragment() { }
 
@@ -74,6 +80,7 @@ public class CameraFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
+        feelingsTextView = view.findViewById(R.id.feelingTextField);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +95,8 @@ public class CameraFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mActivityPhotoLiveModel = new ViewModelProvider(requireActivity(),
                 new ActivityPhotoLiveModel.Factory(getActivity().getApplication(), sessionId)).get(ActivityPhotoLiveModel.class);
+        mActivityJournalViewModel = new ViewModelProvider(requireActivity(),
+                new ActivityJournalViewModel.Factory(getActivity().getApplication(), sessionId)).get(ActivityJournalViewModel.class);
     }
 
     private File createImageFile() throws IOException {
@@ -157,6 +166,10 @@ public class CameraFragment extends Fragment {
 
     public void buttonTransition() throws ExecutionException, InterruptedException {
         mActivityPhotoLiveModel.savePhoto(photoURI);
+        String text = feelingsTextView.getEditText().getText().toString();
+        if(!text.isEmpty()) {
+            mActivityJournalViewModel.addNewJournalEntry(text);
+        }
         CongratulationFragment nextFrag= new CongratulationFragment();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.session_fragment_container, nextFrag, "CongratulationFragment")

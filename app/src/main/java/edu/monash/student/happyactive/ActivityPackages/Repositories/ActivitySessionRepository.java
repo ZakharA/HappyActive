@@ -21,17 +21,12 @@ public class ActivitySessionRepository {
         activitySessionDao = db.activitySessionDao();
     }
 
-
     public void updateSession(ActivitySession session) {
          new updateAsyncTask(activitySessionDao).execute(session);
     }
 
     public void cancelSession(ActivitySession session) {
         new cancelAsyncTask(activitySessionDao).execute(session);
-    }
-
-    public void addNewJournalEntry(ActivityJournal journalEntry) {
-        activitySessionDao.addNewJournalEntry(journalEntry);
     }
 
     public LiveData<List<ActivitySession>> getAllSessions() {
