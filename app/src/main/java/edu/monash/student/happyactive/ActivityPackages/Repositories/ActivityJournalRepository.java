@@ -1,14 +1,18 @@
 package edu.monash.student.happyactive.ActivityPackages.Repositories;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityJournalDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
+import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class ActivityJournalRepository {
     private ActivityJournalDao activityJournalDao;
@@ -20,11 +24,29 @@ public class ActivityJournalRepository {
         activityJournals = activityJournalDao.getAllEntries();
     }
 
-    public long insertNewEntry(ActivityJournal journal) {
-        return activityJournalDao.insertNewEntry(journal);
+    public long insertNewEntry(ActivityJournal journal) throws ExecutionException, InterruptedException {
+        return new insertAsyncTask(activityJournalDao).execute(journal).get();
     }
 
     public ActivityJournal findById(long id) {
         return activityJournalDao.findById(id);
+    }
+
+    private static class insertAsyncTask extends AsyncTask<ActivityJournal, Void, Long> {
+        private ActivityJournalDao activityJournalDao;
+
+        public insertAsyncTask(ActivityJournalDao activityJournalDao) {
+            this.activityJournalDao = activityJournalDao;
+        }
+
+        @Override
+        protected Long doInBackground(ActivityJournal... activityJournals) {
+            return activityJournalDao.insertNewEntry(activityJournals[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+        }
     }
 }

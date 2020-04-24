@@ -3,6 +3,7 @@ package edu.monash.student.happyactive.ActivityPackages.Repositories;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 
 import java.util.List;
 
@@ -41,5 +42,9 @@ public class ActivityPackageRepository {
 
     public LiveData<ActivityPackage> getActivityPackageById(long argItemId) {
         return  activityPackageDao.findById(argItemId);
+    }
+
+    public DataSource.Factory<Integer, ActivityPackage> getActivityPackagesAsList() {
+        return activityPackageDao.getAllActivityPackagesAsPagedList();
     }
 }

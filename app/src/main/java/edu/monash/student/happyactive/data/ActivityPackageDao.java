@@ -2,6 +2,8 @@ package edu.monash.student.happyactive.data;
 
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.PagedList;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -19,6 +21,9 @@ import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTask
 public abstract class ActivityPackageDao {
     @Query("SELECT * FROM activityPackage")
     public abstract LiveData<List<ActivityPackage>> getAllActivityPackages();
+
+    @Query("SELECT * FROM activityPackage")
+    public abstract DataSource.Factory<Integer, ActivityPackage>  getAllActivityPackagesAsPagedList();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract long insertActivity(ActivityPackage activityPackage);

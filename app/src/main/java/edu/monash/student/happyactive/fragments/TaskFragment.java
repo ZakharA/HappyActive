@@ -1,6 +1,7 @@
 package edu.monash.student.happyactive.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import edu.monash.student.happyactive.ActivityPackageListActivity;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.SessionActivity;
@@ -78,11 +80,20 @@ public class TaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mProgressBar.incrementProgressBy(1);
+                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                 if(!mSessionViewModel.isActivityCompleted()) {
                     updateTaskCard(mSessionViewModel.completeCurrentTask());
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                    Bundle arguments = new Bundle();
+                    arguments.putLong(CameraFragment.SESSION_ID, mSessionViewModel.getSessionId() );
+                    CameraFragment nextFrag= new CameraFragment();
+                    nextFrag.setArguments(arguments);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.session_fragment_container, nextFrag, "cameraFragment")
+                            .addToBackStack(null)
+                            .commit();
                 }
             }
         });
@@ -102,8 +113,10 @@ public class TaskFragment extends Fragment {
                         .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                                 mSessionViewModel.cancelSession();
-                                //#TODO redirect to main screen
+                                Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
+                                startActivity(intent);
                             }
                         })
                         .show();

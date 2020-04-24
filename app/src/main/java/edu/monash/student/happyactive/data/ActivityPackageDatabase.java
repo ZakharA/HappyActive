@@ -1,5 +1,6 @@
 package edu.monash.student.happyactive.data;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.room.Database;
@@ -20,6 +21,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     public abstract ActivityPackageDao activityPackageDao();
     public abstract ActivitySessionDao activitySessionDao();
     public abstract ActivityJournalDao activityJournalDao();
+    public abstract ActivityPhotoDao activityPhotoDao();
     private static ActivityPackageDatabase INSTANCE;
 
     public static ActivityPackageDatabase getDatabase(final Context context) {
@@ -36,4 +38,5 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
 }

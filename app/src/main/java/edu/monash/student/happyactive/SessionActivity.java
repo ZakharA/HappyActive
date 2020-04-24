@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 
 import edu.monash.student.happyactive.ActivityPackages.StepCounterService;
+import edu.monash.student.happyactive.fragments.TaskFragment;
 
 
 public class SessionActivity extends AppCompatActivity {
@@ -23,6 +24,11 @@ public class SessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityId = getIntent().getLongExtra(ACTIVITY_ID, 0l);
         setContentView(R.layout.activity_session);
+        TaskFragment nextFrag= new TaskFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.session_fragment_container, nextFrag)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

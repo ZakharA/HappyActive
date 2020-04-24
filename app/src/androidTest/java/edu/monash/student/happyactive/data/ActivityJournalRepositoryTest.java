@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.concurrent.ExecutionException;
+
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityJournalRepository;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 
@@ -38,13 +40,13 @@ public class ActivityJournalRepositoryTest {
     }
 
     @Test
-    public void insertNewJournalEntryTest(){
+    public void insertNewJournalEntryTest() throws ExecutionException, InterruptedException {
         long id = ActivityJournalRepository.insertNewEntry(journal);
         assertThat(id, greaterThan(0l));
     }
 
     @Test
-    public void findJournalByIdTest(){
+    public void findJournalByIdTest() throws ExecutionException, InterruptedException {
         long id = ActivityJournalRepository.insertNewEntry(journal);
         ActivityJournal result = ActivityJournalRepository.findById(id);
         assertThat(result.id , equalTo(id));
