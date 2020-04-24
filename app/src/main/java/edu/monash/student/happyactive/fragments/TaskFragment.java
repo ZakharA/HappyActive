@@ -86,9 +86,12 @@ public class TaskFragment extends Fragment {
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                    Bundle arguments = new Bundle();
+                    arguments.putLong(CameraFragment.SESSION_ID, mSessionViewModel.getSessionId() );
                     CameraFragment nextFrag= new CameraFragment();
+                    nextFrag.setArguments(arguments);
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.session_fragment_container, nextFrag, "findThisFragment")
+                            .replace(R.id.session_fragment_container, nextFrag, "cameraFragment")
                             .addToBackStack(null)
                             .commit();
                 }

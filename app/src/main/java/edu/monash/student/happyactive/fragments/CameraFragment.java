@@ -9,8 +9,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,20 +31,24 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.ActivityPackageListActivity;
+import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPhotoLiveModel;
 import edu.monash.student.happyactive.R;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class CameraFragment extends Fragment {
+    public static final String SESSION_ID = "sessionId" ;
     String currentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mPhotoImageView;
     private Uri photoURI;
     private FloatingActionButton photoButton;
-
+    private ActivityPhotoLiveModel mActivityPhotoLiveModel;
+    private long sessionId;
 
     public CameraFragment() { }
 
@@ -55,6 +62,10 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            sessionId = bundle.getLong(SESSION_ID, 0l);
+        }
     }
 
     @Override
@@ -70,6 +81,13 @@ public class CameraFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mActivityPhotoLiveModel = new ViewModelProvider(requireActivity(),
+                new ActivityPhotoLiveModel.Factory(getActivity().getApplication(), sessionId)).get(ActivityPhotoLiveModel.class);
     }
 
     private File createImageFile() throws IOException {
@@ -125,12 +143,20 @@ public class CameraFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             mPhotoImageView.setImageBitmap(bitmap);
-            buttonTransition();
+            try {
+                buttonTransition();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void buttonTransition(){
+    public void buttonTransition() throws ExecutionException, InterruptedException {
+        mActivityPhotoLiveModel.savePhoto(photoURI);
         CongratulationFragment nextFrag= new CongratulationFragment();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.session_fragment_container, nextFrag, "CongratulationFragment")

@@ -80,6 +80,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.stepCount = numberOfSteps;
     }
 
+    public long getSessionId() {
+        return activitySession.id;
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;
