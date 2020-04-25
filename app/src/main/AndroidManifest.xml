@@ -36,7 +36,7 @@
         <activity android:name=".PackageDetails" />
         <activity android:name=".ActivityPackageListFragment"
             android:label="@string/title_activitypackage_list" />
-        <activity android:name=".SessionActivity" />
+        <activity android:name=".SessionFragment" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

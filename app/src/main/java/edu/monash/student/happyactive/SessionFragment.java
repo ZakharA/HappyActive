@@ -1,14 +1,13 @@
-package edu.monash.student.happyactive.fragments;
-
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
+package edu.monash.student.happyactive;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,57 +20,35 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
-import edu.monash.student.happyactive.ActivityPackageListFragment;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
-import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.SessionActivity;
 import edu.monash.student.happyactive.data.entities.Task;
+import edu.monash.student.happyactive.fragments.CameraFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TaskFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TaskFragment extends Fragment {
+
+public class SessionFragment extends Fragment {
+
+
 
     private TextView mTaskDescription;
     private TextView mTaskTitle;
     private ActivitySessionViewModel mSessionViewModel;
     private ProgressBar mProgressBar;
-    private long activityId;
-    private SessionActivity activity;
     private ImageView mImageView;
-
-    public TaskFragment() {
-        // Required empty public constructor
-    }
-
-    public static TaskFragment newInstance() {
-        TaskFragment fragment = new TaskFragment();
-        Bundle args = new Bundle();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private long activityId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_task, container, false);
-
-        activity = (SessionActivity) getActivity();
-        activityId = activity.getActivityId();
-
+        View view =  inflater.inflate(R.layout.fragment_session, container, false);
+        activityId = SessionFragmentArgs.fromBundle(getArguments()).getActivityId();
+        MainActivity activity = (MainActivity) requireActivity();
         mTaskTitle = view.findViewById(R.id.task_title);
         mImageView = view.findViewById(R.id.task_image);
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         Button doneButton = view.findViewById(R.id.done_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
-        activity.setCheckUpNotification();
+        activity.setCheckUpNotification(activityId);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +65,10 @@ public class TaskFragment extends Fragment {
                     arguments.putLong(CameraFragment.SESSION_ID, mSessionViewModel.getSessionId() );
                     CameraFragment nextFrag= new CameraFragment();
                     nextFrag.setArguments(arguments);
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.session_fragment_container, nextFrag, "cameraFragment")
-                            .addToBackStack(null)
-                            .commit();
+//                    getActivity().getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.session_fragment_container, nextFrag, "cameraFragment")
+//                            .addToBackStack(null)
+//                            .commit();
                 }
             }
         });
@@ -154,4 +131,5 @@ public class TaskFragment extends Fragment {
         mImageView.setImageResource(getResources()
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
     }
+
 }
