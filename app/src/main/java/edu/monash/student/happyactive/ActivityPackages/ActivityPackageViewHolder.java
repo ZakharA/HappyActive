@@ -1,7 +1,6 @@
 package edu.monash.student.happyactive.ActivityPackages;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,10 +10,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.monash.student.happyactive.ActivityPackageListFragmentDirections;
-import edu.monash.student.happyactive.PackageDetails;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.fragments.PackageDetailsFragment;
 
 public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
     final TextView mIdView;
