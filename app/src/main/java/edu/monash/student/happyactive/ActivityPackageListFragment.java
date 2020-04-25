@@ -58,6 +58,7 @@ public class ActivityPackageListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator (new DefaultItemAnimator());
         recyclerView.setAdapter(activityPackagesPagedAdapter);
+
     }
 
     private DiffUtil.ItemCallback<ActivityPackage> diffCallback = new DiffUtil.ItemCallback<ActivityPackage>() {

@@ -40,10 +40,7 @@ public class PackageDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            selectedActivityId = bundle.getLong(ACTIVITY_ID, 0l);
-        }
+        selectedActivityId = PackageDetailsFragmentArgs.fromBundle(getArguments()).getActivityId();
     }
 
     @Nullable

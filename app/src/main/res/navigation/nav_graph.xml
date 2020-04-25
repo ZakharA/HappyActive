@@ -14,7 +14,42 @@
         android:id="@+id/activityPackageListFragment"
         android:name="edu.monash.student.happyactive.ActivityPackageListFragment"
         android:label="fragment_activitypackage_list"
-        tools:layout="@layout/fragment_activitypackage_list" />
+        tools:layout="@layout/fragment_activitypackage_list" >
+        <action
+            android:id="@+id/showPackageDetails"
+            app:destination="@id/packageDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="edu.monash.student.happyactive.fragments.PackageDetailsFragment"
+        android:label="package_details_fragment"
+        tools:layout="@layout/package_details_fragment" >
+        <action
+            android:id="@+id/action_packageDetailsFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+        <argument
+            android:name="activityId"
+            app:argType="long"
+            android:defaultValue="1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="edu.monash.student.happyactive.fragments.TaskFragment"
+        android:label="TaskFragment" >
+        <action
+            android:id="@+id/action_taskFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="edu.monash.student.happyactive.fragments.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <activity
+        android:id="@+id/postActivityStatsActivity"
+        android:name="edu.monash.student.happyactive.PostActivityStatsActivity"
+        android:label="activity_post_stats"
+        tools:layout="@layout/activity_post_stats" />
 
 
 </navigation>
