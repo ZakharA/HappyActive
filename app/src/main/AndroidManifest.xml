@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".PackageDetails" />
-        <activity android:name=".ActivityPackageListActivity"
+        <activity android:name=".ActivityPackageListFragment"
             android:label="@string/title_activitypackage_list" />
         <activity android:name=".SessionActivity" />
         <activity android:name=".MainActivity">

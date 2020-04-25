@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/overallHomeFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home"
         />
+
+    <item
+        android:id="@+id/activityPackageListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_activities_white_24dp"
+        android:title="Activities"
+        />
+
     <item
         android:id="@+id/action_stats"
         android:enabled="true"

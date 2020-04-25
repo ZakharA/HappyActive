@@ -10,4 +10,11 @@
         android:name="edu.monash.student.happyactive.OverallHomeFragment"
         android:label="fragment_overall_home"
         tools:layout="@layout/fragment_overall_home" />
+    <fragment
+        android:id="@+id/activityPackageListFragment"
+        android:name="edu.monash.student.happyactive.ActivityPackageListFragment"
+        android:label="fragment_activitypackage_list"
+        tools:layout="@layout/fragment_activitypackage_list" />
+
+
 </navigation>

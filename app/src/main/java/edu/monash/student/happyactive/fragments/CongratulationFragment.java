@@ -1,7 +1,6 @@
 package edu.monash.student.happyactive.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import edu.monash.student.happyactive.ActivityPackageListActivity;
+import edu.monash.student.happyactive.ActivityPackageListFragment;
 import edu.monash.student.happyactive.R;
 
 /**
@@ -69,7 +68,7 @@ public class CongratulationFragment extends Fragment {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
+                Intent intent = new Intent(getContext(), ActivityPackageListFragment.class);
                 startActivity(intent);
             }
         });

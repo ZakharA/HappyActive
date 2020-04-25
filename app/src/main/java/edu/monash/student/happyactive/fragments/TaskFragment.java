@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +19,9 @@ import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import edu.monash.student.happyactive.ActivityPackageListActivity;
+import edu.monash.student.happyactive.ActivityPackageListFragment;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.SessionActivity;
@@ -117,7 +113,7 @@ public class TaskFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                                 mSessionViewModel.cancelSession();
-                                Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
+                                Intent intent = new Intent(getContext(), ActivityPackageListFragment.class);
                                 startActivity(intent);
                                 activity.cancelCheckUpNotification();
                             }
