@@ -23,6 +23,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".ActivityPackages.notifications.CheckUpReceiver"  android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".CompareHistoryActivity"
             android:label="CompareHistoryActivity"
@@ -37,21 +43,21 @@
         </activity>
         <service android:name=".ActivityPackages.StepCounterService" />
         <service android:name=".ActivityPackages.notifications.ReminderService" />
+        <service android:name=".ActivityPackages.notifications.CheckUpService" />
 
         <activity android:name=".PackageDetails"></activity>
         <activity
             android:name=".ActivityPackageListActivity"
-
             android:label="@string/title_activitypackage_list">
-
-        </activity>
-        <activity android:name=".SessionActivity" />
-        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SessionActivity" />
+        <activity android:name=".MainActivity">
+
         </activity>
 
         <provider

@@ -75,6 +75,7 @@ public class TaskFragment extends Fragment {
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         Button doneButton = view.findViewById(R.id.done_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
+        activity.setCheckUpNotification();
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +88,7 @@ public class TaskFragment extends Fragment {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
                     Bundle arguments = new Bundle();
+                    activity.cancelCheckUpNotification();
                     arguments.putLong(CameraFragment.SESSION_ID, mSessionViewModel.getSessionId() );
                     CameraFragment nextFrag= new CameraFragment();
                     nextFrag.setArguments(arguments);
@@ -117,6 +119,7 @@ public class TaskFragment extends Fragment {
                                 mSessionViewModel.cancelSession();
                                 Intent intent = new Intent(getContext(), ActivityPackageListActivity.class);
                                 startActivity(intent);
+                                activity.cancelCheckUpNotification();
                             }
                         })
                         .show();
