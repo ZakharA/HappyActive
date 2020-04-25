@@ -23,7 +23,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDailyReminder();
+
+        if (savedInstanceState ==  null) {
+            OverallHomeFragment homeFragment = new OverallHomeFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_content, homeFragment)
+                    .commit();
+            setDailyReminder();
+        }
+
     }
 
     private void setDailyReminder() {

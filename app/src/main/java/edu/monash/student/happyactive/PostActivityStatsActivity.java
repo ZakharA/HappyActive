@@ -61,7 +61,7 @@ public class PostActivityStatsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 postActivityStatsViewModel.setStatusCompletedPostActivity(currentSessionId);
                 Intent intent = new Intent(PostActivityStatsActivity.this,
-                        edu.monash.student.happyactive.OverallHomeActivity.class);
+                        OverallHomeFragment.class);
                 startActivity(intent);
             }
         });
