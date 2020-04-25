@@ -18,7 +18,7 @@
         android:id="@+id/action_stats"
         android:enabled="true"
         android:icon="@drawable/ic_history_black_24dp"
-        android:title="Stats"
+        android:title="History"
         />
 
 </menu>
