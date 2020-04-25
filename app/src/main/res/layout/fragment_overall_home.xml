@@ -13,82 +13,84 @@
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#141414"
         android:contentDescription="@string/home_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.4"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline1Home"
         app:layout_constraintWidth_percent="1.0"
         app:srcCompat="@drawable/happy_active_home" />
 
-
     <TextView
         android:id="@+id/TotalStepsHomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/total_step_count_during_activities"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/overallStepCount"
-        app:layout_constraintStart_toStartOf="@+id/overallStepCount"
-        app:layout_constraintTop_toBottomOf="@+id/overallStepCount" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline4Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3Home"
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/overallStepCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4Home"
+        app:layout_constraintEnd_toEndOf="@+id/TotalStepsHomeLabel"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3Home" />
+        app:layout_constraintStart_toStartOf="@+id/TotalStepsHomeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TotalStepsHomeLabel" />
 
     <TextView
         android:id="@+id/TotalTimeHomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/total_time_spent_on_activities"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/overallTimeSpent"
-        app:layout_constraintStart_toStartOf="@+id/overallTimeSpent"
-        app:layout_constraintTop_toBottomOf="@+id/overallTimeSpent" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline5Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4Home"
+        app:layout_constraintVertical_bias="0.18" />
 
 
     <TextView
         android:id="@+id/overallTimeSpent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5Home"
+        app:layout_constraintEnd_toEndOf="@+id/TotalTimeHomeLabel"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4Home" />
+        app:layout_constraintStart_toStartOf="@+id/TotalTimeHomeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TotalTimeHomeLabel" />
 
     <TextView
         android:id="@+id/TotalActivitiesHomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/total_activities_completed"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="@+id/overallActivitiesCompleted"
-        app:layout_constraintStart_toStartOf="@+id/overallActivitiesCompleted"
-        app:layout_constraintTop_toBottomOf="@+id/overallActivitiesCompleted" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline3Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.29000002" />
 
     <TextView
         android:id="@+id/overallActivitiesCompleted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline3Home"
+        app:layout_constraintEnd_toEndOf="@+id/TotalActivitiesHomeLabel"
+        app:layout_constraintStart_toStartOf="@+id/TotalActivitiesHomeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/TotalActivitiesHomeLabel" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1Home"
@@ -103,15 +105,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.40218878" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -119,15 +119,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.8016416" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="1.0" />
 
 
