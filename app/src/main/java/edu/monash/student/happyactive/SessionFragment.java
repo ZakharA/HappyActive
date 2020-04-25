@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,15 +61,9 @@ public class SessionFragment extends Fragment {
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
-                    Bundle arguments = new Bundle();
-                    activity.cancelCheckUpNotification();
-                    arguments.putLong(CameraFragment.SESSION_ID, mSessionViewModel.getSessionId() );
-                    CameraFragment nextFrag= new CameraFragment();
-                    nextFrag.setArguments(arguments);
-//                    getActivity().getSupportFragmentManager().beginTransaction()
-//                            .replace(R.id.session_fragment_container, nextFrag, "cameraFragment")
-//                            .addToBackStack(null)
-//                            .commit();
+                    Navigation.findNavController(view).navigate(
+                            SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
+                    );
                 }
             }
         });
@@ -90,9 +85,9 @@ public class SessionFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                                 mSessionViewModel.cancelSession();
-                                Intent intent = new Intent(getContext(), ActivityPackageListFragment.class);
-                                startActivity(intent);
-                                activity.cancelCheckUpNotification();
+                                Navigation.findNavController(view).navigate(
+                                        SessionFragmentDirections.cancelSession()
+                                );
                             }
                         })
                         .show();

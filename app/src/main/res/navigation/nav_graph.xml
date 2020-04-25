@@ -36,7 +36,12 @@
         android:id="@+id/cameraFragment"
         android:name="edu.monash.student.happyactive.fragments.CameraFragment"
         android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera" />
+        tools:layout="@layout/fragment_camera" >
+        <argument
+            android:name="sessionId"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
     <activity
         android:id="@+id/postActivityStatsActivity"
         android:name="edu.monash.student.happyactive.PostActivityStatsActivity"
@@ -51,6 +56,12 @@
             android:name="activityId"
             app:argType="long"
             android:defaultValue="0L" />
+        <action
+            android:id="@+id/showJournalFor"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/cancelSession"
+            app:destination="@id/overallHomeFragment" />
     </fragment>
 
 

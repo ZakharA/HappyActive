@@ -63,25 +63,25 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            sessionId = bundle.getLong(SESSION_ID, 0l);
-        }
+        sessionId = CameraFragmentArgs.fromBundle(getArguments()).getSessionId();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
+
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
         feelingsTextView = view.findViewById(R.id.feelingTextField);
+
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
             }
         });
+
         return view;
     }
 
@@ -165,10 +165,6 @@ public class CameraFragment extends Fragment {
         if(!text.isEmpty()) {
             mActivityJournalViewModel.addNewJournalEntry(text);
         }
-        CongratulationFragment nextFrag= new CongratulationFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.session_fragment_container, nextFrag, "CongratulationFragment")
-                .addToBackStack(null)
-                .commit();
+
     }
 }
