@@ -34,5 +34,9 @@
     <string name="average_time_across_activiites">Average Time Across Activiites</string>
     <string name="time_spent_on_all_activities">Time Spent on all Activities</string>
     <string name="step_count_of_each_activity">Step Count of each Activity</string>
-
+    <string name="congratulations_you_ve_successfully_aced_this_activity">Congratulations! You\'ve successfully aced this activity!!!</string>
+    <string name="here_s_your_report_card_for_the_activity">Here\'s your Report Card for the Activity.</string>
+    <string name="step_count">Step Count</string>
+    <string name="time_spent">Time Spent</string>
+    <string name="finish_activity">Finish Activity!</string>
 </resources>
