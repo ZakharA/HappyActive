@@ -74,6 +74,11 @@
             android:id="@+id/returnToHome"
             app:destination="@id/overallHomeFragment" />
     </fragment>
+    <activity
+        android:id="@+id/reportsActivity"
+        android:name="edu.monash.student.happyactive.ReportsActivity"
+        android:label="activity_reports"
+        tools:layout="@layout/activity_reports" />
 
 
 </navigation>
