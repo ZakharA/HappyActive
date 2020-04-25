@@ -61,6 +61,7 @@ public class SessionFragment extends Fragment {
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                    activity.cancelCheckUpNotification();
                     Navigation.findNavController(view).navigate(
                             SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
                     );
@@ -85,6 +86,7 @@ public class SessionFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                                 mSessionViewModel.cancelSession();
+                                activity.cancelCheckUpNotification();
                                 Navigation.findNavController(view).navigate(
                                         SessionFragmentDirections.cancelSession()
                                 );
