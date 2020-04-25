@@ -25,11 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState ==  null) {
-            OverallHomeFragment homeFragment = new OverallHomeFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.main_content, homeFragment)
-                    .commit();
             setDailyReminder();
         }
 
