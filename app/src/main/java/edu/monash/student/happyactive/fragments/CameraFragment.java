@@ -151,14 +151,22 @@ public class CameraFragment extends Fragment {
             }
 
             mPhotoImageView.setImageBitmap(bitmap);
-            try {
-                buttonTransition();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            changeCameraButton();
         }
+    }
+
+    private void changeCameraButton() {
+        photoButton.setImageResource(R.drawable.ic_done_black_24dp);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    buttonTransition();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void buttonTransition() throws ExecutionException, InterruptedException {
