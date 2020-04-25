@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -50,6 +51,7 @@ public class CameraFragment extends Fragment {
 
     private long sessionId;
     private TextInputLayout feelingsTextView;
+    private View view;
 
     public CameraFragment() { }
 
@@ -69,7 +71,7 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_camera, container, false);
+        view = inflater.inflate(R.layout.fragment_camera, container, false);
 
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
@@ -165,6 +167,8 @@ public class CameraFragment extends Fragment {
         if(!text.isEmpty()) {
             mActivityJournalViewModel.addNewJournalEntry(text);
         }
-
+        Navigation.findNavController(view).navigate(
+                CameraFragmentDirections.showPostActivityStats().setSessionId(sessionId)
+        );
     }
 }

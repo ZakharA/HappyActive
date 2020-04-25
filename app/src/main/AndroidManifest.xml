@@ -20,7 +20,7 @@
 
         <activity android:name=".CompareAverageActivity" />
         <activity android:name=".ReportsActivity" />
-        <activity android:name=".PostActivityStatsActivity"
+        <activity android:name=".PostActivityStatsFragment"
             android:label="PostActivityStatsActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

@@ -41,12 +41,10 @@
             android:name="sessionId"
             app:argType="long"
             android:defaultValue="0L" />
+        <action
+            android:id="@+id/showPostActivityStats"
+            app:destination="@id/postActivityStatsFragment" />
     </fragment>
-    <activity
-        android:id="@+id/postActivityStatsActivity"
-        android:name="edu.monash.student.happyactive.PostActivityStatsActivity"
-        android:label="activity_post_stats"
-        tools:layout="@layout/activity_post_stats" />
     <fragment
         android:id="@+id/sessionFragment"
         android:name="edu.monash.student.happyactive.SessionFragment"
@@ -61,6 +59,19 @@
             app:destination="@id/cameraFragment" />
         <action
             android:id="@+id/cancelSession"
+            app:destination="@id/overallHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postActivityStatsFragment"
+        android:name="edu.monash.student.happyactive.PostActivityStatsFragment"
+        android:label="fragment_post_stats"
+        tools:layout="@layout/fragment_post_stats" >
+        <argument
+            android:name="sessionId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/returnToHome"
             app:destination="@id/overallHomeFragment" />
     </fragment>
 
