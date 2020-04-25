@@ -43,6 +43,6 @@ public class MainActivity extends AppCompatActivity {
             alarmStartTime.add(Calendar.DATE, 1);
         }
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), 0, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }
