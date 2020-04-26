@@ -74,11 +74,28 @@
             android:id="@+id/returnToHome"
             app:destination="@id/overallHomeFragment" />
     </fragment>
-    <activity
-        android:id="@+id/reportsActivity"
-        android:name="edu.monash.student.happyactive.ReportsActivity"
-        android:label="activity_reports"
-        tools:layout="@layout/activity_reports" />
+    <fragment
+        android:id="@+id/homeReportFragment2"
+        android:name="edu.monash.student.happyactive.HomeReportFragment"
+        android:label="acitivity_report_main"
+        tools:layout="@layout/acitivity_report_main" >
+        <action
+            android:id="@+id/showCompareAverage"
+            app:destination="@id/compareAverageFragment2" />
+        <action
+            android:id="@+id/showHistory"
+            app:destination="@id/compareHistoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/compareAverageFragment2"
+        android:name="edu.monash.student.happyactive.CompareAverageFragment"
+        android:label="fragment_compare_average"
+        tools:layout="@layout/fragment_compare_average" />
+    <fragment
+        android:id="@+id/compareHistoryFragment2"
+        android:name="edu.monash.student.happyactive.CompareHistoryFragment"
+        android:label="fragment_history_compare"
+        tools:layout="@layout/fragment_history_compare" />
 
 
 </navigation>

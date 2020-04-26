@@ -19,7 +19,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".CompareAverageFragment" />
-        <activity android:name=".ReportsActivity" />
         <activity android:name=".PostActivityStatsFragment"
             android:label="PostActivityStatsActivity"
             android:theme="@style/AppTheme.NoActionBar">
