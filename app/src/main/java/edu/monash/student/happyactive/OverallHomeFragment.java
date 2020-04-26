@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
@@ -24,6 +23,12 @@ public class OverallHomeFragment extends Fragment {
     private TextView overallStepCount;
     private TextView overallTimeSpent;
     private TextView overallActivitiesCompleted;
+    private TextView newUserWelcomeText;
+    private TextView totalStepsHomeLabel;
+    private TextView totalTimeHomeLabel;
+    private TextView totalActivitiesHomeLabel;
+    private TextView welcomeHomeText;
+    private TextView happyActiveHomeText;
 
     @Nullable
     @Override
@@ -33,7 +38,12 @@ public class OverallHomeFragment extends Fragment {
         overallStepCount = homeView.findViewById(R.id.overallStepCount);
         overallTimeSpent = homeView.findViewById(R.id.overallTimeSpent);
         overallActivitiesCompleted = homeView.findViewById(R.id.overallActivitiesCompleted);
-
+        totalStepsHomeLabel = homeView.findViewById(R.id.TotalStepsHomeLabel);
+        totalTimeHomeLabel = homeView.findViewById(R.id.TotalTimeHomeLabel);
+        totalActivitiesHomeLabel = homeView.findViewById(R.id.TotalActivitiesHomeLabel);
+        newUserWelcomeText = homeView.findViewById(R.id.newUserWelcomeText);
+        welcomeHomeText = homeView.findViewById(R.id.welcomeHomeText);
+        happyActiveHomeText = homeView.findViewById(R.id.happyActiveHomeText);
         return homeView;
     }
 
@@ -81,11 +91,21 @@ public class OverallHomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final Integer totalActivities) {
                 // Update the UI, in this case, a TextView.
-                if (totalActivities != null) {
+                if (totalActivities != 0 && totalActivities != null) {
                     overallActivitiesCompleted.setText(totalActivities.toString());
                 }
                 else {
                     overallActivitiesCompleted.setText("0");
+                    newUserWelcomeText.setVisibility(View.VISIBLE);
+                    happyActiveHomeText.setVisibility(View.VISIBLE);
+                    welcomeHomeText.setVisibility(View.VISIBLE);
+                    overallStepCount.setVisibility(View.INVISIBLE);
+                    overallTimeSpent.setVisibility(View.INVISIBLE);
+                    overallActivitiesCompleted.setVisibility(View.INVISIBLE);
+                    totalStepsHomeLabel.setVisibility(View.INVISIBLE);
+                    totalTimeHomeLabel.setVisibility(View.INVISIBLE);
+                    totalActivitiesHomeLabel.setVisibility(View.INVISIBLE);
+
                 }
 
             }

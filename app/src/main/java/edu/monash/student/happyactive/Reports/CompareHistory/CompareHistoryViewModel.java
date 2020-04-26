@@ -39,7 +39,7 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         if (totalSteps > 0.0) {
             Double avgSteps = totalSteps/dataForCompletedActivities.size();
             String avgTime = calculateAverageOfTime(totalTime/dataForCompletedActivities.size());
-            dataMap.put("AvgSteps", avgSteps.toString()+ " steps");
+            dataMap.put("AvgSteps", avgSteps.longValue() + " steps");
             dataMap.put("AvgTime", avgTime);
         }
         return dataMap;
