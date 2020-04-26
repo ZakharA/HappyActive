@@ -6,4 +6,231 @@
     android:layout_height="match_parent"
     tools:context=".CompareAverageActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="1.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/AverageConstraint8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <TextView
+        android:id="@+id/averageStepsAgeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint2"
+        app:layout_constraintEnd_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintStart_toStartOf="@+id/AverageConstraint3"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint1"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/averageStepsAgeGroupLabel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/averageStepsAgeGroup"
+        app:layout_constraintStart_toStartOf="@+id/averageStepsAgeGroup"
+        app:layout_constraintTop_toBottomOf="@+id/averageStepsAgeGroup"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/popStatsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/population_statistics"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/youAreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_are"
+        app:layout_constraintBottom_toTopOf="@+id/stepDiffAvg"
+        app:layout_constraintEnd_toEndOf="@+id/stepDiffAvg"
+        app:layout_constraintStart_toStartOf="@+id/stepDiffAvg"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/stepDiffAvg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint1"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/stepDiffAvgLabel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/stepDiffAvg"
+        app:layout_constraintStart_toStartOf="@+id/stepDiffAvg"
+        app:layout_constraintTop_toBottomOf="@+id/stepDiffAvg"
+        android:gravity="center"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint7"
+        app:layout_constraintWidth_percent="0.9" />
+
+    <TextView
+        android:id="@+id/avgWearTimeAus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint9"
+        app:layout_constraintEnd_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintStart_toStartOf="@+id/AverageConstraint3"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint2"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/avgWearTimeAusLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/average_wear_time_australia"
+        app:layout_constraintEnd_toEndOf="@+id/avgWearTimeAus"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/avgWearTimeAus"
+        app:layout_constraintTop_toBottomOf="@+id/avgWearTimeAus"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/wearTimeDiff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint9"
+        app:layout_constraintEnd_toStartOf="@+id/AverageConstraint5"
+        app:layout_constraintStart_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint2"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/wearTimeDiffLabel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/wearTimeDiff"
+        app:layout_constraintStart_toStartOf="@+id/wearTimeDiff"
+        app:layout_constraintTop_toBottomOf="@+id/wearTimeDiff"
+        android:gravity="center"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/stepsComparePopBarChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint6"
+        app:layout_constraintEnd_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintHeight_percent="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint10"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/wearComparePopBarChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/AverageConstraint6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="1.0"
+        app:layout_constraintStart_toStartOf="@+id/AverageConstraint4"
+        app:layout_constraintTop_toTopOf="@+id/AverageConstraint10"
+        app:layout_constraintWidth_percent="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,4 +39,7 @@
     <string name="step_count">Step Count</string>
     <string name="time_spent">Time Spent</string>
     <string name="finish_activity">Finish Activity!</string>
+    <string name="population_statistics">Population Statistics</string>
+    <string name="you_are">You are</string>
+    <string name="average_wear_time_australia">Average Wear Time Australia</string>
 </resources>

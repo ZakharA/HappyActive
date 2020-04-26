@@ -27,34 +27,30 @@ public class CompareAverageViewModel extends AndroidViewModel {
         dataForCompletedActivities = compareAverageRepository.getDataForCompletedActivity();
     }
 
-    public Map<String, String> calculateAvgStepCountAndTime(List<ActivitySession> dataForCompletedActivities) {
-        Double totalSteps = 0.0;
+    public Map<String, Long> calculateAvgStepCountAndTime(List<ActivitySession> dataForCompletedActivities) {
+        Long totalSteps = 0l;
         long totalTime = 0;
-        Map<String, String> dataMap = new HashMap<String, String>();
+        Map<String, Long> dataMap = new HashMap<String, Long>();
         for (ActivitySession activity : dataForCompletedActivities) {
             totalSteps += activity.getStepCount();
             long diffInMillis = Math.abs(activity.getCompletedDateTime().getTime() - activity.getStartDateTime().getTime());
-            long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-            totalTime += diff;
+            totalTime += diffInMillis;
         }
         if (totalSteps > 0.0) {
-            Double avgSteps = totalSteps/dataForCompletedActivities.size();
-            String avgTime = calculateAverageOfTime(totalTime);
-            dataMap.put("AvgSteps", avgSteps.toString()+ " steps");
-            dataMap.put("AbgTime", avgTime);
+            Long avgSteps = totalSteps/dataForCompletedActivities.size();
+            Long avgTime = calculateAverageOfTime(totalTime/dataForCompletedActivities.size());
+            dataMap.put("AvgSteps", avgSteps);
+            dataMap.put("AvgTime", avgTime);
         }
         return dataMap;
     }
 
-    public static String calculateAverageOfTime(Long totalTimeMs) {
+    public static long calculateAverageOfTime(long totalTimeMs) {
         long seconds = totalTimeMs / 1000;
         long minutes = seconds / 60;
         long hours =  minutes / 60;
-        minutes = minutes % 60;
 
-        String avgTime = hours + " hours " + minutes + " minutes";
-
-        return avgTime;
+        return hours;
     }
 
     public LiveData<List<ActivitySession>> getDataForCompletedActivities() {
