@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_reports.xml"
+    app:startDestination="@id/homeReportFragment">
+
+    <fragment
+        android:id="@+id/homeReportFragment"
+        android:name="edu.monash.student.happyactive.HomeReportFragment"
+        android:label="acitivity_report_main"
+        tools:layout="@layout/acitivity_report_main" />
+</navigation>
