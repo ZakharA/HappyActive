@@ -115,7 +115,7 @@ public class SessionFragment extends Fragment {
         mSessionViewModel.getTasksOf(activityId).observe(getViewLifecycleOwner(), activityPackageWithTasks -> {
             mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
             try {
-                mSessionViewModel.initSession();
+                mSessionViewModel.initSession(activityId);
             } catch (Exception e) {
                 e.printStackTrace();
             }

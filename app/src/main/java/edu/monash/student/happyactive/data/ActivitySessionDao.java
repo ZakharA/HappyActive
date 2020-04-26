@@ -24,7 +24,7 @@ public abstract class ActivitySessionDao {
     public abstract void addNewJournalEntry(ActivityJournal journalEntry);
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     public abstract long insertSession(ActivitySession activitySession);
 
     @Query("SELECT * FROM activitySession")
