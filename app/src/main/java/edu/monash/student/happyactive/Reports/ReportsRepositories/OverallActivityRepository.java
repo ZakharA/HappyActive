@@ -19,7 +19,7 @@ public class OverallActivityRepository {
         overallActivityReportsDao = db.overallActivityReportsDao();
     }
 
-    public LiveData<Date> getDataForCompletedActivity(ActivityPackageStatus status) {
+    public LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status) {
         return overallActivityReportsDao.getDataForCompletedActivity(status);
     }
 

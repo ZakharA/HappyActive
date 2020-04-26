@@ -21,7 +21,7 @@ public class PostActivityStatsRepository {
         return postActivityStatsDao.getDataForCurrentSession(currentId);
     }
 
-    public void setStatusCompletedPostActivity(Integer currentId) {
-        postActivityStatsDao.setStatusCompletedPostActivity(currentId);
+    public void setStatusCompletedPostActivity(ActivitySession activitySession) {
+        postActivityStatsDao.setStatusCompletedPostActivity(activitySession);
     }
 }

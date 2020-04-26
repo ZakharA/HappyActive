@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.List;
 
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
+import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class OverallHomeFragment extends Fragment {
 
@@ -44,7 +46,7 @@ public class OverallHomeFragment extends Fragment {
             public void onChanged(@Nullable final Integer totalSteps) {
                 // Update the UI, in this case, a TextView.
                 if (totalSteps != null) {
-                    overallStepCount.setText(totalSteps.toString()+"steps");
+                    overallStepCount.setText(totalSteps.toString()+" steps");
                 }
                 else {
                     overallStepCount.setText("0 steps");
@@ -53,15 +55,23 @@ public class OverallHomeFragment extends Fragment {
             }
         };
 
-        final Observer<Date> overallTimeSpentObserver = new Observer<Date>() {
+        final Observer<List<ActivitySession>> overallTimeSpentObserver = new Observer<List<ActivitySession>>() {
             @Override
-            public void onChanged(@Nullable final Date totalTime) {
+            public void onChanged(@Nullable final List<ActivitySession> activitySessions) {
+                long sumTime = 0l;
                 // Update the UI, in this case, a TextView.
-                if (totalTime != null) {
-                    overallTimeSpent.setText(totalTime.toString() + "hours");
+                if (activitySessions != null) {
+                    for (int i=0 ; i<activitySessions.size(); i++){
+                        long diffInMillis = Math.abs(activitySessions.get(i).getCompletedDateTime().getTime() - activitySessions.get(i).getStartDateTime().getTime());
+                        sumTime += diffInMillis;
+                    }
+                    long seconds = sumTime / 1000;
+                    long minutes = seconds / 60;
+                    long hours =  minutes / 60;
+                    overallTimeSpent.setText(hours + " hours " + minutes + " minutes");
                 }
                 else {
-                    overallTimeSpent.setText("0 hours");
+                    overallTimeSpent.setText("0 hours 0 minutes");
                 }
 
             }

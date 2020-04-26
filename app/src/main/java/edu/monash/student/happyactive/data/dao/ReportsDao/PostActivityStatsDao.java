@@ -2,10 +2,9 @@ package edu.monash.student.happyactive.data.dao.ReportsDao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-
-import java.util.Date;
-import java.util.List;
+import androidx.room.Update;
 
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
@@ -15,6 +14,6 @@ public abstract class PostActivityStatsDao {
     @Query("Select * from ActivitySession where id == :currentId")
     public abstract LiveData<ActivitySession> getDataForCurrentSession(Integer currentId);
 
-    @Query("Update ActivitySession Set status = 'COMPLETED' where id == :currentId")
-    public abstract void setStatusCompletedPostActivity(Integer currentId);
+    @Update(onConflict = OnConflictStrategy.REPLACE, entity = ActivitySession.class)
+    public abstract void setStatusCompletedPostActivity(ActivitySession activitySession);
 }
