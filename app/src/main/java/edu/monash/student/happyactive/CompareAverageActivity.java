@@ -13,16 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BubbleChart;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.awt.font.TextAttribute;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -33,27 +24,12 @@ import edu.monash.student.happyactive.Reports.CompareAverage.CompareAverageViewM
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.BubbleData;
-import com.github.mikephil.charting.data.BubbleDataSet;
-import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 public class CompareAverageActivity extends AppCompatActivity {
 
@@ -69,7 +45,6 @@ public class CompareAverageActivity extends AppCompatActivity {
     BarChart wearComparePopBarChart;
     LineChart lineChart;
     private static final String STEPS_AGE_GENDER = "statisticsFiles/steps_by_age_gender_20170508.csv";
-    //private static final String ARTHRITIS_YEAR_PROGRESSION = "./data/statisticsFiles/ArthritisCountYearProgression.json";
     private static final String WEAR_TIME_AUS = "13";
     private Long STEP_COUNT_AUS = 3058l;
 
