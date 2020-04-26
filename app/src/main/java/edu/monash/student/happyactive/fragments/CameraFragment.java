@@ -67,6 +67,13 @@ public class CameraFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * sets up fragment' elements and sets up camera button intent
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +103,12 @@ public class CameraFragment extends Fragment {
                 new ActivityJournalViewModel.Factory(getActivity().getApplication(), sessionId)).get(ActivityJournalViewModel.class);
     }
 
+    /**
+     * creates an image in the app folder
+     * for the camera to save it in that file
+     * @return
+     * @throws IOException
+     */
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "SessionID" + timeStamp + "";
@@ -110,6 +123,9 @@ public class CameraFragment extends Fragment {
         return image;
     }
 
+    /**
+     * dispatches the intent to open a camera and safe the picture in the file
+     */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -140,6 +156,9 @@ public class CameraFragment extends Fragment {
         }
     }
 
+    /**
+     * sets the image from the camera on the imageView
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -155,6 +174,9 @@ public class CameraFragment extends Fragment {
         }
     }
 
+    /**
+     * changes the button listener after the picture is taken
+     */
     private void changeCameraButton() {
         photoButton.setImageResource(R.drawable.ic_done_black_24dp);
         photoButton.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +191,11 @@ public class CameraFragment extends Fragment {
         });
     }
 
+    /**
+     * saves photo in the database and redirect to the journal screen
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public void buttonTransition() throws ExecutionException, InterruptedException {
         mActivityPhotoLiveModel.savePhoto(photoURI, sessionId);
         String text = feelingsTextView.getEditText().getText().toString();

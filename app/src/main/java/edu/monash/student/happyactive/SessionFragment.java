@@ -34,8 +34,6 @@ import edu.monash.student.happyactive.fragments.CameraFragment;
 
 public class SessionFragment extends Fragment {
 
-
-
     private TextView mTaskDescription;
     private TextView mTaskTitle;
     private ActivitySessionViewModel mSessionViewModel;
@@ -47,8 +45,10 @@ public class SessionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_session, container, false);
-        activityId = SessionFragmentArgs.fromBundle(getArguments()).getActivityId();
+
         MainActivity activity = (MainActivity) requireActivity();
+
+        activityId = SessionFragmentArgs.fromBundle(getArguments()).getActivityId();
         mTaskTitle = view.findViewById(R.id.task_title);
         mImageView = view.findViewById(R.id.task_image);
         mTaskDescription = view.findViewById(R.id.task_description);
@@ -59,6 +59,12 @@ public class SessionFragment extends Fragment {
         activity.setCheckUpNotification(activityId);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             *   completes current task on the screen and show next one or finish the session
+             *   the package is completed.
+             *   update progress bar every time the user finishes with a task
+              * @param v view of the fragment
+             */
             @Override
             public void onClick(View v) {
                 mProgressBar.incrementProgressBy(1);
@@ -76,7 +82,9 @@ public class SessionFragment extends Fragment {
             }
         });
 
-
+        /**
+         * cancels a current session and navigates to the main screen
+         */
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +114,10 @@ public class SessionFragment extends Fragment {
         return view;
     }
 
+    /**
+     * gets the session view model after the fragment is rendered
+     * and initialize a new activity session in the view model.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -125,10 +137,18 @@ public class SessionFragment extends Fragment {
         });
     }
 
+    /**
+     * sets the limit for the max number of increments in the progressbar
+     * @param tasksList
+     */
     private void setUpProgressBar(List<Task> tasksList) {
         mProgressBar.setMax(tasksList.size());
     }
 
+    /**
+     * updates the view elements with a new task information
+     * @param task
+     */
     private void updateTaskCard(Task task){
         mTaskTitle.setText(task.title);
         mTaskDescription.setText(task.description);

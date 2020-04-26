@@ -21,6 +21,10 @@ import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackag
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.SessionFragment;
 
+/**
+ * manages the logic of showing package details on the screen
+ * and starting a new session for the acitvity package
+ */
 public class PackageDetailsFragment extends Fragment {
 
     public static final String ACTIVITY_ID = "activity_id";

@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // binding navigation bar with nav graph
         navigationView = findViewById(R.id.report_bottom_navigation);
         NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navigationView,
                 navHostFragment.getNavController());
-
 
         if (savedInstanceState ==  null) {
             setDailyReminder();
@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  here we binging stepcounter with the app itself and run it as a background service
+     *  every time then activity is created.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -56,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
 
+    /**
+     *  stop stepcounter service before the activity is closed.
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -63,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         mBound = false;
     }
 
+    /**
+     * create an intent to show the check up notification if the user is not active for two hours
+     * @param activityId id of the activityPackage to show when the user open notification.
+     */
     public void setCheckUpNotification(long activityId) {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmIntent = new Intent(getApplicationContext(), CheckUpReceiver.class);
@@ -78,11 +89,18 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP,  now.getTimeInMillis() , pendingIntent);
     }
 
+    /**
+     * cancel delayed intent to show checkup notification.
+     * it invokes when avtivitySession is finished by the user
+     */
     public void cancelCheckUpNotification(){
         pendingIntent.cancel();
         alarmManager.cancel(pendingIntent);
     }
 
+    /**
+     * create an intent to show daily notification and set an alarm for 20:00 pm
+     */
     private void setDailyReminder() {
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmIntent = new Intent(getApplicationContext(), ReminderReceiver.class);
@@ -103,7 +121,10 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-
+    /**
+     *  here we binging stepcounter with the app itself and run it as a background service
+     *  every time then activity is created.
+     */
     private ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -120,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     *  fragments can access the stepcounter service using this method
+     *  and it will return current stepCount registered in the background service.
+     */
     public int getNumberOfSteps(){
         return mService.getNumSteps();
     }
