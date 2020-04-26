@@ -40,7 +40,6 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ActivityPackageDatabase.class, "happyActiveDB")
                             .createFromAsset("database/happyActiveDB.db")
-                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
