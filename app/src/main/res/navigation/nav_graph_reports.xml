@@ -13,10 +13,18 @@
         <action
             android:id="@+id/showHistory"
             app:destination="@id/compareHistoryFragment" />
+        <action
+            android:id="@+id/showCompareAverage"
+            app:destination="@id/compareAverageFragment" />
     </fragment>
     <fragment
         android:id="@+id/compareHistoryFragment"
         android:name="edu.monash.student.happyactive.CompareHistoryFragment"
         android:label="fragment_history_compare"
         tools:layout="@layout/fragment_history_compare" />
+    <fragment
+        android:id="@+id/compareAverageFragment"
+        android:name="edu.monash.student.happyactive.CompareAverageFragment"
+        android:label="fragment_compare_average"
+        tools:layout="@layout/fragment_compare_average" />
 </navigation>

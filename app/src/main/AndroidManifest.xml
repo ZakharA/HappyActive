@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".CompareAverageActivity" />
+        <activity android:name=".CompareAverageFragment" />
         <activity android:name=".ReportsActivity" />
         <activity android:name=".PostActivityStatsFragment"
             android:label="PostActivityStatsActivity"

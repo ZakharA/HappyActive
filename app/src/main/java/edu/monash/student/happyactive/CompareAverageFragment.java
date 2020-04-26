@@ -1,7 +1,9 @@
 package edu.monash.student.happyactive;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -9,7 +11,9 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -31,7 +35,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-public class CompareAverageActivity extends AppCompatActivity {
+public class CompareAverageFragment extends Fragment {
 
     protected CompareAverageViewModel compareAverageViewModel;
     TextView averageStepsAgeGroup;
@@ -47,27 +51,36 @@ public class CompareAverageActivity extends AppCompatActivity {
     private static final String STEPS_AGE_GENDER = "statisticsFiles/steps_by_age_gender_20170508.csv";
     private static final String WEAR_TIME_AUS = "13";
     private Long STEP_COUNT_AUS = 3058l;
+    private View view;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_compare_average, container, false);
+
+        averageStepsAgeGroup = view.findViewById(R.id.averageStepsAgeGroup);
+        averageStepsAgeGroupLabel = view.findViewById(R.id.averageStepsAgeGroupLabel);
+        stepDiffAvg = view.findViewById(R.id.stepDiffAvg);
+        stepDiffAvgLabel = view.findViewById(R.id.stepDiffAvgLabel);
+        avgWearTimeAus = view.findViewById(R.id.avgWearTimeAus);
+        wearTimeDiff = view.findViewById(R.id.wearTimeDiff);
+        wearTimeDiffLabel = view.findViewById(R.id.wearTimeDiffLabel);
+        stepsComparePopBarChart = view.findViewById(R.id.stepsComparePopBarChart);
+        wearComparePopBarChart = view.findViewById(R.id.wearComparePopBarChart);
+        lineChart = view.findViewById(R.id.lineChart);
+
+        return view;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compare_average);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         compareAverageViewModel = new ViewModelProvider(this,
-                new CompareAverageViewModel.Factory(this.getApplication())).get(CompareAverageViewModel.class);
+                new CompareAverageViewModel.Factory(getActivity().getApplication())).get(CompareAverageViewModel.class);
 
-        averageStepsAgeGroup = findViewById(R.id.averageStepsAgeGroup);
-        averageStepsAgeGroupLabel = findViewById(R.id.averageStepsAgeGroupLabel);
-        stepDiffAvg = findViewById(R.id.stepDiffAvg);
-        stepDiffAvgLabel = findViewById(R.id.stepDiffAvgLabel);
-        avgWearTimeAus = findViewById(R.id.avgWearTimeAus);
-        wearTimeDiff = findViewById(R.id.wearTimeDiff);
-        wearTimeDiffLabel = findViewById(R.id.wearTimeDiffLabel);
-        stepsComparePopBarChart = findViewById(R.id.stepsComparePopBarChart);
-        wearComparePopBarChart = findViewById(R.id.wearComparePopBarChart);
-        lineChart = findViewById(R.id.lineChart);
         generateLineChart();
-        compareAverageViewModel.getDataForCompletedActivities().observe(this, new Observer<List<ActivitySession>>() {
+        compareAverageViewModel.getDataForCompletedActivities().observe(getViewLifecycleOwner(), new Observer<List<ActivitySession>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChanged(List<ActivitySession> activitySession) {
@@ -121,7 +134,7 @@ public class CompareAverageActivity extends AppCompatActivity {
             averageStepsAgeGroupLabel.setText("Avg Steps/Day 70+ male");
             stepDiffAvg.setText("No data");
             wearTimeDiff.setText("No data");
-            TextView youAre = findViewById(R.id.youAreLabel);
+            TextView youAre = view.findViewById(R.id.youAreLabel);
             youAre.setVisibility(View.INVISIBLE);
         }
     }
@@ -176,7 +189,7 @@ public class CompareAverageActivity extends AppCompatActivity {
         Long globalAvgSteps;
         String[] record = null;
         try {
-                InputStream inputStream = getAssets().open(STEPS_AGE_GENDER);
+                InputStream inputStream = getActivity().getAssets().open(STEPS_AGE_GENDER);
                 //InputStream inputStream = getAssets().open(STEPS_AGE_GENDER);
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";

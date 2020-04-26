@@ -39,9 +39,9 @@ public class HomeReportFragment extends Fragment {
         compareAverageImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ReportsActivity.this,
-//                        edu.monash.student.happyactive.CompareAverageActivity.class);
-//                startActivity(intent);
+                Navigation.findNavController(view).navigate(
+                        HomeReportFragmentDirections.showCompareAverage()
+                );
             }
         });
 
