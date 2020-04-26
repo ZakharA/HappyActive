@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/overallHomeFragment">
+
+    <fragment
+        android:id="@+id/overallHomeFragment"
+        android:name="edu.monash.student.happyactive.OverallHomeFragment"
+        android:label="fragment_overall_home"
+        tools:layout="@layout/fragment_overall_home" />
+    <fragment
+        android:id="@+id/activityPackageListFragment"
+        android:name="edu.monash.student.happyactive.ActivityPackageListFragment"
+        android:label="fragment_activitypackage_list"
+        tools:layout="@layout/fragment_activitypackage_list" >
+        <action
+            android:id="@+id/showPackageDetails"
+            app:destination="@id/packageDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="edu.monash.student.happyactive.fragments.PackageDetailsFragment"
+        android:label="package_details_fragment"
+        tools:layout="@layout/package_details_fragment" >
+        <argument
+            android:name="activityId"
+            app:argType="long"
+            android:defaultValue="1L" />
+        <action
+            android:id="@+id/startSession"
+            app:destination="@id/sessionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="edu.monash.student.happyactive.fragments.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <argument
+            android:name="sessionId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/showPostActivityStats"
+            app:destination="@id/postActivityStatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sessionFragment"
+        android:name="edu.monash.student.happyactive.SessionFragment"
+        android:label="fragment_session"
+        tools:layout="@layout/fragment_session" >
+        <argument
+            android:name="activityId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/showJournalFor"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/cancelSession"
+            app:destination="@id/overallHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postActivityStatsFragment"
+        android:name="edu.monash.student.happyactive.PostActivityStatsFragment"
+        android:label="fragment_post_stats"
+        tools:layout="@layout/fragment_post_stats" >
+        <argument
+            android:name="sessionId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/returnToHome"
+            app:destination="@id/overallHomeFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/reportsActivity"
+        android:name="edu.monash.student.happyactive.ReportsActivity"
+        android:label="activity_reports"
+        tools:layout="@layout/activity_reports" />
+
+
+</navigation>

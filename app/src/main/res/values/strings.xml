@@ -9,16 +9,16 @@
     <string name="task_done_button">Done</string>
     <string name="complete_activity_text">Complete</string>
     <string name="cancel_session_button">Cancel</string>
-    <string name="content_description_media">image</string>
-    <string name="dialog_cancel_session">do you want to cancel activity?</string>
+    <string name="content_description_media">Image</string>
+    <string name="dialog_cancel_session">Do you want to cancel activity?</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
-    <string name="start_activity_button">"Start "</string>
+    <string name="start_activity_button">"Start"</string>
 
     <string name="feelings">Express your feelings</string>
     <string name="memento_text">Journal</string>
     <string name="activityPackage_title">Activities</string>
-    <string name="task_completed_bar">Tasks completed</string>
+    <string name="task_completed_bar">Progress:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -31,7 +31,7 @@
     <string name="total_step_count_during_activities">Total Step Count during Activities:</string>
     <string name="home_image">Home Image</string>
     <string name="average_steps_across_activities">Average Steps Across Activities</string>
-    <string name="average_time_across_activiites">Average Time Across Activiites</string>
+    <string name="average_time_across_activiites">Average Time Across Activities</string>
     <string name="time_spent_on_all_activities">Time Spent on all Activities</string>
     <string name="step_count_of_each_activity">Step Count of each Activity</string>
     <string name="congratulations_you_ve_successfully_aced_this_activity">Congratulations! You\'ve successfully aced this activity!!!</string>

@@ -1,33 +1,23 @@
 package edu.monash.student.happyactive;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import edu.monash.student.happyactive.ActivityPackages.ActivityPackagesPagedAdapter;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.fragments.PackageDetailsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An activity representing a list of ActivityPackages. This activity
@@ -37,7 +27,7 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ActivityPackageListActivity extends AppCompatActivity {
+public class ActivityPackageListFragment extends Fragment {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -45,22 +35,27 @@ public class ActivityPackageListActivity extends AppCompatActivity {
      */
     protected ActivityPackageViewModel mActivityPackageViewModel;
     public static String mPackageName;
+    private RecyclerView recyclerView;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitypackage_list);
-
-        RecyclerView recyclerView = findViewById(R.id.activitypackage_list);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View packageListView = inflater.inflate(R.layout.fragment_activitypackage_list, container, false);
+        recyclerView = packageListView.findViewById(R.id.activitypackage_list);
         assert recyclerView != null;
+        mPackageName = getContext().getPackageName();
+        return packageListView;
+    }
 
-        mPackageName = getPackageName();
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mActivityPackageViewModel = new ViewModelProvider(this,
-                new ActivityPackageViewModel.Factory(this.getApplication())).get(ActivityPackageViewModel.class);
+                new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
         ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback);
-        mActivityPackageViewModel.getActivityPackagesPages().observe(this, activityPackagesPagedAdapter::submitList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        mActivityPackageViewModel.getActivityPackagesPages().observe(getViewLifecycleOwner(), activityPackagesPagedAdapter::submitList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator (new DefaultItemAnimator());
         recyclerView.setAdapter(activityPackagesPagedAdapter);
 

@@ -1,17 +1,14 @@
 package edu.monash.student.happyactive.fragments;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Activity;
-import android.app.TaskInfo;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
-import edu.monash.student.happyactive.PackageDetails;
 import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.SessionActivity;
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.SessionFragment;
 
 public class PackageDetailsFragment extends Fragment {
 
@@ -40,10 +35,7 @@ public class PackageDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            selectedActivityId = bundle.getLong(ACTIVITY_ID, 0l);
-        }
+        selectedActivityId = PackageDetailsFragmentArgs.fromBundle(getArguments()).getActivityId();
     }
 
     @Nullable
@@ -55,9 +47,9 @@ public class PackageDetailsFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SessionActivity.class);
-                intent.putExtra(SessionActivity.ACTIVITY_ID, selectedActivityId);
-                startActivity(intent);
+                Navigation.findNavController(view).navigate(
+                        PackageDetailsFragmentDirections.startSession().setActivityId(selectedActivityId)
+                );
             }
         });
         return view;
