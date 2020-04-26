@@ -6,7 +6,7 @@
     <string name="task_title">task</string>
     <string name="task_descpription">description</string>
     <string name="task_description">Description</string>
-    <string name="task_done_button">Done</string>
+    <string name="task_done_button">Next Task</string>
     <string name="complete_activity_text">Complete</string>
     <string name="cancel_session_button">Cancel</string>
     <string name="content_description_media">Image</string>
@@ -43,6 +43,7 @@
     <string name="you_are">You are</string>
     <string name="average_wear_time_australia">Average Wear Time Australia</string>
     <string name="history_statistics">History Statistics</string>
+    <string name="channel_name">Happy Active</string>
     <string name="welcome_text">Hope you\'re excited to start this journey with your grandparents!! Make them more healthy and</string>
     <string name="start_new_activity">Start new activity!</string>
     <string name="welcome">WELCOME!</string>

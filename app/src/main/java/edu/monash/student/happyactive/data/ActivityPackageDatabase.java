@@ -8,6 +8,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import edu.monash.student.happyactive.data.dao.ReportsDao.CompareAverageReportsDao;
+import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
+import edu.monash.student.happyactive.data.dao.ReportsDao.OverallActivityReportsDao;
+import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -22,6 +26,11 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     public abstract ActivitySessionDao activitySessionDao();
     public abstract ActivityJournalDao activityJournalDao();
     public abstract ActivityPhotoDao activityPhotoDao();
+    public abstract OverallActivityReportsDao overallActivityReportsDao();
+    public abstract CompareHistoryReportsDao compareHistoryReportsDao();
+    public abstract CompareAverageReportsDao compareAverageReportsDao();
+    public abstract PostActivityStatsDao postActivityStatsDao();
+    
     private static ActivityPackageDatabase INSTANCE;
 
     public static ActivityPackageDatabase getDatabase(final Context context) {
