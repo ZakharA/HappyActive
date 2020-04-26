@@ -4,9 +4,6 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.Date;
-import java.util.List;
-
 import edu.monash.student.happyactive.data.ReportsDatabase;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -24,7 +21,7 @@ public class PostActivityStatsRepository {
         return postActivityStatsDao.getDataForCurrentSession(currentId);
     }
 
-    public void setStatusCompletedPostActivity(Integer currentId) {
-        postActivityStatsDao.setStatusCompletedPostActivity(currentId);
+    public void setStatusCompletedPostActivity(ActivitySession activitySession) {
+        postActivityStatsDao.setStatusCompletedPostActivity(activitySession);
     }
 }
