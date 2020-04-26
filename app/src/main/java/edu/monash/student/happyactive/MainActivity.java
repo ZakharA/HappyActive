@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent = new Intent(this, StepCounterService.class);
         bindService(intent, connection, BIND_AUTO_CREATE);
-       // startService(intent);
+        startService(intent);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             alarmStartTime.add(Calendar.DATE, 1);
         }
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmStartTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
 
