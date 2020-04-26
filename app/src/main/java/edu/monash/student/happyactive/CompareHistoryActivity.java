@@ -62,16 +62,15 @@ public class CompareHistoryActivity extends AppCompatActivity {
         List<String> xAxisLabels = new ArrayList<String>();
 
         for (int i=0 ; i<activitySession.size(); i++){
-            entriesSteps.add(new BarEntry(activitySession.get(i).getStepCount(), i));
+            entriesSteps.add(new BarEntry(i, activitySession.get(i).getStepCount()));
             long diffInMillis = Math.abs(activitySession.get(i).getCompletedDateTime().getTime() - activitySession.get(i).getStartDateTime().getTime());
-            long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-            float seconds = diff / 1000;
+            float seconds = diffInMillis / 1000;
             float minutes = seconds / 60;
             float hours =  minutes / 60;
-            entriesTime.add(new BarEntry(hours, i));
+            entriesTime.add(new BarEntry(i, hours));
             xAxisLabels.add(Long.toString(activitySession.get(i).getActivityId()));
         }
-        setXAxisForCharts(xAxisLabels);
+        //setXAxisForCharts(xAxisLabels);
         generateChart(entriesSteps, "Step Count of each activity", chartSteps);
         generateChart(entriesTime, "Time Spent on each activity", chartTime);
     }
@@ -96,10 +95,10 @@ public class CompareHistoryActivity extends AppCompatActivity {
         BarDataSet dataSet = new BarDataSet(entries, label);
         BarData barData = new BarData();
         barData.addDataSet(dataSet);
-        barData.setBarWidth(0.9f);
+        barData.setBarWidth(0.8f);
         chart.setData(barData);
         chart.setFitBars(true);
-        chart.animateXY(2000, 2000);
+        chart.animateXY(3000, 3000);
         chart.invalidate();
     }
 
