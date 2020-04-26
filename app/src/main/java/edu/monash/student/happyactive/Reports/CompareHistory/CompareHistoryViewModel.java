@@ -34,12 +34,11 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         for (ActivitySession activity : dataForCompletedActivities) {
             totalSteps += activity.getStepCount();
             long diffInMillis = Math.abs(activity.getCompletedDateTime().getTime() - activity.getStartDateTime().getTime());
-            long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-            totalTime += diff;
+            totalTime += diffInMillis;
         }
         if (totalSteps > 0.0) {
             Double avgSteps = totalSteps/dataForCompletedActivities.size();
-            String avgTime = calculateAverageOfTime(totalTime);
+            String avgTime = calculateAverageOfTime(totalTime/dataForCompletedActivities.size());
             dataMap.put("AvgSteps", avgSteps.toString()+ " steps");
             dataMap.put("AvgTime", avgTime);
         }

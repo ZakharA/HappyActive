@@ -33,6 +33,7 @@ public abstract class ReportsDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ReportsDatabase.class, "happyActiveDB")
+                            .createFromAsset("database/happyActiveDB.db")
                             .fallbackToDestructiveMigration()
                             .build();
                 }
