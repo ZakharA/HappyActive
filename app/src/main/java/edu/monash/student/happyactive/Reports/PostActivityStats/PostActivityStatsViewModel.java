@@ -24,8 +24,8 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
         return postActivityStatsRepository.getDataForCurrentSession(currentId);
     }
 
-    public void setStatusCompletedPostActivity(Integer currentId) {
-        postActivityStatsRepository.setStatusCompletedPostActivity(currentId);
+    public void setStatusCompletedPostActivity(ActivitySession activitySession) {
+        postActivityStatsRepository.setStatusCompletedPostActivity(activitySession);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
