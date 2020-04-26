@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.Date;
 import java.util.List;
 
+import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ReportsDatabase;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -16,7 +17,7 @@ public class PostActivityStatsRepository {
     private PostActivityStatsDao postActivityStatsDao;
 
     public PostActivityStatsRepository(Application application) {
-        ReportsDatabase db = ReportsDatabase.getDatabase(application);
+        ActivityPackageDatabase db = ActivityPackageDatabase.getDatabase(application);
         postActivityStatsDao = db.postActivityStatsDao();
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.ReportsDatabase;
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareAverageReportsDao;
@@ -17,7 +18,7 @@ public class CompareAverageRepository {
     private LiveData<List<ActivitySession>> dataForCompletedActivity;
 
     public CompareAverageRepository(Application application) {
-        ReportsDatabase db = ReportsDatabase.getDatabase(application);
+        ActivityPackageDatabase db = ActivityPackageDatabase.getDatabase(application);
         compareAverageReportsDao = db.compareAverageReportsDao();
         dataForCompletedActivity = compareAverageReportsDao.getDataForCompletedActivity(ActivityPackageStatus.COMPLETED);
     }

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.Date;
 import java.util.List;
 
+import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.dao.ReportsDao.OverallActivityReportsDao;
 import edu.monash.student.happyactive.data.ReportsDatabase;
@@ -17,7 +18,7 @@ public class OverallActivityRepository {
     private OverallActivityReportsDao overallActivityReportsDao;
 
     public OverallActivityRepository(Application application) {
-        ReportsDatabase db = ReportsDatabase.getDatabase(application);
+        ActivityPackageDatabase db = ActivityPackageDatabase.getDatabase(application);
         overallActivityReportsDao = db.overallActivityReportsDao();
     }
 
