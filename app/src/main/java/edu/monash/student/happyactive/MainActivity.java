@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent = new Intent(this, StepCounterService.class);
         bindService(intent, connection, BIND_AUTO_CREATE);
-        startService(intent);
+       // startService(intent);
     }
 
     @Override

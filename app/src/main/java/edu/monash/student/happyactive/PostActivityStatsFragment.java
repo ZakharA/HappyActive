@@ -55,11 +55,10 @@ public class PostActivityStatsFragment extends Fragment {
                 if(activitySession != null) {
                     stepCountPostActivity.setText(Long.toString(activitySession.getStepCount()));
                     long diffInMillis = Math.abs(activitySession.getCompletedDateTime().getTime() - activitySession.getStartDateTime().getTime());
-                    long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-                    long seconds = diff / 1000;
-                    long minutes = seconds / 60;
-                    long hours =  minutes / 60;
-                    String displayTime = Long.toString(hours) + " hours " + Long.toString(minutes) + "minutes";
+                    long hours = TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+                    long minutes = TimeUnit.MINUTES.convert(diffInMillis, TimeUnit.MILLISECONDS);
+                    long seconds = TimeUnit.SECONDS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+                    String displayTime = Long.toString(hours) + " hours " + Long.toString (minutes) + " minutes " + Long.toString (seconds - (minutes * 60)) + " seconds";
                     timePostActivity.setText(displayTime);
                 }
                 else {

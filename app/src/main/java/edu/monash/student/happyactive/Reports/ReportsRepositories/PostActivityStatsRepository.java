@@ -4,11 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.Date;
-import java.util.List;
-
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
-import edu.monash.student.happyactive.data.ReportsDatabase;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 

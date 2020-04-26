@@ -9,7 +9,6 @@ import java.util.List;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
-import edu.monash.student.happyactive.data.ReportsDatabase;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class CompareHistoryRepository {
