@@ -7,6 +7,7 @@
         <item name="colorSecondaryVariant">#000000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColor</item>
         <item name="colorPrimaryVariant">#aee571</item>
         <item name="colorOnSecondary">#FFFFFF</item>
         <item name="colorError">#F44336</item>
