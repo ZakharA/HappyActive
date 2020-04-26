@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.ReportsActivity;
@@ -29,9 +30,9 @@ public class HomeReportFragment extends Fragment {
         compareHistoryImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ReportsActivity.this,
-//                        edu.monash.student.happyactive.CompareHistoryActivity.class);
-//                startActivity(intent);
+              Navigation.findNavController(view).navigate(
+                      HomeReportFragmentDirections.showHistory()
+              );
             }
         });
 

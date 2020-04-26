@@ -24,7 +24,7 @@
             android:label="PostActivityStatsActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".CompareHistoryActivity"
+        <activity android:name=".CompareHistoryFragment"
             android:label="CompareHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar">
 

@@ -1,10 +1,15 @@
 package edu.monash.student.happyactive;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -23,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import edu.monash.student.happyactive.Reports.CompareHistory.CompareHistoryViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
-public class CompareHistoryActivity extends AppCompatActivity {
+public class CompareHistoryFragment extends Fragment {
 
     protected CompareHistoryViewModel compareHistoryViewModel;
     private TextView avgSteps;
@@ -31,21 +36,24 @@ public class CompareHistoryActivity extends AppCompatActivity {
     private BarChart chartTime;
     private BarChart chartSteps;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_history_compare, container, false);
+        avgSteps = view.findViewById(R.id.avgStepsActivity);
+        avgTime = view.findViewById(R.id.avgTimeActivity);
+        chartSteps = view.findViewById(R.id.chartStepCompare);
+        chartTime = view.findViewById(R.id.chartTimeCompare);
+        return view;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_compare);
-
-        avgSteps = findViewById(R.id.avgStepsActivity);
-        avgTime = findViewById(R.id.avgTimeActivity);
-        chartSteps = findViewById(R.id.chartStepCompare);
-        chartTime = findViewById(R.id.chartTimeCompare);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         compareHistoryViewModel = new ViewModelProvider(this,
-                new CompareHistoryViewModel.Factory(this.getApplication())).get(CompareHistoryViewModel.class);
+                new CompareHistoryViewModel.Factory(getActivity().getApplication())).get(CompareHistoryViewModel.class);
 
-        compareHistoryViewModel.getDataForCompletedActivities().observe(this, new Observer<List<ActivitySession>>() {
+        compareHistoryViewModel.getDataForCompletedActivities().observe(getViewLifecycleOwner(), new Observer<List<ActivitySession>>() {
             @Override
             public void onChanged(List<ActivitySession> activitySession) {
                 calculateAvgStepsAndTime(activitySession);

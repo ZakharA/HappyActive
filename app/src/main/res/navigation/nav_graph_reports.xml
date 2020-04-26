@@ -9,5 +9,14 @@
         android:id="@+id/homeReportFragment"
         android:name="edu.monash.student.happyactive.HomeReportFragment"
         android:label="acitivity_report_main"
-        tools:layout="@layout/acitivity_report_main" />
+        tools:layout="@layout/acitivity_report_main" >
+        <action
+            android:id="@+id/showHistory"
+            app:destination="@id/compareHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/compareHistoryFragment"
+        android:name="edu.monash.student.happyactive.CompareHistoryFragment"
+        android:label="fragment_history_compare"
+        tools:layout="@layout/fragment_history_compare" />
 </navigation>
