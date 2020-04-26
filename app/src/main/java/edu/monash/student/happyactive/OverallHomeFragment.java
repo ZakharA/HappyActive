@@ -1,34 +1,42 @@
 package edu.monash.student.happyactive;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.Date;
 
-import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
 
-public class OverallHomeActivity extends AppCompatActivity {
+public class OverallHomeFragment extends Fragment {
 
 
     private TextView overallStepCount;
     private TextView overallTimeSpent;
     private TextView overallActivitiesCompleted;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_overall_home);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View homeView =  inflater.inflate(R.layout.fragment_overall_home, container, false);
 
-        overallStepCount = findViewById(R.id.overallStepCount);
-        overallTimeSpent = findViewById(R.id.overallTimeSpent);
-        overallActivitiesCompleted = findViewById(R.id.overallActivitiesCompleted);
+        overallStepCount = homeView.findViewById(R.id.overallStepCount);
+        overallTimeSpent = homeView.findViewById(R.id.overallTimeSpent);
+        overallActivitiesCompleted = homeView.findViewById(R.id.overallActivitiesCompleted);
 
+        return homeView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         OverallActivityViewModel overallActivityViewModel = new ViewModelProvider(this).get(OverallActivityViewModel.class);
 
         final Observer<Integer> overallStepCountObserver = new Observer<Integer>() {
@@ -73,8 +81,9 @@ public class OverallHomeActivity extends AppCompatActivity {
             }
         };
 
-        overallActivityViewModel.getTotalStepCount().observe(this, overallStepCountObserver);
-        overallActivityViewModel.getTotalTimeSpentOnActivities().observe(this, overallTimeSpentObserver);
-        overallActivityViewModel.getTotalActivitiesCompleted().observe(this, overallActivitiesDoneObserver);
+        overallActivityViewModel.getTotalStepCount().observe(getViewLifecycleOwner(), overallStepCountObserver);
+        overallActivityViewModel.getTotalTimeSpentOnActivities().observe(getViewLifecycleOwner(), overallTimeSpentObserver);
+        overallActivityViewModel.getTotalActivitiesCompleted().observe(getViewLifecycleOwner(), overallActivitiesDoneObserver);
+        super.onViewCreated(view, savedInstanceState);
     }
 }

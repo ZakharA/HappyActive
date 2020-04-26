@@ -27,8 +27,9 @@ public class ActivityPhotoLiveModel extends AndroidViewModel {
         sessionPhoto.setSessionId(sessionId);
     }
 
-    public void savePhoto(Uri photoUrl) throws ExecutionException, InterruptedException {
+    public void savePhoto(Uri photoUrl, Long sessionId) throws ExecutionException, InterruptedException {
         sessionPhoto.setPath(photoUrl.getLastPathSegment());
+        sessionPhoto.sessionId = sessionId;
         activityPhotoRepository.saveSessionPhoto(sessionPhoto);
     }
 

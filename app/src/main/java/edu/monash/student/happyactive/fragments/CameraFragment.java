@@ -1,12 +1,10 @@
 package edu.monash.student.happyactive.fragments;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,9 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,7 +32,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import edu.monash.student.happyactive.ActivityPackageListActivity;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityJournalViewModel;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPhotoLiveModel;
 import edu.monash.student.happyactive.R;
@@ -55,6 +51,7 @@ public class CameraFragment extends Fragment {
 
     private long sessionId;
     private TextInputLayout feelingsTextView;
+    private View view;
 
     public CameraFragment() { }
 
@@ -68,25 +65,25 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            sessionId = bundle.getLong(SESSION_ID, 0l);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_camera, container, false);
+        view = inflater.inflate(R.layout.fragment_camera, container, false);
+        sessionId = CameraFragmentArgs.fromBundle(getArguments()).getSessionId();
+
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
         feelingsTextView = view.findViewById(R.id.feelingTextField);
+
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
             }
         });
+
         return view;
     }
 
@@ -154,26 +151,32 @@ public class CameraFragment extends Fragment {
             }
 
             mPhotoImageView.setImageBitmap(bitmap);
-            try {
-                buttonTransition();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            changeCameraButton();
         }
     }
 
+    private void changeCameraButton() {
+        photoButton.setImageResource(R.drawable.ic_done_black_24dp);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    buttonTransition();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     public void buttonTransition() throws ExecutionException, InterruptedException {
-        mActivityPhotoLiveModel.savePhoto(photoURI);
+        mActivityPhotoLiveModel.savePhoto(photoURI, sessionId);
         String text = feelingsTextView.getEditText().getText().toString();
         if(!text.isEmpty()) {
-            mActivityJournalViewModel.addNewJournalEntry(text);
+            mActivityJournalViewModel.addNewJournalEntry(text, sessionId);
         }
-        CongratulationFragment nextFrag= new CongratulationFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.session_fragment_container, nextFrag, "CongratulationFragment")
-                .addToBackStack(null)
-                .commit();
+        Navigation.findNavController(view).navigate(
+                CameraFragmentDirections.showPostActivityStats().setSessionId(sessionId)
+        );
     }
 }

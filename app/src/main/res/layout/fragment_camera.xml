@@ -5,21 +5,24 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_constraintGuide_percent="0.5"
     tools:context=".fragments.CameraFragment">
 
     <ImageView
         android:id="@+id/session_photo"
         android:layout_width="match_parent"
-        android:layout_height="256dp"
+        android:layout_height="0dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
         android:src="@android:drawable/screen_background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memento_text"
-        app:layout_constraintVertical_bias="0.050000012" />
+        app:layout_constraintTop_toBottomOf="@+id/memento_text" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/camera_button"
@@ -33,8 +36,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/session_photo"
-        app:layout_constraintVertical_bias="1.0"
         app:tint="#ffff" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -50,8 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/camera_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/session_photo"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/memento_text"
         app:autoSizeMaxTextSize="100sp"
         app:autoSizeMinTextSize="16sp"
@@ -74,6 +74,13 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

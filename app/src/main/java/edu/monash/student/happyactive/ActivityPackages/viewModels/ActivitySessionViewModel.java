@@ -1,6 +1,7 @@
 package edu.monash.student.happyactive.ActivityPackages.viewModels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -65,7 +66,8 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return sessionManager.isCompleted();
     }
 
-    public void initSession() throws ExecutionException, InterruptedException {
+    public void initSession(long activityPackageId) throws ExecutionException, InterruptedException {
+        activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
         activitySession.id = activitySessionRepository.insertNewSession(activitySession);
     }
 
