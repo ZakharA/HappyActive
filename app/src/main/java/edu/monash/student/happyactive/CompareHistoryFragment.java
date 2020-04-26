@@ -75,12 +75,12 @@ public class CompareHistoryFragment extends Fragment {
             float seconds = diffInMillis / 1000;
             float minutes = seconds / 60;
             float hours =  minutes / 60;
-            entriesTime.add(new BarEntry(i, hours));
+            entriesTime.add(new BarEntry(i, minutes));
             xAxisLabels.add(Long.toString(activitySession.get(i).getActivityId()));
         }
         //setXAxisForCharts(xAxisLabels);
         generateChart(entriesSteps, "Step Count of each activity", chartSteps);
-        generateChart(entriesTime, "Time Spent on each activity", chartTime);
+        generateChart(entriesTime, "Time Spent (minutes) on each activity", chartTime);
     }
 
     private void setXAxisForCharts(List<String> xAxisLabels) {
