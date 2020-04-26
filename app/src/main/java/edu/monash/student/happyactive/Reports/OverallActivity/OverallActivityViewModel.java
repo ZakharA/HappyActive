@@ -23,7 +23,7 @@ public class OverallActivityViewModel extends AndroidViewModel {
         overallActivityRepository = new OverallActivityRepository(application);
     }
 
-    public LiveData<Date> getTotalTimeSpentOnActivities() {
+    public LiveData<List<ActivitySession>> getTotalTimeSpentOnActivities() {
         return overallActivityRepository.getDataForCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
     
