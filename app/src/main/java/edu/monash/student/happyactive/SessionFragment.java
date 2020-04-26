@@ -14,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,8 @@ public class SessionFragment extends Fragment {
                 } else {
                     doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                    Log.i("Init", "initSession: " + mSessionViewModel.getSessionId());
+
                     activity.cancelCheckUpNotification();
                     Navigation.findNavController(view).navigate(
                             SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())

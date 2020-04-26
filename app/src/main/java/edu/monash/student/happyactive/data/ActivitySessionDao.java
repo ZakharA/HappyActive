@@ -23,7 +23,6 @@ public abstract class ActivitySessionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void addNewJournalEntry(ActivityJournal journalEntry);
 
-
     @Insert
     public abstract long insertSession(ActivitySession activitySession);
 

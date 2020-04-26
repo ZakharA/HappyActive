@@ -24,8 +24,9 @@ public class ActivityJournalViewModel extends AndroidViewModel {
         journal = new ActivityJournal(sessionId, "");
     }
 
-    public void addNewJournalEntry(String journalEntry) throws ExecutionException, InterruptedException {
+    public void addNewJournalEntry(String journalEntry, Long sessionId) throws ExecutionException, InterruptedException {
         journal.setEntry(journalEntry);
+        journal.sessionId = sessionId;
         activityJournalRepository.insertNewEntry(journal);
     }
 

@@ -65,13 +65,13 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionId = CameraFragmentArgs.fromBundle(getArguments()).getSessionId();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_camera, container, false);
+        sessionId = CameraFragmentArgs.fromBundle(getArguments()).getSessionId();
 
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
@@ -170,10 +170,10 @@ public class CameraFragment extends Fragment {
     }
 
     public void buttonTransition() throws ExecutionException, InterruptedException {
-        mActivityPhotoLiveModel.savePhoto(photoURI);
+        mActivityPhotoLiveModel.savePhoto(photoURI, sessionId);
         String text = feelingsTextView.getEditText().getText().toString();
         if(!text.isEmpty()) {
-            mActivityJournalViewModel.addNewJournalEntry(text);
+            mActivityJournalViewModel.addNewJournalEntry(text, sessionId);
         }
         Navigation.findNavController(view).navigate(
                 CameraFragmentDirections.showPostActivityStats().setSessionId(sessionId)
