@@ -49,4 +49,7 @@
     <string name="welcome">WELCOME!</string>
     <string name="happy_active">HAPPY ACTIVE!!</string>
     <string name="main_report_title">Reports</string>
+    <string name="compares_history_data">Compares history data</string>
+    <string name="compares_average_data">Compares average data</string>
+
 </resources>
