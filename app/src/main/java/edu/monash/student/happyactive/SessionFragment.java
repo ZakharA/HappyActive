@@ -40,6 +40,7 @@ public class SessionFragment extends Fragment {
     private ProgressBar mProgressBar;
     private ImageView mImageView;
     private long activityId;
+    private TextView mTaskCompleteView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,9 +52,9 @@ public class SessionFragment extends Fragment {
         activityId = SessionFragmentArgs.fromBundle(getArguments()).getActivityId();
         mTaskTitle = view.findViewById(R.id.task_title);
         mImageView = view.findViewById(R.id.task_image);
+        mTaskCompleteView = view.findViewById(R.id.task_completed_label);
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
-
         Button doneButton = view.findViewById(R.id.done_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
         activity.setCheckUpNotification(activityId);
@@ -142,6 +143,7 @@ public class SessionFragment extends Fragment {
      * @param tasksList
      */
     private void setUpProgressBar(List<Task> tasksList) {
+        updateProgressTextView(tasksList.size());
         mProgressBar.setMax(tasksList.size());
     }
 
@@ -154,6 +156,10 @@ public class SessionFragment extends Fragment {
         mTaskDescription.setText(task.description);
         mImageView.setImageResource(getResources()
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
+    }
+
+    private void updateProgressTextView(int numberOfTasks){
+        mTaskCompleteView.setText("Total number of tasks: " + numberOfTasks );
     }
 
 }
