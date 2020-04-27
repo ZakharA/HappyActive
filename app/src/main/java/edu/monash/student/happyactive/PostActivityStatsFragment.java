@@ -1,11 +1,13 @@
 package edu.monash.student.happyactive;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +39,16 @@ public class PostActivityStatsFragment extends Fragment {
         timePostActivity = view.findViewById(R.id.timeSpentForActivity);
         finishActivityButton = view.findViewById(R.id.finishActivityButton);
         currentSessionId = (int) PostActivityStatsFragmentArgs.fromBundle(getArguments()).getSessionId();
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavHostFragment.findNavController(getParentFragment()).navigate(
+                        PostActivityStatsFragmentDirections.returnToHome()
+                );
+            }
+        });
+
         return view;
     }
 
