@@ -83,7 +83,6 @@ public class CameraFragment extends Fragment {
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
         feelingsTextView = view.findViewById(R.id.feelingTextField);
-
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

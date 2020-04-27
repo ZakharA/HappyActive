@@ -18,7 +18,7 @@
         android:id="@+id/homeReportFragment2"
         android:enabled="true"
         android:icon="@drawable/ic_history_black_24dp"
-        android:title="History"
+        android:title="Reports"
         />
 
 </menu>
