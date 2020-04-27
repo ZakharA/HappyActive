@@ -17,6 +17,12 @@ import java.util.List;
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * This activity generates the Home Page with total user statistics
+ * which helps them to track their progress. This activity
+ * generates data like total user steps across activities,
+ * total activities completed and total time spent on those activities.
+ */
 public class OverallHomeFragment extends Fragment {
 
 
@@ -51,6 +57,7 @@ public class OverallHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         OverallActivityViewModel overallActivityViewModel = new ViewModelProvider(this).get(OverallActivityViewModel.class);
 
+        // Observer to track the live change in data for total step counts on activities.
         final Observer<Integer> overallStepCountObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer totalSteps) {
@@ -65,6 +72,7 @@ public class OverallHomeFragment extends Fragment {
             }
         };
 
+        // Observer to track the live change in data for time spent on activities.
         final Observer<List<ActivitySession>> overallTimeSpentObserver = new Observer<List<ActivitySession>>() {
             @Override
             public void onChanged(@Nullable final List<ActivitySession> activitySessions) {
@@ -87,6 +95,7 @@ public class OverallHomeFragment extends Fragment {
             }
         };
 
+        // Observer to track the live change in data for total activities done.
         final Observer<Integer> overallActivitiesDoneObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer totalActivities) {

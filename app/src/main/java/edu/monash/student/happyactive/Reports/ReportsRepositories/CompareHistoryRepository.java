@@ -11,6 +11,9 @@ import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * Repository class for Compare History Screen.
+ */
 public class CompareHistoryRepository {
 
     private CompareHistoryReportsDao compareHistoryReportsDao;
@@ -22,6 +25,10 @@ public class CompareHistoryRepository {
         dataForCompletedActivity = compareHistoryReportsDao.getDataForCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
 
+    /**
+     * Method for fetching activity sessions which are completed.
+     * @return
+     */
     public LiveData<List<ActivitySession>> getDataForCompletedActivity() {
         return dataForCompletedActivity;
     }

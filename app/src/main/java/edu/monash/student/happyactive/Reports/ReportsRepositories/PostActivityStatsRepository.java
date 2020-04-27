@@ -10,6 +10,9 @@ import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * Repository class for Post Activity Statistics Screen.
+ */
 public class PostActivityStatsRepository {
 
     private PostActivityStatsDao postActivityStatsDao;
@@ -19,10 +22,19 @@ public class PostActivityStatsRepository {
         postActivityStatsDao = db.postActivityStatsDao();
     }
 
+    /**
+     * Method for fetching current activity.
+     * @param currentId
+     * @return
+     */
     public LiveData<ActivitySession> getDataForCurrentSession(Integer currentId) {
         return postActivityStatsDao.getDataForCurrentSession(currentId);
     }
 
+    /**
+     * Method for updating the activity session status to completed.
+     * @param activitySession
+     */
     public void setStatusCompletedPostActivity(ActivitySession activitySession) {
         new PostActivityStatsRepository.setAsyncTask(postActivityStatsDao).execute(activitySession);
     }
