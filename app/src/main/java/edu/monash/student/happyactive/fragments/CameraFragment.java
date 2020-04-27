@@ -7,12 +7,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -83,6 +85,15 @@ public class CameraFragment extends Fragment {
         mPhotoImageView = view.findViewById(R.id.session_photo);
         photoButton = view.findViewById(R.id.camera_button);
         feelingsTextView = view.findViewById(R.id.feelingTextField);
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavHostFragment.findNavController(getParentFragment()).navigate(
+                        CameraFragmentDirections.backHome()
+                );
+            }
+        });
 
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
