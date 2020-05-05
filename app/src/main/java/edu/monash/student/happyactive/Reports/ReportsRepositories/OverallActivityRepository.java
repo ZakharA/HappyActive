@@ -50,4 +50,8 @@ public class OverallActivityRepository {
     public LiveData<Integer> getTotalCompletedActivity(ActivityPackageStatus status) {
         return overallActivityReportsDao.getTotalCompletedActivity(status);
     }
+
+    public LiveData<Integer> getCurrentScore() {
+        return overallActivityReportsDao.getCurrentScore();
+    }
 }

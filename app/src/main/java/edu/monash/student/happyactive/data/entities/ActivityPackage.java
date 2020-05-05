@@ -11,12 +11,12 @@ public class ActivityPackage {
     public String title;
     public String description;
     public String imagePath;
+    public long activityLevel;
 
     public ActivityPackage(String title, String description) {
         this.title = title;
         this.description = description;
     }
-
 
     public String getImagePath() {
         return imagePath;
@@ -26,4 +26,11 @@ public class ActivityPackage {
         this.imagePath = imagePath;
     }
 
+    public long getActivityLevel() {
+        return activityLevel;
+    }
+
+    public void setActivityLevel(long activityLevel) {
+        this.activityLevel = activityLevel;
+    }
 }

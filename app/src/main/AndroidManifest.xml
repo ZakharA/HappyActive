@@ -19,21 +19,11 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".CompareAverageFragment" />
-        <activity android:name=".PostActivityStatsFragment"
-            android:label="PostActivityStatsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".CompareHistoryFragment"
-            android:label="CompareHistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".OverallHomeFragment"
-            android:label="OverallHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".ActivityPackageListFragment"
-            android:label="@string/title_activitypackage_list" />
+        <activity android:name=".PostActivityStatsFragment"/>
+        <activity android:name=".CompareHistoryFragment"/>
+        <activity android:name=".PreferencesFragment"/>
+        <activity android:name=".OverallHomeFragment"/>
+        <activity android:name=".ActivityPackageListFragment"/>
         <activity android:name=".SessionFragment" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -42,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <service android:name=".ActivityPackages.StepCounterService" />
         <service android:name=".ActivityPackages.notifications.ReminderService" />

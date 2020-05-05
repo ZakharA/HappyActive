@@ -52,4 +52,8 @@ public class OverallActivityViewModel extends AndroidViewModel {
     public LiveData<Integer> getTotalActivitiesCompleted() {
         return overallActivityRepository.getTotalCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
+
+    public LiveData<Integer> getCurrentScore() {
+        return overallActivityRepository.getCurrentScore();
+    }
 }

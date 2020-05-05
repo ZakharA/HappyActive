@@ -39,4 +39,7 @@ public abstract class OverallActivityReportsDao {
      */
     @Query("Select COUNT(*) from ActivitySession where status == :status")
     public abstract LiveData<Integer> getTotalCompletedActivity(ActivityPackageStatus status);
+
+    @Query("Select currentScore from UserScore where id = 1")
+    public abstract LiveData<Integer> getCurrentScore();
 }

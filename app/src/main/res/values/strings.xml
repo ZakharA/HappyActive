@@ -51,5 +51,24 @@
     <string name="main_report_title">Reports</string>
     <string name="compares_history_data">Compares history data</string>
     <string name="compares_average_data">Compares average data</string>
+    <string name="do_you_have_a_dog">Do you have a dog?</string>
+    <string name="do_you_have_a_backyard_garden">Do you have a backyard/garden?</string>
+    <string name="more_than_2_times_a_week">More than 2 times a week</string>
+    <string name="_1_2_times_a_week">1-2 times a week</string>
+    <string name="less_than_once_a_week">Less than once a week</string>
+    <string name="your_grandparents_hobbies">Your/Grandparents Hobbies?</string>
+    <string name="how_often_do_you_grandparents_exercise">How often do you grandparents exercise?</string>
+    <string name="how_often_do_you_see_your_grandparents">How often do you see your grandparents?</string>
+    <string name="please_answer_the_following_questions_so_that_we_can_generate_recommendations_that_match_your_preferences">Please answer the following questions so that we can generate recommendations that match your preferences!!</string>
+    <string name="others">Others?</string>
+    <string name="walking">Walking</string>
+    <string name="gardening">Gardening</string>
+    <string name="cooking">Cooking</string>
+    <string name="write_any_other_hobbies">Write any other hobbies.</string>
+    <string name="preferences">Preferences</string>
+    <string name="fill_out_pref_dialog">Would you like to fill out preferences so that we can better recommend activities for you?</string>
+    <string name="pref_dialog_title">Add Preferences</string>
+    <string name="pref_dialog_negative">No. I\'ll set them later!</string>
+    <string name="pref_dialog_set_later">You can always set your preferences in the Activities tab</string>
 
 </resources>
