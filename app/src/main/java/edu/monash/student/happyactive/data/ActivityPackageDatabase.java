@@ -18,8 +18,8 @@ import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 import edu.monash.student.happyactive.data.entities.Task;
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class}, exportSchema = true, version = 1)
-@TypeConverters({DateConverters.class, StatusConverters.class})
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class}, exportSchema = true, version = 2)
+@TypeConverters({DateConverters.class, StatusConverters.class, PromptConverters.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
     public abstract ActivityPackageDao activityPackageDao();
