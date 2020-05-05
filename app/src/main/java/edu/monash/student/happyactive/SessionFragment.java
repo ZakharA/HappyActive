@@ -160,7 +160,7 @@ public class SessionFragment extends Fragment {
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
         if(task.promptType != PromptType.NONE) {
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(), "prompt")
+                    .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId), "prompt")
                     .commit();
         } else {
             if(getChildFragmentManager().findFragmentByTag("prompt") != null) {

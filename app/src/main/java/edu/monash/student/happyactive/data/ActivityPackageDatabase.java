@@ -15,10 +15,11 @@ import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 import edu.monash.student.happyactive.data.entities.Task;
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class}, exportSchema = true, version = 2)
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, InteractivePrompt.class}, exportSchema = true, version = 3)
 @TypeConverters({DateConverters.class, StatusConverters.class, PromptConverters.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
