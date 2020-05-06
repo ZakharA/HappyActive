@@ -20,6 +20,11 @@ import edu.monash.student.happyactive.Reports.PostActivityStats.PostActivityStat
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * This activity generates the post activity statistics like step count, time spent
+ * on activity. This generates a user data report card based on the activity which
+ * helps them track their process and provides granularity.
+ */
 public class PostActivityStatsFragment extends Fragment {
 
     TextView stepCountPostActivity;
@@ -60,6 +65,7 @@ public class PostActivityStatsFragment extends Fragment {
         postActivityStatsViewModel = new ViewModelProvider(this,
                 new PostActivityStatsViewModel.Factory(getActivity().getApplication())).get(PostActivityStatsViewModel.class);
 
+        // Observer to track the changes in the current session and procure the step count and activity time from the db.
         postActivityStatsViewModel.getDataForCurrentSession(currentSessionId).observe(getViewLifecycleOwner(), new Observer<ActivitySession>() {
             @Override
             public void onChanged(ActivitySession activitySession) {
@@ -79,6 +85,7 @@ public class PostActivityStatsFragment extends Fragment {
             }
         });
 
+        // Finish activity button which updates the session with completed and redirects to the home page.
         finishActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

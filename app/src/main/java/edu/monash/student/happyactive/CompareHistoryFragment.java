@@ -28,6 +28,11 @@ import java.util.concurrent.TimeUnit;
 import edu.monash.student.happyactive.Reports.CompareHistory.CompareHistoryViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * An activity representing the comparison of the user data across time.
+ * The activity processes the historical user data from the activities
+ * and processes them to show insightful charts and data.
+ */
 public class CompareHistoryFragment extends Fragment {
 
     protected CompareHistoryViewModel compareHistoryViewModel;
@@ -64,6 +69,10 @@ public class CompareHistoryFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to generate history charts for the user.
+     * @param activitySession
+     */
     private void generateHistoryCharts(List<ActivitySession> activitySession) {
         List<BarEntry> entriesSteps = new ArrayList<BarEntry>();
         List<BarEntry> entriesTime = new ArrayList<BarEntry>();
@@ -83,6 +92,10 @@ public class CompareHistoryFragment extends Fragment {
         generateChart(entriesTime, "Time Spent (minutes) on each activity", chartTime);
     }
 
+    /**
+     * Method to set X-axis for charts
+     * @param xAxisLabels
+     */
     private void setXAxisForCharts(List<String> xAxisLabels) {
         XAxis xAxisSteps = chartSteps.getXAxis();
         XAxis xAxisTime = chartTime.getXAxis();
@@ -90,6 +103,11 @@ public class CompareHistoryFragment extends Fragment {
         setValueFormatterForXAxis(xAxisLabels, xAxisTime);
     }
 
+    /**
+     * Method to set value formatter to the xaxis labels.
+     * @param xAxisLabels
+     * @param xAxisTime
+     */
     private void setValueFormatterForXAxis(List<String> xAxisLabels, XAxis xAxisTime) {
         xAxisTime.setValueFormatter(new ValueFormatter() {
             @Override
@@ -99,6 +117,12 @@ public class CompareHistoryFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to generate bar charts based on parameter dataset.
+     * @param entries
+     * @param label
+     * @param chart
+     */
     private void generateChart(List<BarEntry> entries, String label, BarChart chart) {
         BarDataSet dataSet = new BarDataSet(entries, label);
         BarData barData = new BarData();
@@ -110,6 +134,11 @@ public class CompareHistoryFragment extends Fragment {
         chart.invalidate();
     }
 
+    /**
+     * Method to calculate average step count and time for user based on their
+     * history across the activities.
+     * @param activitySession
+     */
     private void calculateAvgStepsAndTime(List<ActivitySession> activitySession) {
         Map<String,String> dataMap = compareHistoryViewModel.calculateAvgStepCountAndTime(activitySession);
         if (!dataMap.isEmpty()) {

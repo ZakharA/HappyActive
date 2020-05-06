@@ -14,6 +14,9 @@ import edu.monash.student.happyactive.Reports.ReportsRepositories.OverallActivit
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * View Model class for Overall Activity Home Screen.
+ */
 public class OverallActivityViewModel extends AndroidViewModel {
 
     private OverallActivityRepository overallActivityRepository;
@@ -23,15 +26,34 @@ public class OverallActivityViewModel extends AndroidViewModel {
         overallActivityRepository = new OverallActivityRepository(application);
     }
 
+    /**
+     * Method for fetching activity sessions which are completed.
+     * @param
+     * @return
+     */
     public LiveData<List<ActivitySession>> getTotalTimeSpentOnActivities() {
         return overallActivityRepository.getDataForCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
-    
+
+    /**
+     * Method for fetching sum of step counts of completed activity sessions for Home Screen.
+     * @param
+     * @return
+     */
     public LiveData<Integer> getTotalStepCount() {
         return overallActivityRepository.getTotalStepCountForCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
 
+    /**
+     * Method for fetching sum of completed activity sessions for Home Screen.
+     * @param
+     * @return
+     */
     public LiveData<Integer> getTotalActivitiesCompleted() {
         return overallActivityRepository.getTotalCompletedActivity(ActivityPackageStatus.COMPLETED);
+    }
+
+    public LiveData<Integer> getCurrentScore() {
+        return overallActivityRepository.getCurrentScore();
     }
 }

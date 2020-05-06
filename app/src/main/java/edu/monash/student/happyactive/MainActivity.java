@@ -8,8 +8,11 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -21,7 +24,7 @@ import edu.monash.student.happyactive.ActivityPackages.StepCounterService;
 import edu.monash.student.happyactive.ActivityPackages.notifications.CheckUpReceiver;
 import edu.monash.student.happyactive.ActivityPackages.notifications.ReminderReceiver;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ShowPrefFormDialogFragment.ShowPrefFormDialogListener {
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -147,5 +150,17 @@ public class MainActivity extends AppCompatActivity {
      */
     public int getNumberOfSteps(){
         return mService.getNumSteps();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Navigation.findNavController(findViewById(R.id.constraintLayoutHome)).navigate(
+                OverallHomeFragmentDirections.showPreferencesFragment()
+        );
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Toast.makeText(getApplicationContext(), R.string.pref_dialog_set_later, Toast.LENGTH_LONG).show();
     }
 }

@@ -9,7 +9,11 @@
         android:id="@+id/overallHomeFragment"
         android:name="edu.monash.student.happyactive.OverallHomeFragment"
         android:label="fragment_overall_home"
-        tools:layout="@layout/fragment_overall_home" />
+        tools:layout="@layout/fragment_overall_home" >
+        <action
+            android:id="@+id/showPreferencesFragment"
+            app:destination="@+id/preferencesFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/activityPackageListFragment"
         android:name="edu.monash.student.happyactive.ActivityPackageListFragment"
@@ -99,6 +103,16 @@
         android:name="edu.monash.student.happyactive.CompareHistoryFragment"
         android:label="fragment_history_compare"
         tools:layout="@layout/fragment_history_compare" />
+
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="edu.monash.student.happyactive.PreferencesFragment"
+        android:label="fragment_preferences"
+        tools:layout="@layout/fragment_preferences">
+        <action
+            android:id="@+id/goBackToHomeFromPreferences"
+            app:destination="@id/overallHomeFragment" />
+    </fragment>
 
 
 </navigation>

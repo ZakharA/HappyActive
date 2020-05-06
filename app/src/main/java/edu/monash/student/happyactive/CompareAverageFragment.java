@@ -35,6 +35,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+/**
+ * An activity representing a the comparison of the user data with the average
+ * population data. This activity processes the user historical data and
+ * compares it with the step count and wear time of a global australian
+ * population to generate useful insights. It also charts the current trend
+ * of arthritis patients growth.
+ */
 public class CompareAverageFragment extends Fragment {
 
     protected CompareAverageViewModel compareAverageViewModel;
@@ -48,6 +55,7 @@ public class CompareAverageFragment extends Fragment {
     BarChart stepsComparePopBarChart;
     BarChart wearComparePopBarChart;
     LineChart lineChart;
+    // Data file for age gender resources
     private static final String STEPS_AGE_GENDER = "statisticsFiles/steps_by_age_gender_20170508.csv";
     private static final String WEAR_TIME_AUS = "13";
     private Long STEP_COUNT_AUS = 3058l;
@@ -89,6 +97,9 @@ public class CompareAverageFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to generate the line graph for arthritis population trend across the years.
+     */
     private void generateLineChart() {
         ArrayList<Entry> lineEntries = new ArrayList<Entry>();
         lineEntries.add(new Entry(2001,613.8f));
@@ -120,6 +131,10 @@ public class CompareAverageFragment extends Fragment {
         lineChart.invalidate();
     }
 
+    /**
+     * Method to calculate the difference between the users steps/time against the population.
+     * @param activitySession
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void calculateAvgStepsAndTime(List<ActivitySession> activitySession) {
         Map<String,Long> dataMap = compareAverageViewModel.calculateAvgStepCountAndTime(activitySession);
@@ -139,6 +154,10 @@ public class CompareAverageFragment extends Fragment {
         }
     }
 
+    /**
+     * Method to make the bar chart for step count and wear time for user vs average population data.
+     * @param dataMap
+     */
     private void makeBarChart(Map<String, Long> dataMap) {
         List<BarEntry> entriesStep = new ArrayList<BarEntry>();
         List<BarEntry> entriesTime = new ArrayList<BarEntry>();
@@ -167,6 +186,10 @@ public class CompareAverageFragment extends Fragment {
         wearComparePopBarChart.invalidate();
     }
 
+    /**
+     * Method to calculate wear time for user against the population average.
+     * @param dataMap
+     */
     private void processWearTimeAus(Map<String, Long> dataMap) {
         avgWearTimeAus.setText(WEAR_TIME_AUS + " hours");
         Long diffWearTime = dataMap.get("AvgTime") - Long.parseLong(WEAR_TIME_AUS);
@@ -184,6 +207,10 @@ public class CompareAverageFragment extends Fragment {
         }
     }
 
+    /**
+     * Method to calculate step count for user against the population average.
+     * @param dataMap
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void processAvgStepsAus(Map<String, Long> dataMap) {
         Long globalAvgSteps;

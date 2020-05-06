@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preferencesLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PreferencesFragment" >
+
+    <TextView
+        android:id="@+id/prefLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/preferences"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingStart="20dp" />
+
+    <ScrollView
+        android:id="@+id/preferencesScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingTop="40dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/prefFormDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="@string/please_answer_the_following_questions_so_that_we_can_generate_recommendations_that_match_your_preferences" />
+
+            <TextView
+                android:id="@+id/hobbyLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/your_grandparents_hobbies" />
+
+            <CheckBox
+                android:id="@+id/cookingCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cooking" />
+
+            <CheckBox
+                android:id="@+id/gardeningCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gardening" />
+
+            <CheckBox
+                android:id="@+id/walkingCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/walking" />
+
+            <EditText
+                android:id="@+id/otherEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/write_any_other_hobbies"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/others"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:id="@+id/exerciseFreqLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/how_often_do_you_grandparents_exercise" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupExercise"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp" >
+
+                <RadioButton
+                    android:id="@+id/lessThanOnceRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/less_than_once_a_week" />
+
+                <RadioButton
+                    android:id="@+id/oneTwoTimesRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_1_2_times_a_week" />
+
+                <RadioButton
+                    android:id="@+id/moreTwoTimesRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_than_2_times_a_week" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/grandparentFreqLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/how_often_do_you_see_your_grandparents" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupGrandparentFreq"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <RadioButton
+                    android:id="@+id/lessThanOnceGrandFreqRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/less_than_once_a_week" />
+
+                <RadioButton
+                    android:id="@+id/oneTwoTimesGrandFreqRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_1_2_times_a_week" />
+
+                <RadioButton
+                    android:id="@+id/moreTwoTimesGrandFreqRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/more_than_2_times_a_week" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/backyardLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_have_a_backyard_garden" />
+
+            <RadioGroup
+                android:id="@+id/backyardRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <RadioButton
+                    android:id="@+id/yesBackyardRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/noBackyardRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/dogLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/do_you_have_a_dog" />
+
+            <RadioGroup
+                android:id="@+id/dogRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <RadioButton
+                    android:id="@+id/yesDogRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes" />
+
+                <RadioButton
+                    android:id="@+id/noRadioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/submitPrefFormButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

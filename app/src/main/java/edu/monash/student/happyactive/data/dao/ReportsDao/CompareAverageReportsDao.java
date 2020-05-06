@@ -9,9 +9,17 @@ import java.util.List;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * DAO class for Compare Average reports screen.
+ */
 @Dao
 public abstract class CompareAverageReportsDao {
 
+    /**
+     * Method for fetching activity sessions which are completed.
+     * @param status
+     * @return
+     */
     @Query("Select * from ActivitySession where status == :status")
     public abstract LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status);
 }

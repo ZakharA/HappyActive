@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.monash.student.happyactive.Reports.ReportsRepositories.PostActivityStatsRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * View Model class for Post Activity Stats Screen.
+ */
 public class PostActivityStatsViewModel extends AndroidViewModel {
 
     private PostActivityStatsRepository postActivityStatsRepository;
@@ -20,10 +23,19 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
         postActivityStatsRepository = new PostActivityStatsRepository(application);
     }
 
+    /**
+     * Method for fetching current activity.
+     * @param currentId
+     * @return
+     */
     public LiveData<ActivitySession> getDataForCurrentSession(Integer currentId) {
         return postActivityStatsRepository.getDataForCurrentSession(currentId);
     }
 
+    /**
+     * Method for updating the activity session status to completed.
+     * @param activitySession
+     */
     public void setStatusCompletedPostActivity(ActivitySession activitySession) {
         postActivityStatsRepository.setStatusCompletedPostActivity(activitySession);
     }

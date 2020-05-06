@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 import edu.monash.student.happyactive.Reports.ReportsRepositories.CompareHistoryRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+/**
+ * View Model class for Compare History Stats Screen.
+ */
 public class CompareHistoryViewModel extends AndroidViewModel {
 
     private CompareHistoryRepository compareHistoryRepository;
@@ -27,6 +30,11 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         dataForCompletedActivities = compareHistoryRepository.getDataForCompletedActivity();
     }
 
+    /**
+     * Method to calculate the average step count and times spent across all activities.
+     * @param dataForCompletedActivities
+     * @return
+     */
     public Map<String, String> calculateAvgStepCountAndTime(List<ActivitySession> dataForCompletedActivities) {
         Double totalSteps = 0.0;
         long totalTime = 0;
@@ -38,14 +46,19 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         }
         if (totalSteps > 0.0) {
             Double avgSteps = totalSteps/dataForCompletedActivities.size();
-            String avgTime = calculateAverageOfTime(totalTime/dataForCompletedActivities.size());
+            String avgTime = convertMSTimeToHours(totalTime/dataForCompletedActivities.size());
             dataMap.put("AvgSteps", avgSteps.longValue() + " steps");
             dataMap.put("AvgTime", avgTime);
         }
         return dataMap;
     }
 
-    public static String calculateAverageOfTime(Long totalTimeMs) {
+    /**
+     * Method to convert ms time to hours, minutes and seconds.
+     * @param totalTimeMs
+     * @return
+     */
+    public static String convertMSTimeToHours(Long totalTimeMs) {
         long seconds = totalTimeMs / 1000;
         long minutes = seconds / 60;
         long hours =  minutes / 60;
@@ -56,6 +69,10 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         return avgTime;
     }
 
+    /**
+     * Method for fetching activity sessions which are completed.
+     * @return
+     */
     public LiveData<List<ActivitySession>> getDataForCompletedActivities() {
         return dataForCompletedActivities;
     }
