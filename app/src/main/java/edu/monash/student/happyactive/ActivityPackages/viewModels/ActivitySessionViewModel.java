@@ -39,6 +39,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySessionRepository = new ActivitySessionRepository(application);
         activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
         activitySession.setStepCount(0);
+        interactivePrompts = new ArrayList<>();
         sessionManager = new PackageSessionManager(activityPackageId );
     }
 
