@@ -13,6 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
         android:layout_marginBottom="16dp"
+        android:paddingBottom="8dp"
         android:src="@drawable/ic_photo_camera_black_24dp"
         app:backgroundTint="@color/secondaryColor"
         app:fabSize="normal"
