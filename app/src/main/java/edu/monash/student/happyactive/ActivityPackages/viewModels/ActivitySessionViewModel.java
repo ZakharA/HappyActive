@@ -6,9 +6,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -18,13 +20,17 @@ import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPack
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
 import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
+import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;
     private ActivityPackageRepository activityPackageRepository;
     private ActivitySession activitySession;
+    private List<InteractivePrompt> interactivePrompts;
+
     PackageSessionManager sessionManager;
 
     public ActivitySessionViewModel(@NonNull Application application, long activityPackageId) {
@@ -33,6 +39,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySessionRepository = new ActivitySessionRepository(application);
         activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
         activitySession.setStepCount(0);
+        interactivePrompts = new ArrayList<>();
         sessionManager = new PackageSessionManager(activityPackageId );
     }
 
@@ -41,6 +48,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.completedDateTime = new Date();
         activitySession.currentTaskId = sessionManager.getLastTaskId();
         activitySessionRepository.updateSession(activitySession);
+        activitySessionRepository.savePromptResults(interactivePrompts);
     }
 
     public LiveData<ActivityPackageWithTasks> getTasksOf(long packageId){
@@ -84,6 +92,13 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public long getSessionId() {
         return activitySession.id;
+    }
+
+    public List<InteractivePrompt> getSessionWithPrompts() {
+        if (interactivePrompts == null) {
+            interactivePrompts = new ArrayList<>();
+        }
+        return interactivePrompts;
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

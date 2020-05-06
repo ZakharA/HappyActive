@@ -27,7 +27,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
+import edu.monash.student.happyactive.ActivityPackages.PromptFragment;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
+import edu.monash.student.happyactive.data.PromptType;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.fragments.CameraFragment;
 
@@ -156,6 +158,17 @@ public class SessionFragment extends Fragment {
         mTaskDescription.setText(task.description);
         mImageView.setImageResource(getResources()
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
+        if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") != null)) {
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
+                    .commit();
+        } else {
+            if(getChildFragmentManager().findFragmentByTag("prompt") != null) {
+                getChildFragmentManager().beginTransaction()
+                        .remove(getChildFragmentManager().findFragmentByTag("prompt"))
+                        .commit();
+            }
+        }
     }
 
     private void updateProgressTextView(int numberOfTasks){

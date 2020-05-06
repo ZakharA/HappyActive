@@ -51,6 +51,7 @@
     <string name="main_report_title">Reports</string>
     <string name="compares_history_data">Compares history data</string>
     <string name="compares_average_data">Compares average data</string>
+    <string name="label"></string>
     <string name="do_you_have_a_dog">Do you have a dog?</string>
     <string name="do_you_have_a_backyard_garden">Do you have a backyard/garden?</string>
     <string name="more_than_2_times_a_week">More than 2 times a week</string>
@@ -70,5 +71,6 @@
     <string name="pref_dialog_title">Add Preferences</string>
     <string name="pref_dialog_negative">No. I\'ll set them later!</string>
     <string name="pref_dialog_set_later">You can always set your preferences in the Activities tab</string>
+
 
 </resources>

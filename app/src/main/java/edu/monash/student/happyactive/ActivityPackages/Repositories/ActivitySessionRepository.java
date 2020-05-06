@@ -10,8 +10,8 @@ import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.ActivitySessionDao;
-import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 
 public class ActivitySessionRepository {
     private ActivitySessionDao activitySessionDao;
@@ -41,6 +41,10 @@ public class ActivitySessionRepository {
         return activitySessionDao.findSessionByActivityId(activityId, id);
     }
 
+    public void savePromptResults(List<InteractivePrompt> interactivePrompts) {
+        new savePromptsAsyncTask(activitySessionDao).execute(interactivePrompts);
+    }
+
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {
         private ActivitySessionDao mSessionDao;
 
@@ -54,6 +58,20 @@ public class ActivitySessionRepository {
              return null;
         }
 
+    }
+
+    private static class savePromptsAsyncTask extends AsyncTask<List<InteractivePrompt>, Void, Void> {
+        private ActivitySessionDao mSessionDao;
+
+        public savePromptsAsyncTask(ActivitySessionDao mSessionDao) {
+            this.mSessionDao = mSessionDao;
+        }
+
+        @Override
+        protected Void doInBackground(List<InteractivePrompt>... lists) {
+            mSessionDao.insertPrompts(lists[0]);
+            return null;
+        }
     }
 
     private static class insertAsyncTask extends AsyncTask<ActivitySession, Void, Long> {
