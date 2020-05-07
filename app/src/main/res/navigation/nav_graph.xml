@@ -113,6 +113,11 @@
             android:id="@+id/goBackToHomeFromPreferences"
             app:destination="@id/overallHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/memoryReelFragment2"
+        android:name="edu.monash.student.happyactive.memoryReel.MemoryReelFragment"
+        android:label="fragment_memory_reel"
+        tools:layout="@layout/fragment_memory_reel" />
 
 
 </navigation>
