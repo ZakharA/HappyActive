@@ -193,7 +193,7 @@ public class CompareAverageFragment extends Fragment {
     private void processWearTimeAus(Map<String, Long> dataMap) {
         avgWearTimeAus.setText(WEAR_TIME_AUS + " hours");
         Long diffWearTime = dataMap.get("AvgTime") - Long.parseLong(WEAR_TIME_AUS);
-        wearTimeDiff.setText(diffWearTime.toString() + "hours");
+        wearTimeDiff.setText(Math.abs(diffWearTime) + "hours");
         if (diffWearTime < 0) {
             wearTimeDiff.setTextColor(Color.parseColor("#FF0000"));
             wearTimeDiffLabel.setText("behind the Australian Average Steps!");
