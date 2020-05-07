@@ -43,6 +43,12 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         sessionManager = new PackageSessionManager(activityPackageId );
     }
 
+    public ActivitySessionViewModel(@NonNull Application application) {
+        super(application);
+        activityPackageRepository = new ActivityPackageRepository(application);
+        activitySessionRepository = new ActivitySessionRepository(application);
+    }
+
     public void saveSessionAfterActivityIsCompleted(){
         activitySession.status = ActivityPackageStatus.COMPLETED;
         activitySession.completedDateTime = new Date();
@@ -101,6 +107,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return interactivePrompts;
     }
 
+    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status) {
+        return activitySessionRepository.getAllCompletedSessions(status);
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;
@@ -109,6 +119,11 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         public Factory(@NonNull Application application, long activityPackage){
             this.application = application;
             this.activityPackage = activityPackage;
+        }
+
+        public Factory(@NonNull Application application){
+            this.application = application;
+            this.activityPackage = 0l;
         }
 
         @SuppressWarnings("unchecked")

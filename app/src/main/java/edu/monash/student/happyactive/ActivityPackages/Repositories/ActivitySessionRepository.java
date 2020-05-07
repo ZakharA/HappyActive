@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
@@ -43,6 +44,10 @@ public class ActivitySessionRepository {
 
     public void savePromptResults(List<InteractivePrompt> interactivePrompts) {
         new savePromptsAsyncTask(activitySessionDao).execute(interactivePrompts);
+    }
+
+    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status) {
+        return activitySessionDao.getAllCompletedSessions(status);
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {

@@ -44,4 +44,7 @@ public abstract class ActivitySessionDao {
 
     @Insert
     public abstract void insertPrompts(List<InteractivePrompt> list);
+
+    @Query("SELECT * FROM activitysession WHERE status = :status")
+    public abstract LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status);
 }
