@@ -107,7 +107,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return interactivePrompts;
     }
 
-    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status) {
+    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status){
         return activitySessionRepository.getAllCompletedSessions(status);
     }
 

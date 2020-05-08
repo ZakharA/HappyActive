@@ -39,12 +39,12 @@ public abstract class ActivitySessionDao {
         session.status = ActivityPackageStatus.CANCELED;
         updateSession(session);
     }
-    @Query("SELECT * FROM activitysession WHERE activityId = :activityId AND id = :id")
+    @Query("SELECT * FROM activitySession WHERE activityId = :activityId AND id = :id")
     public abstract ActivitySession findSessionByActivityId(long activityId, long id);
 
     @Insert
     public abstract void insertPrompts(List<InteractivePrompt> list);
 
-    @Query("SELECT * FROM activitysession WHERE status = :status")
+    @Query("SELECT * FROM activitySession where status = :status ")
     public abstract LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status);
 }

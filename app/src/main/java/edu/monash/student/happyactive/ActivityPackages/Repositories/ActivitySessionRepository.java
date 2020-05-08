@@ -47,7 +47,7 @@ public class ActivitySessionRepository {
     }
 
     public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status) {
-        return activitySessionDao.getAllCompletedSessions(status);
+        return  activitySessionDao.getAllCompletedSessions(status);
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {
