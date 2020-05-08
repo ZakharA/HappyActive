@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormatSymbols;
@@ -72,6 +73,14 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         // - replace the contents of the view with that element
         TextView t = (TextView) holder.view.findViewById(R.id.memory_reel_item);
         t.setText( new DateFormatSymbols().getMonths()[(int) mDataSet.keySet().toArray()[position]]);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(holder.view).navigate(
+                        MemoryReelFragmentDirections.showSelectedCollage(mDataSet.keySet().toArray()[position].toString())
+                );
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
