@@ -218,7 +218,6 @@ public class CompareAverageFragment extends Fragment {
         String[] record = null;
         try {
                 InputStream inputStream = getActivity().getAssets().open(STEPS_AGE_GENDER);
-                //InputStream inputStream = getAssets().open(STEPS_AGE_GENDER);
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
                 while((line = br.readLine()) != null) {
@@ -229,7 +228,7 @@ public class CompareAverageFragment extends Fragment {
                         STEP_COUNT_AUS = globalAvgSteps;
                         averageStepsAgeGroupLabel.setText("Avg Steps/Day 70+ male");
                         Long diffSteps = dataMap.get("AvgSteps") - globalAvgSteps;
-                        stepDiffAvg.setText(diffSteps.toString() + " steps");
+                        stepDiffAvg.setText(Math.abs(diffSteps) + " steps");
                         if (diffSteps < 0) {
                             stepDiffAvg.setTextColor(Color.parseColor("#FF0000"));
                             stepDiffAvgLabel.setText("behind the Australian Average Steps!");
