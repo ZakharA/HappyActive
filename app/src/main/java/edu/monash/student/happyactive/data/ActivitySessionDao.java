@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 @Dao
@@ -38,8 +39,11 @@ public abstract class ActivitySessionDao {
         session.status = ActivityPackageStatus.CANCELED;
         updateSession(session);
     }
-    @Query("SELECT * FROM activitysession WHERE activityId = :acitivityId AND id = :id")
-    public abstract ActivitySession findSessionByActivityId(long acitivityId, long id);
+    @Query("SELECT * FROM activitysession WHERE activityId = :activityId AND id = :id")
+    public abstract ActivitySession findSessionByActivityId(long activityId, long id);
+
+    @Insert
+    public abstract void insertPrompts(List<InteractivePrompt> list);
 
     @Query("SELECT * FROM ActivitySession WHERE activityId = :activityId and status = :status")
     public abstract ActivitySession checkInProgress(long activityId, ActivityPackageStatus status);
