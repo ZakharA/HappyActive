@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.Home;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +14,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 

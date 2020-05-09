@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.Reports;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.CompareHistory.CompareHistoryViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 

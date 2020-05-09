@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.Preferences;
 
 import android.os.Bundle;
 
@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import edu.monash.student.happyactive.Preferences.PreferencesViewModel;
+import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.UserPref;
 import edu.monash.student.happyactive.data.enumerations.PrefAccess;
 import edu.monash.student.happyactive.data.enumerations.PrefFrequency;

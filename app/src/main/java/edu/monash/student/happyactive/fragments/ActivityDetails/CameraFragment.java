@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.fragments;
+package edu.monash.student.happyactive.fragments.ActivityDetails;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

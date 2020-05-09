@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.Home;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import edu.monash.student.happyactive.R;
 
 
 public class ShowPrefFormDialogFragment extends DialogFragment {

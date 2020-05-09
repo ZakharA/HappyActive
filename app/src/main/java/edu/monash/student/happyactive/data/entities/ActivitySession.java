@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 @Entity
 public class ActivitySession {

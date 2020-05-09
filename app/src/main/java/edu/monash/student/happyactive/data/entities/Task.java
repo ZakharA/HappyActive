@@ -3,7 +3,7 @@ package edu.monash.student.happyactive.data.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import edu.monash.student.happyactive.data.PromptType;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 
 @Entity
 public class Task {

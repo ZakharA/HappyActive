@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import java.util.Date;
 import java.util.List;
 
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 /**

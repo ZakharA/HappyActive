@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
-import edu.monash.student.happyactive.data.ActivityPhotoDao;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPhotoDao;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
 public class ActivityPhotoRepository {

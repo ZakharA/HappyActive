@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.ActivityDetails;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -16,8 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.PostActivityStats.PostActivityStatsViewModel;
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 /**

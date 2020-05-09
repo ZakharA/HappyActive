@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.data;
+package edu.monash.student.happyactive.data.dao.ActivityPackageDao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,6 +11,7 @@ import androidx.room.Update;
 import java.util.Date;
 import java.util.List;
 
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;

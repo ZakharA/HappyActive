@@ -1,8 +1,7 @@
-package edu.monash.student.happyactive.fragments;
+package edu.monash.student.happyactive.fragments.ActivityDetails;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.SessionFragment;
 
 /**
  * manages the logic of showing package details on the screen

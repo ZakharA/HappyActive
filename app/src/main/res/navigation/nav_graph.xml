@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/overallHomeFragment"
-        android:name="edu.monash.student.happyactive.OverallHomeFragment"
+        android:name="edu.monash.student.happyactive.fragments.Home.OverallHomeFragment"
         android:label="fragment_overall_home"
         tools:layout="@layout/fragment_overall_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/packageDetailsFragment"
-        android:name="edu.monash.student.happyactive.fragments.PackageDetailsFragment"
+        android:name="edu.monash.student.happyactive.fragments.ActivityDetails.PackageDetailsFragment"
         android:label="package_details_fragment"
         tools:layout="@layout/package_details_fragment" >
         <argument
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="edu.monash.student.happyactive.fragments.CameraFragment"
+        android:name="edu.monash.student.happyactive.fragments.ActivityDetails.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" >
         <argument
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/sessionFragment"
-        android:name="edu.monash.student.happyactive.SessionFragment"
+        android:name="edu.monash.student.happyactive.fragments.ActivityDetails.SessionFragment"
         android:label="fragment_session"
         tools:layout="@layout/fragment_session" >
         <argument
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/postActivityStatsFragment"
-        android:name="edu.monash.student.happyactive.PostActivityStatsFragment"
+        android:name="edu.monash.student.happyactive.fragments.ActivityDetails.PostActivityStatsFragment"
         android:label="fragment_post_stats"
         tools:layout="@layout/fragment_post_stats" >
         <argument
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeReportFragment2"
-        android:name="edu.monash.student.happyactive.HomeReportFragment"
+        android:name="edu.monash.student.happyactive.fragments.Reports.HomeReportFragment"
         android:label="acitivity_report_main"
         tools:layout="@layout/acitivity_report_main" >
         <action
@@ -86,18 +86,18 @@
     </fragment>
     <fragment
         android:id="@+id/compareAverageFragment2"
-        android:name="edu.monash.student.happyactive.CompareAverageFragment"
+        android:name="edu.monash.student.happyactive.fragments.Reports.CompareAverageFragment"
         android:label="fragment_compare_average"
         tools:layout="@layout/fragment_compare_average" />
     <fragment
         android:id="@+id/compareHistoryFragment2"
-        android:name="edu.monash.student.happyactive.CompareHistoryFragment"
+        android:name="edu.monash.student.happyactive.fragments.Reports.CompareHistoryFragment"
         android:label="fragment_history_compare"
         tools:layout="@layout/fragment_history_compare" />
 
     <fragment
         android:id="@+id/preferencesFragment"
-        android:name="edu.monash.student.happyactive.PreferencesFragment"
+        android:name="edu.monash.student.happyactive.fragments.Preferences.PreferencesFragment"
         android:label="fragment_preferences"
         tools:layout="@layout/fragment_preferences">
         <action
@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/activitiesHomeFragment"
-        android:name="edu.monash.student.happyactive.ActivitiesHomeFragment"
+        android:name="edu.monash.student.happyactive.fragments.Activities.ActivitiesHomeFragment"
         android:label="main_2_activity"
         tools:layout="@layout/fragment_activities_home">
         <action

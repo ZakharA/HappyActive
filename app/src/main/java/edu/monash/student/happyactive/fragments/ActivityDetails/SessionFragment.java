@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive;
+package edu.monash.student.happyactive.fragments.ActivityDetails;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +22,9 @@ import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.PromptFragment;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
-import edu.monash.student.happyactive.data.PromptType;
+import edu.monash.student.happyactive.MainActivity;
+import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
 

@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.data;
+package edu.monash.student.happyactive.data.dao.ActivityPackageDao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

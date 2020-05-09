@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.data;
+package edu.monash.student.happyactive.data.converters;
 
 import androidx.room.TypeConverter;
 

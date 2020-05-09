@@ -15,13 +15,13 @@
         android:roundIcon="@mipmap/happy_active_home_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivitiesHomeFragment" />
-        <activity android:name=".CompareAverageFragment" />
-        <activity android:name=".PostActivityStatsFragment" />
-        <activity android:name=".CompareHistoryFragment" />
-        <activity android:name=".PreferencesFragment" />
-        <activity android:name=".OverallHomeFragment" />
-        <activity android:name=".SessionFragment" />
+        <activity android:name=".fragments.Activities.ActivitiesHomeFragment" />
+        <activity android:name=".fragments.Reports.CompareAverageFragment" />
+        <activity android:name=".fragments.ActivityDetails.PostActivityStatsFragment" />
+        <activity android:name=".fragments.Reports.CompareHistoryFragment" />
+        <activity android:name=".fragments.Preferences.PreferencesFragment" />
+        <activity android:name=".fragments.Home.OverallHomeFragment" />
+        <activity android:name=".fragments.ActivityDetails.SessionFragment" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

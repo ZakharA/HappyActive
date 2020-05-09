@@ -1,12 +1,10 @@
 package edu.monash.student.happyactive.ActivityPackages.viewModels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,12 +16,11 @@ import java.util.concurrent.ExecutionException;
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
-import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;

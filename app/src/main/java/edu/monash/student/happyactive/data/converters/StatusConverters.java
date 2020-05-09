@@ -1,6 +1,8 @@
-package edu.monash.student.happyactive.data;
+package edu.monash.student.happyactive.data.converters;
 
 import androidx.room.TypeConverter;
+
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 public class StatusConverters {
     @TypeConverter

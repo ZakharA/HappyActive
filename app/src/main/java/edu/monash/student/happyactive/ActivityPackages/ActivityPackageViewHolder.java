@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.monash.student.happyactive.ActivitiesHomeFragmentDirections;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.fragments.Activities.ActivitiesHomeFragmentDirections;
 
 public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
     final TextView mIdView;

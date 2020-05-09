@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
-import edu.monash.student.happyactive.data.ActivitySessionDao;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 

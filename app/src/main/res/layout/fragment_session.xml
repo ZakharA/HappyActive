@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayoutSession"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SessionFragment">
+    tools:context=".fragments.ActivityDetails.SessionFragment">
 
         <TextView
             android:id="@+id/task_completed_label"

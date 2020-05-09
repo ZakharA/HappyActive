@@ -8,11 +8,9 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import edu.monash.student.happyactive.data.ActivityJournalDao;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityJournalDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
-import edu.monash.student.happyactive.data.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
-import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class ActivityJournalRepository {
     private ActivityJournalDao activityJournalDao;

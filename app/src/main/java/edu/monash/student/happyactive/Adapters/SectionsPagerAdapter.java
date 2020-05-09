@@ -1,4 +1,4 @@
-package edu.monash.student.happyactive.ui.main;
+package edu.monash.student.happyactive.Adapters;
 
 import android.content.Context;
 
@@ -7,10 +7,10 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import edu.monash.student.happyactive.AllActivitiesFragment;
-import edu.monash.student.happyactive.InProgressFragment;
+import edu.monash.student.happyactive.fragments.Activities.AllActivitiesFragment;
+import edu.monash.student.happyactive.fragments.Activities.InProgressActivitiesFragment;
 import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.RecommendedActivitiesFragment;
+import edu.monash.student.happyactive.fragments.Activities.RecommendedActivitiesFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -33,7 +33,7 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         // getItem is called to instantiate the fragment for the given page.
         switch(position){
             case 0:
-                return InProgressFragment.newInstance(position);
+                return InProgressActivitiesFragment.newInstance(position);
             case 1:
                 return RecommendedActivitiesFragment.newInstance(position);
             case 2:

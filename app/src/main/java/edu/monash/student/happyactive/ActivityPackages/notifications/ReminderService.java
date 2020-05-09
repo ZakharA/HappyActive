@@ -16,7 +16,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import edu.monash.student.happyactive.MainActivity;
-import edu.monash.student.happyactive.OverallHomeFragment;
 import edu.monash.student.happyactive.R;
 
 public class ReminderService extends IntentService {

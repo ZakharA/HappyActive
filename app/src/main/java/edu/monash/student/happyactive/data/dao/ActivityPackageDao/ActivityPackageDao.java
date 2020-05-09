@@ -1,9 +1,8 @@
-package edu.monash.student.happyactive.data;
+package edu.monash.student.happyactive.data.dao.ActivityPackageDao;
 
 
 import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
-import androidx.paging.PagedList;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -13,6 +12,7 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;

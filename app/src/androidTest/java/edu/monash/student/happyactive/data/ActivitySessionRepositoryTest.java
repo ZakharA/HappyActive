@@ -16,6 +16,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
