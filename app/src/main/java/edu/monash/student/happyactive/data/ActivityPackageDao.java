@@ -56,4 +56,7 @@ public abstract class ActivityPackageDao {
         insertTaskList(tasks);
         return id;
     }
+
+    @Query("SELECT * FROM ActivityPackage WHERE id IN (SELECT activityId FROM ActivitySession WHERE status = :status)")
+    public abstract DataSource.Factory<Integer, ActivityPackage>  getInProgressActivityPackagesAsPagedList(ActivityPackageStatus status);
 }

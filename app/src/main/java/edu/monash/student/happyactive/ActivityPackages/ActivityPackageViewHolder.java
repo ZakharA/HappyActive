@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.monash.student.happyactive.ActivityPackageListFragmentDirections;
+import edu.monash.student.happyactive.ActivitiesHomeFragmentDirections;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
@@ -18,28 +18,36 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
     final TextView mContentView;
     final ImageView mImageView;
     private ActivityPackage activityPackage;
+    private boolean isInProgress;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Navigation.findNavController(view).navigate(
-                    ActivityPackageListFragmentDirections.showPackageDetails().setActivityId(activityPackage.id)
-            );
+            if (isInProgress) {
+                Navigation.findNavController(view).navigate(
+                        ActivitiesHomeFragmentDirections.startSession().setActivityId(activityPackage.id)
+                );
+            } else {
+                Navigation.findNavController(view).navigate(
+                        ActivitiesHomeFragmentDirections.showPackageDetails().setActivityId(activityPackage.id)
+                );
+            }
+
         }
     };
     private final Resources res;
     private final String mPackageName;
 
 
-    public ActivityPackageViewHolder(View itemView, Context mContext) {
+    public ActivityPackageViewHolder(View itemView, Context mContext, boolean isInProgress) {
         super(itemView);
         mPackageName = mContext.getPackageName();
         mIdView = (TextView) itemView.findViewById(R.id.id_text);
         mContentView = (TextView) itemView.findViewById(R.id.content);
         mImageView = (ImageView) itemView.findViewById(R.id.package_image);
         res = mContext.getResources();
+        this.isInProgress = isInProgress;
     }
-
 
 
     void bindTo(final ActivityPackage activityPackage){

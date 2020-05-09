@@ -17,7 +17,7 @@
 
     <string name="feelings">Express your feelings</string>
     <string name="memento_text">It\'s time to take a picture with your grandparent and write your feelings</string>
-    <string name="activityPackage_title">Activities</string>
+    <string name="activityHomeTitle">Activities</string>
     <string name="task_completed_bar">Progress:</string>
 
     <!-- TODO: Remove or change this placeholder text -->

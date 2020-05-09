@@ -103,4 +103,21 @@ public class PackageSessionManager {
     public boolean isCompleted() {
         return !iterator.hasNext() && (currentTaskOnDisplay == taskInProgress) ? true : false;
     }
+
+    public void setTasks(List<Task> tasks, long currentTaskId) {
+        this.tasks = tasks;
+        this.iterator = tasks.iterator();
+        initTaskSessionForSpecificTask(currentTaskId);
+    }
+
+    private void initTaskSessionForSpecificTask(long currentTaskId) {
+        while(iterator.hasNext()){
+            Task task = iterator.next();
+            if (task.getId() == currentTaskId) {
+                currentTaskOnDisplay = task;
+                taskInProgress = task;
+                break;
+            }
+        }
+    }
 }

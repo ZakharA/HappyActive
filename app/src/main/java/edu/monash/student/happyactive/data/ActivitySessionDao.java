@@ -40,4 +40,7 @@ public abstract class ActivitySessionDao {
     }
     @Query("SELECT * FROM activitysession WHERE activityId = :acitivityId AND id = :id")
     public abstract ActivitySession findSessionByActivityId(long acitivityId, long id);
+
+    @Query("SELECT * FROM ActivitySession WHERE activityId = :activityId and status = :status")
+    public abstract ActivitySession checkInProgress(long activityId, ActivityPackageStatus status);
 }

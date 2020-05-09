@@ -86,6 +86,22 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return activitySession.id;
     }
 
+    public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {
+        return activitySessionRepository.checkInProgress(activityId);
+    }
+
+    public void setTaskInSessionManger(List<Task> tasksList, long currentTaskId) {
+        sessionManager.setTasks(tasksList, currentTaskId);
+    }
+
+    public ActivitySession getActivitySession() {
+        return activitySession;
+    }
+
+    public void setActivitySession(ActivitySession activitySession) {
+        this.activitySession = activitySession;
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;

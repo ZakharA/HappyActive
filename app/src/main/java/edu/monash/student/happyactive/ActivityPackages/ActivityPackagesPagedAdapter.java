@@ -12,16 +12,17 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
 public class ActivityPackagesPagedAdapter extends PagedListAdapter<ActivityPackage, ActivityPackageViewHolder> {
 
+    private boolean isInProgress;
 
-
-    public ActivityPackagesPagedAdapter(@NonNull DiffUtil.ItemCallback diffcallback){
+    public ActivityPackagesPagedAdapter(@NonNull DiffUtil.ItemCallback diffcallback, boolean isInProgress){
         super(diffcallback);
+        this.isInProgress = isInProgress;
     }
 
     @NonNull
     @Override
     public ActivityPackageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        return new ActivityPackageViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activitypackage_list_content, parent, false),parent.getContext());
+        return new ActivityPackageViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.activitypackage_list_content, parent, false),parent.getContext(), this.isInProgress);
     }
 
     @Override

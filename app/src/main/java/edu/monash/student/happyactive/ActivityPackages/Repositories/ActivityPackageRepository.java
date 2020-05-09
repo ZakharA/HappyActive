@@ -9,6 +9,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.ActivityPackageDao;
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
@@ -46,5 +47,9 @@ public class ActivityPackageRepository {
 
     public DataSource.Factory<Integer, ActivityPackage> getActivityPackagesAsList() {
         return activityPackageDao.getAllActivityPackagesAsPagedList();
+    }
+
+    public DataSource.Factory<Integer, ActivityPackage> getInProgressActivityPackagesAsPagedList() {
+        return activityPackageDao.getInProgressActivityPackagesAsPagedList(ActivityPackageStatus.STARTED);
     }
 }

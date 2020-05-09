@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.ActivitySessionDao;
-import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
 public class ActivitySessionRepository {
@@ -39,6 +39,10 @@ public class ActivitySessionRepository {
 
     public ActivitySession findSessionByActivityId(long activityId, long id) {
         return activitySessionDao.findSessionByActivityId(activityId, id);
+    }
+
+    public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {
+        return new setAsyncTask(activitySessionDao).execute(activityId, ActivityPackageStatus.STARTED).get();
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {
@@ -87,5 +91,18 @@ public class ActivitySessionRepository {
             return null;
         }
 
+    }
+
+    private static class setAsyncTask extends AsyncTask<Object, Void, ActivitySession> {
+        private ActivitySessionDao mSessionDao;
+
+        public setAsyncTask(ActivitySessionDao mSessionDao) {
+            this.mSessionDao = mSessionDao;
+        }
+
+        @Override
+        protected ActivitySession doInBackground(Object[] objects) {
+            return mSessionDao.checkInProgress((Long)objects[0], (ActivityPackageStatus) objects[1]);
+        }
     }
 }

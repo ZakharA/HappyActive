@@ -28,8 +28,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
+import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
-import edu.monash.student.happyactive.fragments.CameraFragment;
 
 
 public class SessionFragment extends Fragment {
@@ -41,6 +41,7 @@ public class SessionFragment extends Fragment {
     private ImageView mImageView;
     private long activityId;
     private TextView mTaskCompleteView;
+    private Button doneButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +56,7 @@ public class SessionFragment extends Fragment {
         mTaskCompleteView = view.findViewById(R.id.task_completed_label);
         mTaskDescription = view.findViewById(R.id.task_description);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
-        Button doneButton = view.findViewById(R.id.done_task_button);
+        doneButton = view.findViewById(R.id.done_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
         activity.setCheckUpNotification(activityId);
 
@@ -127,11 +128,34 @@ public class SessionFragment extends Fragment {
                 new ActivitySessionViewModel.Factory(getActivity().getApplication(), activityId)).get(ActivitySessionViewModel.class);
 
         mSessionViewModel.getTasksOf(activityId).observe(getViewLifecycleOwner(), activityPackageWithTasks -> {
-            mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
+            ActivitySession activitySession = null;
             try {
-                mSessionViewModel.initSession(activityId);
+                activitySession = mSessionViewModel.checkInProgress(activityId);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            // In case of in progress activity
+            if (activitySession != null) {
+                mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList, activitySession.getCurrentTaskId());
+                mSessionViewModel.setActivitySession(activitySession);
+                for (Task task : activityPackageWithTasks.tasksList) {
+                    if (task.getId() == activitySession.getCurrentTaskId()) {
+                        break;
+                    }
+                    mProgressBar.incrementProgressBy(1);
+                }
+                if (mSessionViewModel.isActivityCompleted()) {
+                    doneButton.setText(R.string.complete_activity_text);
+                }
+            }
+            // In case of recommended/all activities
+            else {
+                mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
+                try {
+                    mSessionViewModel.initSession(activityId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             setUpProgressBar(activityPackageWithTasks.tasksList);
             updateTaskCard(mSessionViewModel.getTaskOnDisplay());

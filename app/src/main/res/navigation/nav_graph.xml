@@ -15,15 +15,6 @@
             app:destination="@+id/preferencesFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/activityPackageListFragment"
-        android:name="edu.monash.student.happyactive.ActivityPackageListFragment"
-        android:label="fragment_activitypackage_list"
-        tools:layout="@layout/fragment_activitypackage_list" >
-        <action
-            android:id="@+id/showPackageDetails"
-            app:destination="@id/packageDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/packageDetailsFragment"
         android:name="edu.monash.student.happyactive.fragments.PackageDetailsFragment"
         android:label="package_details_fragment"
@@ -113,11 +104,24 @@
             android:id="@+id/goBackToHomeFromPreferences"
             app:destination="@id/overallHomeFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/mainActivity2Fragment"
-        android:name="edu.monash.student.happyactive.Main2Activity"
+        android:id="@+id/activitiesHomeFragment"
+        android:name="edu.monash.student.happyactive.ActivitiesHomeFragment"
         android:label="main_2_activity"
-        tools:layout="@layout/activity_main2"/>
+        tools:layout="@layout/fragment_activities_home">
+        <action
+            android:id="@+id/showPackageDetails"
+            app:destination="@id/packageDetailsFragment" />
+        <action
+            android:id="@+id/showPreferencesFragment"
+            app:destination="@+id/preferencesFragment"/>
+        <argument
+            android:name="activityId"
+            app:argType="long"
+            android:defaultValue="1L" />
+        <action
+            android:id="@+id/startSession"
+            app:destination="@id/sessionFragment" />
+    </fragment>
 
 </navigation>

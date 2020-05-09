@@ -75,7 +75,7 @@ public class AllActivitiesFragment extends Fragment {
         mActivityPackageViewModel = new ViewModelProvider(this,
                 new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
-        ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback);
+        ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback, false);
         mActivityPackageViewModel.getActivityPackagesPages().observe(getViewLifecycleOwner(), activityPackagesPagedAdapter::submitList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator (new DefaultItemAnimator());
