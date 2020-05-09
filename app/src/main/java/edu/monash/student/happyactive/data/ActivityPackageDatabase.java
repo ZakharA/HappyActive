@@ -47,8 +47,6 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     
     private static ActivityPackageDatabase INSTANCE;
 
-
-
     public static ActivityPackageDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ActivityPackageDatabase.class) {

@@ -71,9 +71,9 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return sessionManager.isCompleted();
     }
 
-    public void initSession(long activityPackageId) throws ExecutionException, InterruptedException {
-        activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
-        activitySession.id = activitySessionRepository.insertNewSession(activitySession);
+    public void initSession(long activityPackageId, long currentTaskId) throws ExecutionException, InterruptedException {
+        activitySession = new ActivitySession(activityPackageId, currentTaskId, ActivityPackageStatus.STARTED);
+        activitySession.setId(activitySessionRepository.insertNewSession(activitySession));
     }
 
     public void cancelSession() {

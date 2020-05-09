@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.R;
@@ -28,7 +30,9 @@ public class RecommendedActivitiesFragment extends Fragment {
 
     private Integer tabPosition;
     protected ActivityPackageViewModel mActivityPackageViewModel;
+    private View view;
     private RecyclerView recyclerView;
+    private Button editPreferencesButton;
 
     public RecommendedActivitiesFragment() {
         // Required empty public constructor
@@ -62,8 +66,19 @@ public class RecommendedActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) inflater.inflate(R.layout.activitypackage_list, container, false);
-        return recyclerView;
+        view = inflater.inflate(R.layout.activitypackage_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.activitypackage_list);
+        editPreferencesButton = view.findViewById(R.id.editPreferencesButton);
+
+        editPreferencesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(
+                        ActivitiesHomeFragmentDirections.showPreferencesFragment()
+                );
+            }
+        });
+        return view;
     }
 
     @Override

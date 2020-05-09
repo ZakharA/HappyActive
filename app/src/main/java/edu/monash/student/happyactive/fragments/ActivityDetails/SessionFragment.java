@@ -70,8 +70,9 @@ public class SessionFragment extends Fragment {
                 mSessionViewModel.updateSteps(activity.getNumberOfSteps());
                 if(!mSessionViewModel.isActivityCompleted()) {
                     updateTaskCard(mSessionViewModel.completeCurrentTask());
+                    if (mSessionViewModel.isActivityCompleted())
+                        doneButton.setText(R.string.complete_activity_text);
                 } else {
-                    doneButton.setText(R.string.complete_activity_text);
                     mSessionViewModel.saveSessionAfterActivityIsCompleted();
                     activity.cancelCheckUpNotification();
                     Navigation.findNavController(view).navigate(
@@ -149,7 +150,7 @@ public class SessionFragment extends Fragment {
             else {
                 mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList);
                 try {
-                    mSessionViewModel.initSession(activityId);
+                    mSessionViewModel.initSession(activityId, mSessionViewModel.getTaskOnDisplay().getId());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

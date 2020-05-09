@@ -26,6 +26,14 @@ public class ActivitySession {
         this.startDateTime = new Date();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public long getActivityId() {
         return activityId;
     }
