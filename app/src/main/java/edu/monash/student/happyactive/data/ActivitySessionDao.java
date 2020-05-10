@@ -14,6 +14,7 @@ import java.util.List;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 
 @Dao
@@ -47,4 +48,7 @@ public abstract class ActivitySessionDao {
 
     @Query("SELECT * FROM activitySession where status = :status ")
     public abstract LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status);
+
+    @Query("SELECT * FROM activitySession WHERE strftime('%m', datetime(completedDateTime/1000, 'unixepoch')) = :mSelectedMonth")
+    public abstract LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth);
 }
