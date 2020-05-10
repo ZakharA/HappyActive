@@ -130,6 +130,18 @@
         <argument
             android:name="selectedMonth"
             app:argType="string" />
+        <action
+            android:id="@+id/showSessionMemoryReel"
+            app:destination="@id/memoryReelItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memoryReelItemFragment"
+        android:name="edu.monash.student.happyactive.memoryReel.MemoryReelItemFragment"
+        android:label="fragment_memory_reel_item"
+        tools:layout="@layout/fragment_memory_reel_item" >
+        <argument
+            android:name="SessionId"
+            app:argType="long" />
     </fragment>
 
 
