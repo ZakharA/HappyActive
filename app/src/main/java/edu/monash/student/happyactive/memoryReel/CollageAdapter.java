@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.autofill.AutofillValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +68,9 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+            imageView.clear();
             imageView.addImage(bitmap);
+
         }
 
         holder.view.setOnClickListener(new View.OnClickListener() {
