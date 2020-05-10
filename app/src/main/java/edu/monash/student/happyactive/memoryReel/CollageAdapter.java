@@ -17,6 +17,8 @@ import androidx.core.content.FileProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.stfalcon.multiimageview.MultiImageView;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -56,7 +58,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
     public void onBindViewHolder(@NonNull CollageAdapter.CollageViewHolder holder, int position) {
         TextView titleView = (TextView) holder.view.findViewById(R.id.collage_activity);
         TextView dateView = (TextView) holder.view.findViewById(R.id.collage_date);
-        ImageView imageView = (ImageView) holder.view.findViewById(R.id.collage_image);
+        MultiImageView imageView = (MultiImageView) holder.view.findViewById(R.id.collage_image);
         String pattern = " dd MMMM yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);
@@ -65,7 +67,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            imageView.setImageBitmap(bitmap);
+            imageView.addImage(bitmap);
         }
 
         holder.view.setOnClickListener(new View.OnClickListener() {

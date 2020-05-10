@@ -20,12 +20,13 @@
             android:orientation="vertical">
 
             <!-- Media -->
-            <ImageView
+            <com.stfalcon.multiimageview.MultiImageView
                 android:id="@+id/collage_image"
                 android:layout_width="match_parent"
                 android:layout_height="194dp"
                 android:contentDescription="@string/content_description_media"
-                android:scaleType="centerCrop" />
+                 />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
