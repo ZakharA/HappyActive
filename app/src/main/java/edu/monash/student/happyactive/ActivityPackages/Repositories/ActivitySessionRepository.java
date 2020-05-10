@@ -14,6 +14,7 @@ import edu.monash.student.happyactive.data.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
 public class ActivitySessionRepository {
     private ActivitySessionDao activitySessionDao;
@@ -53,6 +54,10 @@ public class ActivitySessionRepository {
 
     public LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth) {
         return activitySessionDao.getSessionWithPhotoBy(mSelectedMonth);
+    }
+
+    public LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId) {
+        return activitySessionDao.getSessionWIthPhotoAndJournalBy(sessionId);
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {

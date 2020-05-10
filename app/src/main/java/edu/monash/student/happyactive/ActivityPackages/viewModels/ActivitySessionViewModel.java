@@ -24,6 +24,7 @@ import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
@@ -114,6 +115,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth) {
         return activitySessionRepository.getSessionWithPhotoBy(mSelectedMonth);
+    }
+
+    public LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId) {
+        return  activitySessionRepository.getSessionWIthPhotoAndJournalBy(sessionId);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
