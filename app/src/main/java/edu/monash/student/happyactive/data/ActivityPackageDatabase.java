@@ -26,7 +26,7 @@ import edu.monash.student.happyactive.data.entities.UserPref;
 import edu.monash.student.happyactive.data.entities.UserScore;
 
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 2)
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 1)
 @TypeConverters({DateConverters.class, StatusConverters.class, PrefAccessConverter.class, PrefFrequencyConverter.class,  PromptConverters.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 

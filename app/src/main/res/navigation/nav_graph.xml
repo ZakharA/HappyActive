@@ -113,6 +113,36 @@
             android:id="@+id/goBackToHomeFromPreferences"
             app:destination="@id/overallHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/memoryReelFragment2"
+        android:name="edu.monash.student.happyactive.memoryReel.MemoryReelFragment"
+        android:label="fragment_memory_reel"
+        tools:layout="@layout/fragment_memory_reel" >
+        <action
+            android:id="@+id/showSelectedCollage"
+            app:destination="@id/photoCollageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoCollageFragment"
+        android:name="edu.monash.student.happyactive.memoryReel.PhotoCollageFragment"
+        android:label="fragment_photo_collage"
+        tools:layout="@layout/fragment_photo_collage" >
+        <argument
+            android:name="selectedMonth"
+            app:argType="string" />
+        <action
+            android:id="@+id/showSessionMemoryReel"
+            app:destination="@id/memoryReelItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memoryReelItemFragment"
+        android:name="edu.monash.student.happyactive.memoryReel.MemoryReelItemFragment"
+        android:label="fragment_memory_reel_item"
+        tools:layout="@layout/fragment_memory_reel_item" >
+        <argument
+            android:name="SessionId"
+            app:argType="long" />
+    </fragment>
 
 
 </navigation>

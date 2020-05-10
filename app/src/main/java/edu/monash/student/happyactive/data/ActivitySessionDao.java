@@ -14,7 +14,9 @@ import java.util.List;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
+import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
 @Dao
 public abstract class ActivitySessionDao {
@@ -39,9 +41,20 @@ public abstract class ActivitySessionDao {
         session.status = ActivityPackageStatus.CANCELED;
         updateSession(session);
     }
-    @Query("SELECT * FROM activitysession WHERE activityId = :activityId AND id = :id")
+    @Query("SELECT * FROM activitySession WHERE activityId = :activityId AND id = :id")
     public abstract ActivitySession findSessionByActivityId(long activityId, long id);
 
     @Insert
     public abstract void insertPrompts(List<InteractivePrompt> list);
+
+    @Query("SELECT * FROM activitySession where status = :status ")
+    public abstract LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status);
+
+    @Transaction
+    @Query("SELECT * FROM activitySession WHERE strftime('%m', datetime(completedDateTime/1000, 'unixepoch')) = :mSelectedMonth")
+    public abstract LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth);
+
+    @Transaction
+    @Query("SELECT * FROM activitySession WHERE id = :sessionId")
+    public abstract LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId);
 }
