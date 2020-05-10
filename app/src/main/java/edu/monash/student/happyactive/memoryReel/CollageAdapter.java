@@ -68,6 +68,15 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
             imageView.setImageBitmap(bitmap);
         }
 
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(holder.view).navigate(
+                        PhotoCollageFragmentDirections.showSessionMemoryReel(sessionWithPhotosList.get(position).activitySession.id)
+                );
+            }
+        });
+
     }
 
 
