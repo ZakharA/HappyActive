@@ -64,6 +64,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);
         dateView.setText(date.toString());
+        titleView.setText(sessionWithPhotosList.get(position).activityPackage.title);
 
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;

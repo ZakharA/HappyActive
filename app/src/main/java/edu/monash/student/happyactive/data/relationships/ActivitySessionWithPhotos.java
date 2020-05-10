@@ -5,6 +5,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
+import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
@@ -17,4 +18,9 @@ public class ActivitySessionWithPhotos {
             entityColumn = "sessionId"
     )
     public List<SessionPhoto> sessionPhoto;
+    @Relation(
+            parentColumn = "activityId",
+            entityColumn = "id"
+    )
+    public ActivityPackage activityPackage;
 }
