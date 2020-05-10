@@ -22,7 +22,7 @@ public abstract class ActivityPackageDao {
     @Query("SELECT * FROM activityPackage")
     public abstract LiveData<List<ActivityPackage>> getAllActivityPackages();
 
-    @Query("SELECT * FROM activityPackage")
+    @Query("SELECT * FROM activityPackage order by activityLevel asc")
     public abstract DataSource.Factory<Integer, ActivityPackage>  getAllActivityPackagesAsPagedList();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -57,6 +57,6 @@ public abstract class ActivityPackageDao {
         return id;
     }
 
-    @Query("SELECT * FROM ActivityPackage WHERE id IN (SELECT activityId FROM ActivitySession WHERE status = :status)")
+    @Query("SELECT * FROM ActivityPackage WHERE id IN (SELECT activityId FROM ActivitySession WHERE status = :status) order by activityLevel asc")
     public abstract DataSource.Factory<Integer, ActivityPackage>  getInProgressActivityPackagesAsPagedList(ActivityPackageStatus status);
 }

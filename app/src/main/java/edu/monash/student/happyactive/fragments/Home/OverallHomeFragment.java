@@ -14,8 +14,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.student.happyactive.R;
@@ -42,10 +44,10 @@ public class OverallHomeFragment extends Fragment {
     private TextView totalActivitiesHomeLabel;
     private TextView welcomeHomeText;
     private TextView happyActiveHomeText;
-    /*private TextView currentScoreLabel;
+    private TextView currentScoreLabel;
     private TextView nextLevelScoreLabel;
     private ProgressBar scoreProgressBar;
-    private ArrayList<Integer> levelScores;*/
+    private ArrayList<Integer> levelScores;
     private View homeView;
     private Context homeContext;
     SharedPreferences prefs = null;
@@ -64,13 +66,13 @@ public class OverallHomeFragment extends Fragment {
         newUserWelcomeText = homeView.findViewById(R.id.newUserWelcomeText);
         welcomeHomeText = homeView.findViewById(R.id.welcomeHomeText);
         happyActiveHomeText = homeView.findViewById(R.id.happyActiveHomeText);
-        /*currentScoreLabel = homeView.findViewById(R.id.currentProgressLabel);
+        currentScoreLabel = homeView.findViewById(R.id.currentProgressLabel);
         nextLevelScoreLabel = homeView.findViewById(R.id.nextLevelScoreLabel);
         scoreProgressBar = homeView.findViewById(R.id.scoreProgressBar);
         levelScores = new ArrayList<Integer>();
         levelScores.add(100);
         levelScores.add(500);
-        levelScores.add(1000);*/
+        levelScores.add(1000);
         prefs = getActivity().getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
         return homeView;
     }
@@ -124,7 +126,7 @@ public class OverallHomeFragment extends Fragment {
             }
         };
 
-        /*final Observer<Integer> currentScoreObserver = new Observer<Integer>() {
+        final Observer<Integer> currentScoreObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer currentScore) {
                 if (currentScore != null) {
@@ -142,7 +144,7 @@ public class OverallHomeFragment extends Fragment {
                     currentScoreLabel.setText("0");
                 }
             }
-        };*/
+        };
 
         // Observer to track the live change in data for total activities done.
         final Observer<Integer> overallActivitiesDoneObserver = new Observer<Integer>() {
@@ -153,7 +155,7 @@ public class OverallHomeFragment extends Fragment {
                     overallActivitiesCompleted.setText(totalActivities.toString());
                     overallActivityViewModel.getTotalStepCount().observe(getViewLifecycleOwner(), overallStepCountObserver);
                     overallActivityViewModel.getTotalTimeSpentOnActivities().observe(getViewLifecycleOwner(), overallTimeSpentObserver);
-                    //overallActivityViewModel.getCurrentScore().observe(getViewLifecycleOwner(), currentScoreObserver);
+                    overallActivityViewModel.getCurrentScore().observe(getViewLifecycleOwner(), currentScoreObserver);
                 }
                 else {
                     overallActivitiesCompleted.setText("0");
@@ -166,9 +168,9 @@ public class OverallHomeFragment extends Fragment {
                     totalStepsHomeLabel.setVisibility(View.INVISIBLE);
                     totalTimeHomeLabel.setVisibility(View.INVISIBLE);
                     totalActivitiesHomeLabel.setVisibility(View.INVISIBLE);
-                    /*currentScoreLabel.setVisibility(View.INVISIBLE);
+                    currentScoreLabel.setVisibility(View.INVISIBLE);
                     nextLevelScoreLabel.setVisibility(View.INVISIBLE);
-                    scoreProgressBar.setVisibility(View.INVISIBLE);*/
+                    scoreProgressBar.setVisibility(View.INVISIBLE);
                 }
 
             }

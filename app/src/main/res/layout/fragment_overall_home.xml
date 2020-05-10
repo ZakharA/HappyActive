@@ -193,7 +193,7 @@
         app:layout_constraintStart_toStartOf="@+id/newUserWelcomeText"
         app:layout_constraintTop_toBottomOf="@+id/newUserWelcomeText" />
 
-    <!--<ProgressBar
+    <ProgressBar
         android:id="@+id/scoreProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
@@ -222,7 +222,7 @@
         android:layout_marginLeft="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6Home"
         app:layout_constraintStart_toEndOf="@+id/scoreProgressBar"
-        app:layout_constraintTop_toTopOf="@+id/guideline2Home" />-->
+        app:layout_constraintTop_toTopOf="@+id/guideline2Home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

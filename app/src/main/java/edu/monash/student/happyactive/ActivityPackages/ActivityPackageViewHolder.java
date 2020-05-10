@@ -19,6 +19,7 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
     final ImageView mImageView;
     private ActivityPackage activityPackage;
     private boolean isInProgress;
+    final ImageView mLevelImageView;
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -45,6 +46,7 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
         mIdView = (TextView) itemView.findViewById(R.id.id_text);
         mContentView = (TextView) itemView.findViewById(R.id.content);
         mImageView = (ImageView) itemView.findViewById(R.id.package_image);
+        mLevelImageView = (ImageView) itemView.findViewById(R.id.level_image);
         res = mContext.getResources();
         this.isInProgress = isInProgress;
     }
@@ -55,6 +57,7 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
         mIdView.setText(String.valueOf( activityPackage.title));
         mContentView.setText(activityPackage.description);
         mImageView.setImageResource(res.getIdentifier(activityPackage.imagePath.split("[.]")[0],  "drawable", mPackageName));
+        mLevelImageView.setImageResource(res.getIdentifier("level_" + activityPackage.getActivityLevel() + "_activity", "mipmap", mPackageName));
         itemView.setOnClickListener(mOnClickListener);
     }
 }
