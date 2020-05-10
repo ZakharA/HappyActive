@@ -6,11 +6,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import edu.monash.student.happyactive.data.converters.DateConverters;
 import edu.monash.student.happyactive.data.converters.PrefAccessConverter;
 import edu.monash.student.happyactive.data.converters.PrefFrequencyConverter;
+import edu.monash.student.happyactive.data.converters.PromptConverters;
+import edu.monash.student.happyactive.data.converters.StatusConverters;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityJournalDao;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPackageDao;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPhotoDao;
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivitySessionDao;
 import edu.monash.student.happyactive.data.dao.PreferencesDao.PreferencesDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareAverageReportsDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
@@ -41,8 +46,6 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     public abstract PreferencesDao preferencesDao();
     
     private static ActivityPackageDatabase INSTANCE;
-
-
 
     public static ActivityPackageDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

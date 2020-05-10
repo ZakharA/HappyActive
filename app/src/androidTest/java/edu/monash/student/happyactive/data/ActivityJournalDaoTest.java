@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityJournalDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 
 import static org.hamcrest.MatcherAssert.assertThat;

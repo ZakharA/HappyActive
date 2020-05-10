@@ -1,12 +1,10 @@
 package edu.monash.student.happyactive.ActivityPackages.viewModels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
@@ -26,6 +24,7 @@ import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTask
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
+
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;
@@ -82,9 +81,9 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return sessionManager.isCompleted();
     }
 
-    public void initSession(long activityPackageId) throws ExecutionException, InterruptedException {
-        activitySession = new ActivitySession(activityPackageId, 0, ActivityPackageStatus.STARTED);
-        activitySession.id = activitySessionRepository.insertNewSession(activitySession);
+    public void initSession(long activityPackageId, long currentTaskId) throws ExecutionException, InterruptedException {
+        activitySession = new ActivitySession(activityPackageId, currentTaskId, ActivityPackageStatus.STARTED);
+        activitySession.setId(activitySessionRepository.insertNewSession(activitySession));
     }
 
     public void cancelSession() {
@@ -118,7 +117,23 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     }
 
     public LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId) {
-        return  activitySessionRepository.getSessionWIthPhotoAndJournalBy(sessionId);
+        return activitySessionRepository.getSessionWIthPhotoAndJournalBy(sessionId);
+    }
+
+    public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {
+        return activitySessionRepository.checkInProgress(activityId);
+    }
+
+    public void setTaskInSessionManger(List<Task> tasksList, long currentTaskId) {
+        sessionManager.setTasks(tasksList, currentTaskId);
+    }
+
+    public ActivitySession getActivitySession() {
+        return activitySession;
+    }
+
+    public void setActivitySession(ActivitySession activitySession) {
+        this.activitySession = activitySession;
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

@@ -13,7 +13,8 @@ android:orientation="horizontal">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="5">
 
         <!-- Media -->
         <ImageView
@@ -21,13 +22,15 @@ android:orientation="horizontal">
             android:layout_width="98dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/content_description_media"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:layout_weight="0.5"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:layout_weight="4.5">
 
             <!-- Title, secondary and supporting text -->
             <TextView
@@ -47,6 +50,14 @@ android:orientation="horizontal">
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/level_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="Level Image"
+            android:scaleType="centerCrop"
+            android:layout_weight="0.5"
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 

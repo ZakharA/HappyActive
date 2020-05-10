@@ -16,8 +16,10 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.List;
 
+import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;

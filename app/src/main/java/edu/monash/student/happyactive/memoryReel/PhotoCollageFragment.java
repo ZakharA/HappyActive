@@ -20,7 +20,6 @@ import java.util.List;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
-import edu.monash.student.happyactive.fragments.CameraFragmentArgs;
 
 
 public class PhotoCollageFragment extends Fragment {

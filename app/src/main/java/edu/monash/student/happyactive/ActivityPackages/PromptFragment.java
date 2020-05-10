@@ -3,7 +3,6 @@ package edu.monash.student.happyactive.ActivityPackages;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -33,7 +32,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.data.PromptType;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 
 import static android.app.Activity.RESULT_OK;

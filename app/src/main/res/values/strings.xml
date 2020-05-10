@@ -17,7 +17,7 @@
 
     <string name="feelings">Express your feelings</string>
     <string name="memento_text">It\'s time to take a picture with your grandparent and write your feelings</string>
-    <string name="activityPackage_title">Activities</string>
+    <string name="activityHomeTitle">Activities</string>
     <string name="task_completed_bar">Progress:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -72,6 +72,10 @@
     <string name="pref_dialog_negative">No. I\'ll set them later!</string>
     <string name="pref_dialog_set_later">You can always set your preferences in the Activities tab</string>
     <string name="empty_memory_reel">It\'s empty in your Memory reel</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">In Progress</string>
+    <string name="tab_text_2">Recommended</string>
+    <string name="tab_text_3">All Activities</string>
 
 
 </resources>

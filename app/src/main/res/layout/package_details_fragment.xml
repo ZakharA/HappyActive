@@ -5,7 +5,7 @@
     android:id="@+id/packagedetails"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PackageDetailsFragment">
+    tools:context=".fragments.ActivityDetails.PackageDetailsFragment">
 
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/card"

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-import edu.monash.student.happyactive.data.ActivityPackageStatus;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 @Entity
 public class ActivitySession {
@@ -24,6 +24,14 @@ public class ActivitySession {
         this.currentTaskId = currentTaskId;
         this.status = status;
         this.startDateTime = new Date();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getActivityId() {

@@ -15,7 +15,6 @@ import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
-import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
 public class ActivityPackageViewModel extends AndroidViewModel {
 
@@ -50,6 +49,12 @@ public class ActivityPackageViewModel extends AndroidViewModel {
 
     public void setSelectedActivityPackage(ActivityPackage activityPackage){
         selectedPackage.setValue(activityPackage);
+    }
+
+    public LiveData<PagedList<ActivityPackage>> getInProgressActivityPackagesAsPagedList(){
+        activityPackagesPages = new LivePagedListBuilder<>(activityPackageRepository.getInProgressActivityPackagesAsPagedList(),
+                pagedListConfig).build();
+        return activityPackagesPages;
     }
 
     public LiveData<ActivityPackage> getSelectedPackage() {
