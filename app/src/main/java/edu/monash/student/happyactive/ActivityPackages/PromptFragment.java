@@ -131,6 +131,7 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
         if(!taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
             mInteractivePrompt.sessionId = mSessionViewModel.getSessionId();
             mInteractivePrompt.taskId = mSessionViewModel.getTaskOnDisplay().id;
+            mInteractivePrompt.promptType = mSessionViewModel.getTaskOnDisplay().promptType;
             mInteractivePrompt.answer = s.toString();
             mSessionViewModel.getSessionWithPrompts().add(mInteractivePrompt);
         } else {
@@ -198,7 +199,8 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
             if(!taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
                 mInteractivePrompt.sessionId = mSessionViewModel.getSessionId();
                 mInteractivePrompt.taskId = mSessionViewModel.getTaskOnDisplay().id;
-                mInteractivePrompt.answer = photoURI.getPath();
+                mInteractivePrompt.promptType = mSessionViewModel.getTaskOnDisplay().promptType;
+                mInteractivePrompt.answer = currentPhotoPath;
                 mSessionViewModel.getSessionWithPrompts().add(mInteractivePrompt);
             }
         }

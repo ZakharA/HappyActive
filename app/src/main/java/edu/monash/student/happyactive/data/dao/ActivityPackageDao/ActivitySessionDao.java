@@ -16,6 +16,7 @@ import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.ActivityWithSessions;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
@@ -61,4 +62,8 @@ public abstract class ActivitySessionDao {
 
     @Query("SELECT * FROM ActivitySession WHERE activityId = :activityId and status = :status")
     public abstract ActivitySession checkInProgress(long activityId, ActivityPackageStatus status);
+
+    @Transaction
+    @Query("SELECT * FROM activitySession WHERE strftime('%m', datetime(completedDateTime/1000, 'unixepoch')) = :mSelectedMonth")
+    public abstract LiveData<List<ActivitySessionWithPhotosAndPrompts>>  getSessionWithPhotoAndPromptsBy(String mSelectedMonth);
 }

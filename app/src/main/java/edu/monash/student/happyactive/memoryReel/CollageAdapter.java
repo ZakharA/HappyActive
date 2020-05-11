@@ -28,10 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
 public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageViewHolder>  {
-    List<ActivitySessionWithPhotos> sessionWithPhotosList;
+    List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
 
     public static class CollageViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -42,7 +45,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         }
     }
 
-    public CollageAdapter(List<ActivitySessionWithPhotos> myDataSet) {
+    public CollageAdapter(List<ActivitySessionWithPhotosAndPrompts> myDataSet) {
         sessionWithPhotosList = myDataSet;
     }
 
@@ -73,6 +76,14 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
             imageView.addImage(bitmap);
 
         }
+
+        for(InteractivePrompt prompt: sessionWithPhotosList.get(position).interactivePrompts) {
+            if(prompt.promptType == PromptType.PHOTO){
+                Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
+                imageView.addImage(bitmap);
+            }
+        }
+
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
