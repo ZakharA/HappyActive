@@ -178,7 +178,7 @@ public class SessionFragment extends Fragment {
         mTaskDescription.setText(task.description);
         mImageView.setImageResource(getResources()
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
-        if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") != null)) {
+        if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") == null)) {
             getChildFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
                     .commit();
