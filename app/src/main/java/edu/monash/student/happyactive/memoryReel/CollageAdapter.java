@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.stfalcon.multiimageview.MultiImageView;
 
 import java.io.File;
@@ -71,16 +72,16 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
 
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+            //Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
             imageView.clear();
-            imageView.addImage(bitmap);
-
+           // imageView.addImage(bitmap);
+            Picasso.get().load(photoPath).into(imageView);
         }
 
         for(InteractivePrompt prompt: sessionWithPhotosList.get(position).interactivePrompts) {
             if(prompt.promptType == PromptType.PHOTO){
-                Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
-                imageView.addImage(bitmap);
+                //Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
+                Picasso.get().load(prompt.answer).into(imageView);
             }
         }
 

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import edu.monash.student.happyactive.R;
@@ -60,8 +62,7 @@ public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelIt
 
         if(mDataSet.get(position).promptType == PromptType.PHOTO) {
             ImageView imageView = (ImageView) holder.view.findViewById(R.id.reel_session_image);
-            Bitmap bitmap = BitmapFactory.decodeFile(mDataSet.get(position).answer);
-            imageView.setImageBitmap(bitmap);
+            Picasso.get().load(mDataSet.get(position).answer).into(imageView);
         } else {
             TextView titleView = (TextView) holder.view.findViewById(R.id.reel_session_activity);
             titleView.setText(mDataSet.get(position).answer);
