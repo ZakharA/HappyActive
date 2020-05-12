@@ -52,6 +52,7 @@ public class OverallHomeFragment extends Fragment {
     private ProgressBar scoreProgressBar;
     private ArrayList<Long> levelScores;
     private TextView userScoreLabel;
+    private TextView currentLevelLabel;
     private View homeView;
     private Context homeContext;
     SharedPreferences prefs = null;
@@ -73,6 +74,7 @@ public class OverallHomeFragment extends Fragment {
         currentScoreLabel = homeView.findViewById(R.id.currentProgressLabel);
         nextLevelScoreLabel = homeView.findViewById(R.id.nextLevelScoreLabel);
         userScoreLabel = homeView.findViewById(R.id.userScoreLabel);
+        currentLevelLabel = homeView.findViewById(R.id.currentLevelLabel);
         scoreProgressBar = homeView.findViewById(R.id.scoreProgressBar);
         levelScores = new ArrayList<Long>();
         levelScores.add(100l);
@@ -136,16 +138,17 @@ public class OverallHomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final UserScore userScore) {
                 boolean didLevelChange = false;
+                long currentLevel = 0;
                 Long oldLevelMax = -1l;
                 if ((Long)userScore.getOldScore() != null) {
                     oldLevelMax = setOldLevelProgressParams(userScore);
-                    didLevelChange = setNewLevelProgressParams(userScore, didLevelChange, oldLevelMax);
+                    didLevelChange = setNewLevelProgressParams(userScore, didLevelChange, oldLevelMax, currentLevel);
                 }
                 else {
                     currentScoreLabel.setText("0");
                 }
                 if (didLevelChange || userScore.getCurrentScore() == oldLevelMax) {
-                    startNewLevelDialog();
+                    startNewLevelDialog(currentLevel);
                 }
             }
         };
@@ -176,6 +179,7 @@ public class OverallHomeFragment extends Fragment {
                     nextLevelScoreLabel.setVisibility(View.INVISIBLE);
                     scoreProgressBar.setVisibility(View.INVISIBLE);
                     userScoreLabel.setVisibility(View.INVISIBLE);
+                    currentLevelLabel.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -186,17 +190,19 @@ public class OverallHomeFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private boolean setNewLevelProgressParams(UserScore userScore, boolean didLevelChange, Long oldLevelMax) {
+    private boolean setNewLevelProgressParams(UserScore userScore, boolean didLevelChange, Long oldLevelMax, long currentLevel) {
         ProgressBarAnimation anim = new ProgressBarAnimation(scoreProgressBar, userScore.getOldScore(), userScore.getCurrentScore());
         anim.setDuration(1000);
         scoreProgressBar.startAnimation(anim);
         currentScoreLabel.setText(Long.toString(userScore.getCurrentScore()));
         scoreProgressBar.setProgress((int) userScore.getCurrentScore());
-        for (Long item : levelScores) {
-            if (userScore.getCurrentScore() < item) {
-                nextLevelScoreLabel.setText(item.toString());
-                scoreProgressBar.setMax(Math.toIntExact(item));
-                if (item != oldLevelMax) {
+        for (int i = 0; i< levelScores.size(); i++) {
+            if (userScore.getCurrentScore() < levelScores.get(i)) {
+                nextLevelScoreLabel.setText(levelScores.get(i).toString());
+                scoreProgressBar.setMax(Math.toIntExact(levelScores.get(i)));
+                currentLevel = i;
+                currentLevelLabel.setText("You're currently on level " + (i+1));
+                if (levelScores.get(i) != oldLevelMax) {
                     didLevelChange = true;
                 }
                 break;
@@ -232,8 +238,13 @@ public class OverallHomeFragment extends Fragment {
         }, 2000);
     }
 
-    private void startNewLevelDialog() {
-        DialogFragment dialog = new ShowNewLevelDialogFragment();
-        dialog.show(getActivity().getSupportFragmentManager(), "show_new_level_dialog");
+    private void startNewLevelDialog(long currentLevel) {
+        if (prefs.getBoolean("level"+(currentLevel-1)+"_"+(currentLevel), true)) {
+            // Do first run stuff here then set 'firstrun' as false
+            DialogFragment dialog = new ShowNewLevelDialogFragment();
+            dialog.show(getActivity().getSupportFragmentManager(), "show_new_level_dialog");
+            // using the following line to edit/commit prefs
+            prefs.edit().putBoolean("level"+(currentLevel-1)+"_"+(currentLevel), false).commit();
+        }
     }
 }
