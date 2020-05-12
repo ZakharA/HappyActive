@@ -3,13 +3,11 @@ package edu.monash.student.happyactive.data.relationships;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import java.util.List;
-
-import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
-public class ActivitySessionWithPhotos {
+public class SessionWithPhotoAndJournal {
     @Embedded
     public ActivitySession activitySession;
 
@@ -17,10 +15,11 @@ public class ActivitySessionWithPhotos {
             parentColumn = "id",
             entityColumn = "sessionId"
     )
-    public List<SessionPhoto> sessionPhoto;
+    public ActivityJournal activityJournal;
     @Relation(
-            parentColumn = "activityId",
-            entityColumn = "id"
+            parentColumn = "id",
+            entityColumn = "sessionId"
     )
-    public ActivityPackage activityPackage;
+    public SessionPhoto sessionPhoto;
+
 }

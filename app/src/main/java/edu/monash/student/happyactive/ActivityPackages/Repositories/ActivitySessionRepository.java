@@ -13,6 +13,8 @@ import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivitySessionDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
 public class ActivitySessionRepository {
     private ActivitySessionDao activitySessionDao;
@@ -44,6 +46,19 @@ public class ActivitySessionRepository {
 
     public void savePromptResults(List<InteractivePrompt> interactivePrompts) {
         new savePromptsAsyncTask(activitySessionDao).execute(interactivePrompts);
+    }
+
+    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status) {
+        return  activitySessionDao.getAllCompletedSessions(status);
+    }
+
+    public LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth) {
+        return activitySessionDao.getSessionWithPhotoBy(mSelectedMonth);
+    }
+
+    public LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId) {
+        return activitySessionDao.getSessionWIthPhotoAndJournalBy(sessionId);
+
     }
 
     public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {

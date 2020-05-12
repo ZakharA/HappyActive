@@ -15,6 +15,13 @@
         />
 
     <item
+        android:id="@+id/memoryReelFragment2"
+        android:enabled="true"
+        android:icon="@drawable/ic_photo_library_black_24dp"
+        android:title="Memory Reel"
+        />
+
+    <item
         android:id="@+id/homeReportFragment2"
         android:enabled="true"
         android:icon="@drawable/ic_history_black_24dp"

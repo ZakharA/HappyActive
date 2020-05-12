@@ -21,6 +21,10 @@ import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
+import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
+
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;
@@ -38,6 +42,12 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.setStepCount(0);
         interactivePrompts = new ArrayList<>();
         sessionManager = new PackageSessionManager(activityPackageId );
+    }
+
+    public ActivitySessionViewModel(@NonNull Application application) {
+        super(application);
+        activityPackageRepository = new ActivityPackageRepository(application);
+        activitySessionRepository = new ActivitySessionRepository(application);
     }
 
     public void saveSessionAfterActivityIsCompleted(){
@@ -98,6 +108,18 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return interactivePrompts;
     }
 
+    public LiveData<List<ActivitySession>> getAllCompletedSessions(ActivityPackageStatus status){
+        return activitySessionRepository.getAllCompletedSessions(status);
+    }
+
+    public LiveData<List<ActivitySessionWithPhotos>> getSessionWithPhotoBy(String mSelectedMonth) {
+        return activitySessionRepository.getSessionWithPhotoBy(mSelectedMonth);
+    }
+
+    public LiveData<SessionWithPhotoAndJournal> getSessionWIthPhotoAndJournalBy(long sessionId) {
+        return activitySessionRepository.getSessionWIthPhotoAndJournalBy(sessionId);
+    }
+
     public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {
         return activitySessionRepository.checkInProgress(activityId);
     }
@@ -122,6 +144,11 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         public Factory(@NonNull Application application, long activityPackage){
             this.application = application;
             this.activityPackage = activityPackage;
+        }
+
+        public Factory(@NonNull Application application){
+            this.application = application;
+            this.activityPackage = 0l;
         }
 
         @SuppressWarnings("unchecked")
