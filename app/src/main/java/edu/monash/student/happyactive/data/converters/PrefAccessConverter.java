@@ -8,6 +8,9 @@ public class PrefAccessConverter {
 
     @TypeConverter
     public static PrefAccess getAccessStatus(Integer numeral){
+        if (numeral == null) {
+            return null;
+        }
         for(PrefAccess ds : PrefAccess.values()){
             if(ds.ordinal() == numeral){
                 return ds;

@@ -51,7 +51,7 @@ public class SessionFragment extends Fragment {
         mTaskTitle = view.findViewById(R.id.task_title);
         mImageView = view.findViewById(R.id.task_image);
         mTaskCompleteView = view.findViewById(R.id.task_completed_label);
-        mTaskDescription = view.findViewById(R.id.task_description);
+        mTaskDescription = view.findViewById(R.id.task_description_session);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         doneButton = view.findViewById(R.id.done_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
@@ -174,8 +174,8 @@ public class SessionFragment extends Fragment {
      * @param task
      */
     private void updateTaskCard(Task task){
-        mTaskTitle.setText(task.title);
-        mTaskDescription.setText(task.description);
+        mTaskTitle.setText(task.getTitle());
+        mTaskDescription.setText(task.getDescription());
         mImageView.setImageResource(getResources()
                 .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
         if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") == null)) {

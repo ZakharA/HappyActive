@@ -91,6 +91,7 @@ public class PostActivityStatsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 currentActivitySession.setStatus(ActivityPackageStatus.COMPLETED);
+                postActivityStatsViewModel.updateUserScore(currentActivitySession);
                 postActivityStatsViewModel.setStatusCompletedPostActivity(currentActivitySession);
                 Navigation.findNavController(view).navigate(
                         PostActivityStatsFragmentDirections.returnToHome()

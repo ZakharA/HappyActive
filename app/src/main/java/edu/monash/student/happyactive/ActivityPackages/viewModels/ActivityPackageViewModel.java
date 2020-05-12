@@ -61,6 +61,12 @@ public class ActivityPackageViewModel extends AndroidViewModel {
         return selectedPackage;
     }
 
+    public LiveData<PagedList<ActivityPackage>> getRecommendedActivityPackagesPages() {
+        activityPackagesPages = new LivePagedListBuilder<>(activityPackageRepository.getRecommendedActivityPackagesAsPagedList(),
+                pagedListConfig).build();
+        return activityPackagesPages;
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;

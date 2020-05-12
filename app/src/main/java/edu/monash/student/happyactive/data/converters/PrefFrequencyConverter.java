@@ -8,6 +8,9 @@ public class PrefFrequencyConverter {
 
     @TypeConverter
     public static PrefFrequency getFrequency(Integer numeral){
+        if (numeral == null) {
+            return null;
+        }
         for(PrefFrequency ds : PrefFrequency.values()){
             if(ds.ordinal() == numeral){
                 return ds;

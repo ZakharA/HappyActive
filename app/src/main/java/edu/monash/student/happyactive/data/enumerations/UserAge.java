@@ -1,13 +1,12 @@
 package edu.monash.student.happyactive.data.enumerations;
 
-public enum PrefFrequency {
-    LESS_THAN_ONE("Less than 1"),
-    ONCE_TWICE("1-2"),
-    MORE_THAN_TWICE("More than 2");
+public enum UserAge {
+    SIXTY_SEVENTY("60-70"),
+    SEVENTY_PLUS("70+");
 
     private String value;
 
-    private PrefFrequency(String value) {
+    private UserAge(String value) {
         this.value = value;
     }
 

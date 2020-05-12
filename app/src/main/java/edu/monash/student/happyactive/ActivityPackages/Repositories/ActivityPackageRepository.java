@@ -52,4 +52,8 @@ public class ActivityPackageRepository {
     public DataSource.Factory<Integer, ActivityPackage> getInProgressActivityPackagesAsPagedList() {
         return activityPackageDao.getInProgressActivityPackagesAsPagedList(ActivityPackageStatus.STARTED);
     }
+
+    public DataSource.Factory<Integer, ActivityPackage> getRecommendedActivityPackagesAsPagedList() {
+        return activityPackageDao.getRecommendedActivityPackagesAsPagedList(1);
+    }
 }

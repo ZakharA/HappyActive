@@ -7,11 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import edu.monash.student.happyactive.data.converters.ArthritisConditionConverter;
 import edu.monash.student.happyactive.data.converters.DateConverters;
 import edu.monash.student.happyactive.data.converters.PrefAccessConverter;
 import edu.monash.student.happyactive.data.converters.PrefFrequencyConverter;
 import edu.monash.student.happyactive.data.converters.PromptConverters;
 import edu.monash.student.happyactive.data.converters.StatusConverters;
+import edu.monash.student.happyactive.data.converters.UserAgeConverter;
+import edu.monash.student.happyactive.data.converters.UserGenderConverter;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityJournalDao;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPackageDao;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPhotoDao;
@@ -21,6 +24,7 @@ import edu.monash.student.happyactive.data.dao.ReportsDao.CompareAverageReportsD
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.OverallActivityReportsDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
+import edu.monash.student.happyactive.data.dao.UserScoreDao.UserScoreDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -31,8 +35,8 @@ import edu.monash.student.happyactive.data.entities.UserPref;
 import edu.monash.student.happyactive.data.entities.UserScore;
 
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 1)
-@TypeConverters({DateConverters.class, StatusConverters.class, PrefAccessConverter.class, PrefFrequencyConverter.class,  PromptConverters.class})
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 6)
+@TypeConverters({DateConverters.class, StatusConverters.class, PrefAccessConverter.class, PrefFrequencyConverter.class,  PromptConverters.class, ArthritisConditionConverter.class, UserAgeConverter.class, UserGenderConverter.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
     public abstract ActivityPackageDao activityPackageDao();
@@ -44,6 +48,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     public abstract CompareAverageReportsDao compareAverageReportsDao();
     public abstract PostActivityStatsDao postActivityStatsDao();
     public abstract PreferencesDao preferencesDao();
+    public abstract UserScoreDao userScoreDao();
     
     private static ActivityPackageDatabase INSTANCE;
 

@@ -11,6 +11,8 @@ public class UserScore {
 
     public long currentScore;
 
+    public long oldScore;
+
     public UserScore(long id) {
         this.id = id;
         this.currentScore = 0;
@@ -22,5 +24,13 @@ public class UserScore {
 
     public void setCurrentScore(long currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public long getOldScore() {
+        return oldScore;
+    }
+
+    public void setOldScore(long oldScore) {
+        this.oldScore = oldScore;
     }
 }

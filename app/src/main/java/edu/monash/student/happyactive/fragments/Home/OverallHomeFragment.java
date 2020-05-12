@@ -2,6 +2,7 @@ package edu.monash.student.happyactive.fragments.Home;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import java.util.List;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.UserScore;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -47,7 +50,8 @@ public class OverallHomeFragment extends Fragment {
     private TextView currentScoreLabel;
     private TextView nextLevelScoreLabel;
     private ProgressBar scoreProgressBar;
-    private ArrayList<Integer> levelScores;
+    private ArrayList<Long> levelScores;
+    private TextView userScoreLabel;
     private View homeView;
     private Context homeContext;
     SharedPreferences prefs = null;
@@ -68,11 +72,12 @@ public class OverallHomeFragment extends Fragment {
         happyActiveHomeText = homeView.findViewById(R.id.happyActiveHomeText);
         currentScoreLabel = homeView.findViewById(R.id.currentProgressLabel);
         nextLevelScoreLabel = homeView.findViewById(R.id.nextLevelScoreLabel);
+        userScoreLabel = homeView.findViewById(R.id.userScoreLabel);
         scoreProgressBar = homeView.findViewById(R.id.scoreProgressBar);
-        levelScores = new ArrayList<Integer>();
-        levelScores.add(100);
-        levelScores.add(500);
-        levelScores.add(1000);
+        levelScores = new ArrayList<Long>();
+        levelScores.add(100l);
+        levelScores.add(1000l);
+        levelScores.add(5000l);
         prefs = getActivity().getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
         return homeView;
     }
@@ -126,22 +131,21 @@ public class OverallHomeFragment extends Fragment {
             }
         };
 
-        final Observer<Integer> currentScoreObserver = new Observer<Integer>() {
+        final Observer<UserScore> currentScoreObserver = new Observer<UserScore>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onChanged(@Nullable final Integer currentScore) {
-                if (currentScore != null) {
-                    currentScoreLabel.setText(currentScore.toString());
-                    scoreProgressBar.setProgress(currentScore);
-                    for (Integer item : levelScores) {
-                        if (currentScore < item) {
-                            nextLevelScoreLabel.setText(item.toString());
-                            scoreProgressBar.setMax(item);
-                            break;
-                        }
-                    }
+            public void onChanged(@Nullable final UserScore userScore) {
+                boolean didLevelChange = false;
+                Long oldLevelMax = -1l;
+                if ((Long)userScore.getOldScore() != null) {
+                    oldLevelMax = setOldLevelProgressParams(userScore);
+                    didLevelChange = setNewLevelProgressParams(userScore, didLevelChange, oldLevelMax);
                 }
                 else {
                     currentScoreLabel.setText("0");
+                }
+                if (didLevelChange || userScore.getCurrentScore() == oldLevelMax) {
+                    startNewLevelDialog();
                 }
             }
         };
@@ -171,6 +175,7 @@ public class OverallHomeFragment extends Fragment {
                     currentScoreLabel.setVisibility(View.INVISIBLE);
                     nextLevelScoreLabel.setVisibility(View.INVISIBLE);
                     scoreProgressBar.setVisibility(View.INVISIBLE);
+                    userScoreLabel.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -178,6 +183,42 @@ public class OverallHomeFragment extends Fragment {
 
         overallActivityViewModel.getTotalActivitiesCompleted().observe(getViewLifecycleOwner(), overallActivitiesDoneObserver);
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private boolean setNewLevelProgressParams(UserScore userScore, boolean didLevelChange, Long oldLevelMax) {
+        ProgressBarAnimation anim = new ProgressBarAnimation(scoreProgressBar, userScore.getOldScore(), userScore.getCurrentScore());
+        anim.setDuration(1000);
+        scoreProgressBar.startAnimation(anim);
+        currentScoreLabel.setText(Long.toString(userScore.getCurrentScore()));
+        scoreProgressBar.setProgress((int) userScore.getCurrentScore());
+        for (Long item : levelScores) {
+            if (userScore.getCurrentScore() < item) {
+                nextLevelScoreLabel.setText(item.toString());
+                scoreProgressBar.setMax(Math.toIntExact(item));
+                if (item != oldLevelMax) {
+                    didLevelChange = true;
+                }
+                break;
+            }
+        }
+        return didLevelChange;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private Long setOldLevelProgressParams(UserScore userScore) {
+        Long oldLevelMax = -1l;
+        currentScoreLabel.setText(Long.toString(userScore.getOldScore()));
+        scoreProgressBar.setProgress((int) userScore.getOldScore());
+        for (Long item : levelScores) {
+            if (userScore.getOldScore() <= item) {
+                nextLevelScoreLabel.setText(item.toString());
+                scoreProgressBar.setMax(Math.toIntExact(item));
+                oldLevelMax = item;
+                break;
+            }
+        }
+        return oldLevelMax;
     }
 
     private void startPreferencesDialog() {
@@ -189,5 +230,10 @@ public class OverallHomeFragment extends Fragment {
                 dialog.show(getActivity().getSupportFragmentManager(), "show_pref_dialog_form");
             }
         }, 2000);
+    }
+
+    private void startNewLevelDialog() {
+        DialogFragment dialog = new ShowNewLevelDialogFragment();
+        dialog.show(getActivity().getSupportFragmentManager(), "show_new_level_dialog");
     }
 }

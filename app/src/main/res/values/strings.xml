@@ -52,20 +52,12 @@
     <string name="compares_history_data">Compares history data</string>
     <string name="compares_average_data">Compares average data</string>
     <string name="label"></string>
-    <string name="do_you_have_a_dog">Do you have a dog?</string>
     <string name="do_you_have_a_backyard_garden">Do you have a backyard/garden?</string>
-    <string name="more_than_2_times_a_week">More than 2 times a week</string>
-    <string name="_1_2_times_a_week">1-2 times a week</string>
-    <string name="less_than_once_a_week">Less than once a week</string>
     <string name="your_grandparents_hobbies">Your/Grandparents Hobbies?</string>
-    <string name="how_often_do_you_grandparents_exercise">How often do you grandparents exercise?</string>
-    <string name="how_often_do_you_see_your_grandparents">How often do you see your grandparents?</string>
     <string name="please_answer_the_following_questions_so_that_we_can_generate_recommendations_that_match_your_preferences">Please answer the following questions so that we can generate recommendations that match your preferences!!</string>
-    <string name="others">Others?</string>
     <string name="walking">Walking</string>
     <string name="gardening">Gardening</string>
-    <string name="cooking">Cooking</string>
-    <string name="write_any_other_hobbies">Write any other hobbies.</string>
+    <string name="baking">Baking</string>
     <string name="preferences">Preferences</string>
     <string name="fill_out_pref_dialog">Would you like to fill out preferences so that we can better recommend activities for you?</string>
     <string name="pref_dialog_title">Add Preferences</string>
@@ -77,6 +69,32 @@
     <string name="tab_text_2">Recommended</string>
     <string name="tab_text_3">All Activities</string>
     <string name="memoryReeltabTitle">Memory reel</string>
+    <string name="level_image">Level Image</string>
+    <string name="submit">Submit</string>
+    <string name="more_than_2_km">More than 2 KM</string>
+    <string name="_1_2_km">1-2 KM</string>
+    <string name="less_than_1_km">Less than 1 km</string>
+    <string name="what_distance_do_you_expect_to_travel">What distance do you expect to travel?</string>
+    <string name="doesn_t_matter">Doesn\'t Matter</string>
+    <string name="more_than_2_hours">More than 2 hours</string>
+    <string name="less_than_1_hour">Less than 1 hours</string>
+    <string name="_1_2_hours">1-2 Hours</string>
+    <string name="how_long_would_you_like_the_activity_to_last">How long would you like the activity to last?</string>
+    <string name="what_is_the_extent_of_your_grandparents_arthritis">What is the extent of your grandparents\' arthritis?</string>
+    <string name="playing_games">Playing Games</string>
+    <string name="shopping">Shopping</string>
+    <string name="is_there_a_park_near_your_grandparents_place">Is there a park near your grandparents place?</string>
+    <string name="mild_arthritis">Mild arthritis</string>
+    <string name="moderate_arthritis">Moderate arthritis</string>
+    <string name="severe_arthritis">Severe arthritis</string>
+    <string name="_70">70+</string>
+    <string name="_60_70">60-70</string>
+    <string name="others">Others</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="what_is_your_grandparents_approximate_age">What is your grandparents approximate age?</string>
+    <string name="what_is_your_grandparents_gender">What is your grandparents gender?</string>
+    <string name="score">Total Score</string>
 
 
 </resources>

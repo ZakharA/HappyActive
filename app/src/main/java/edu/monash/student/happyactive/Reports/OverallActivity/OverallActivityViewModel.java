@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import edu.monash.student.happyactive.Reports.ReportsRepositories.OverallActivityRepository;
+import edu.monash.student.happyactive.data.entities.UserScore;
 import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
@@ -51,7 +52,7 @@ public class OverallActivityViewModel extends AndroidViewModel {
         return overallActivityRepository.getTotalCompletedActivity(ActivityPackageStatus.COMPLETED);
     }
 
-    public LiveData<Integer> getCurrentScore() {
+    public LiveData<UserScore> getCurrentScore() {
         return overallActivityRepository.getCurrentScore();
     }
 }
