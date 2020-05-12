@@ -22,6 +22,7 @@ public class ActivityPackage {
     public PrefAccess gardenAccess;
     public PrefFrequency distance;
     public ArthritisCondition suitMaxArthritisCondition;
+    public boolean isUserPreferred;
     public String imagePath;
 
 
@@ -118,6 +119,14 @@ public class ActivityPackage {
 
     public void setSuitMaxArthritisCondition(ArthritisCondition suitMaxArthritisCondition) {
         this.suitMaxArthritisCondition = suitMaxArthritisCondition;
+    }
+
+    public boolean isUserPreferred() {
+        return isUserPreferred;
+    }
+
+    public void setUserPreferred(boolean userPreferred) {
+        isUserPreferred = userPreferred;
     }
 
     public String getImagePath() {

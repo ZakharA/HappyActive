@@ -76,7 +76,7 @@
     <string name="what_distance_do_you_expect_to_travel">What distance do you expect to travel?</string>
     <string name="doesn_t_matter">Doesn\'t Matter</string>
     <string name="more_than_2_hours">More than 2 hours</string>
-    <string name="less_than_1_hour">Less than 1 hour</string>
+    <string name="less_than_1_hour">Less than 1 hours</string>
     <string name="_1_2_hours">1-2 Hours</string>
     <string name="how_long_would_you_like_the_activity_to_last">How long would you like the activity to last?</string>
     <string name="what_is_the_extent_of_your_grandparents_arthritis">What is the extent of your grandparents\' arthritis?</string>
@@ -93,6 +93,7 @@
     <string name="male">Male</string>
     <string name="what_is_your_grandparents_approximate_age">What is your grandparents approximate age?</string>
     <string name="what_is_your_grandparents_gender">What is your grandparents gender?</string>
+    <string name="score">Total Score</string>
 
 
 </resources>

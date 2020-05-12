@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
+import edu.monash.student.happyactive.data.dao.UserScoreDao.UserScoreDao;
+import edu.monash.student.happyactive.data.entities.UserScore;
 import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.dao.ReportsDao.OverallActivityReportsDao;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -17,10 +19,12 @@ import edu.monash.student.happyactive.data.entities.ActivitySession;
 public class OverallActivityRepository {
 
     private OverallActivityReportsDao overallActivityReportsDao;
+    private UserScoreDao userScoreDao;
 
     public OverallActivityRepository(Application application) {
         ActivityPackageDatabase db = ActivityPackageDatabase.getDatabase(application);
         overallActivityReportsDao = db.overallActivityReportsDao();
+        userScoreDao = db.userScoreDao();
     }
 
     /**
@@ -50,7 +54,7 @@ public class OverallActivityRepository {
         return overallActivityReportsDao.getTotalCompletedActivity(status);
     }
 
-    public LiveData<Integer> getCurrentScore() {
-        return overallActivityReportsDao.getCurrentScore();
+    public LiveData<UserScore> getCurrentScore() {
+        return userScoreDao.getUserScoreLiveData(1);
     }
 }

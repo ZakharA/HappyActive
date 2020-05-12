@@ -24,6 +24,7 @@ import edu.monash.student.happyactive.data.dao.ReportsDao.CompareAverageReportsD
 import edu.monash.student.happyactive.data.dao.ReportsDao.CompareHistoryReportsDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.OverallActivityReportsDao;
 import edu.monash.student.happyactive.data.dao.ReportsDao.PostActivityStatsDao;
+import edu.monash.student.happyactive.data.dao.UserScoreDao.UserScoreDao;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -34,7 +35,7 @@ import edu.monash.student.happyactive.data.entities.UserPref;
 import edu.monash.student.happyactive.data.entities.UserScore;
 
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 3)
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 5)
 @TypeConverters({DateConverters.class, StatusConverters.class, PrefAccessConverter.class, PrefFrequencyConverter.class,  PromptConverters.class, ArthritisConditionConverter.class, UserAgeConverter.class, UserGenderConverter.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
@@ -47,6 +48,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     public abstract CompareAverageReportsDao compareAverageReportsDao();
     public abstract PostActivityStatsDao postActivityStatsDao();
     public abstract PreferencesDao preferencesDao();
+    public abstract UserScoreDao userScoreDao();
     
     private static ActivityPackageDatabase INSTANCE;
 

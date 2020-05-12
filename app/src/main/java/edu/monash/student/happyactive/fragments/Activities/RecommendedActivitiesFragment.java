@@ -7,7 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import edu.monash.student.happyactive.ActivityPackages.ActivityPackagesPagedAdapter;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
@@ -86,6 +89,12 @@ public class RecommendedActivitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mActivityPackageViewModel = new ViewModelProvider(this,
                 new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
+
+        ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback, false);
+        mActivityPackageViewModel.getRecommendedActivityPackagesPages().observe(getViewLifecycleOwner(), activityPackagesPagedAdapter::submitList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator (new DefaultItemAnimator());
+        recyclerView.setAdapter(activityPackagesPagedAdapter);
     }
 
     private DiffUtil.ItemCallback<ActivityPackage> diffCallback = new DiffUtil.ItemCallback<ActivityPackage>() {

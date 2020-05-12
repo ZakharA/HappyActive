@@ -9,6 +9,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -59,4 +60,16 @@ public abstract class ActivityPackageDao {
 
     @Query("SELECT * FROM ActivityPackage WHERE id IN (SELECT activityId FROM ActivitySession WHERE status = :status) order by activityLevel asc")
     public abstract DataSource.Factory<Integer, ActivityPackage>  getInProgressActivityPackagesAsPagedList(ActivityPackageStatus status);
+
+    @Query("SELECT activityLevel from ActivityPackage where id = :activityId")
+    public abstract long getActivityLevelFromId(long activityId);
+
+    @Query("SELECT * FROM ActivityPackage")
+    public abstract List<ActivityPackage> getAllActivityPackagesForPref();
+
+    @Update(onConflict = OnConflictStrategy.REPLACE, entity = ActivityPackage.class)
+    public abstract void updateActivityPackageForPref(ActivityPackage activityPackage);
+
+    @Query("SELECT * FROM ActivityPackage WHERE isUserPreferred = :value")
+    public abstract DataSource.Factory<Integer, ActivityPackage> getRecommendedActivityPackagesAsPagedList(long value);
 }

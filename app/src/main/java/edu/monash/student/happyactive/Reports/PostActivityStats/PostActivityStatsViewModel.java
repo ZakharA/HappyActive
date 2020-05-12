@@ -40,6 +40,10 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
         postActivityStatsRepository.setStatusCompletedPostActivity(activitySession);
     }
 
+    public void updateUserScore(ActivitySession currentActivitySession) {
+        postActivityStatsRepository.updateUserScore(currentActivitySession);
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;

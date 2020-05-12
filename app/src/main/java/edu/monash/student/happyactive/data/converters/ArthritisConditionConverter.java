@@ -9,6 +9,9 @@ public class ArthritisConditionConverter {
 
     @TypeConverter
     public static ArthritisCondition getArthritisCondition(Integer numeral){
+        if (numeral == null) {
+            return null;
+        }
         for(ArthritisCondition ds : ArthritisCondition.values()){
             if(ds.ordinal() == numeral){
                 return ds;

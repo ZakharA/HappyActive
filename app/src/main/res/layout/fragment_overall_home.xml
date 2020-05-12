@@ -224,5 +224,15 @@
         app:layout_constraintStart_toEndOf="@+id/scoreProgressBar"
         app:layout_constraintTop_toTopOf="@+id/guideline2Home" />
 
+    <TextView
+        android:id="@+id/userScoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="@string/score"
+        app:layout_constraintBottom_toTopOf="@+id/scoreProgressBar"
+        app:layout_constraintEnd_toStartOf="@+id/nextLevelScoreLabel"
+        app:layout_constraintStart_toEndOf="@+id/currentProgressLabel" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

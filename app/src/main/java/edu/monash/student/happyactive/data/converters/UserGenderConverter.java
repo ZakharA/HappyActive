@@ -8,6 +8,9 @@ public class UserGenderConverter {
 
     @TypeConverter
     public static UserGender getUserGender(Integer numeral){
+        if (numeral == null) {
+            return null;
+        }
         for(UserGender ds : UserGender.values()){
             if(ds.ordinal() == numeral){
                 return ds;

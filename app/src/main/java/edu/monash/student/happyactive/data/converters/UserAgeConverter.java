@@ -8,6 +8,9 @@ public class UserAgeConverter {
 
     @TypeConverter
     public static UserAge getUserAge(Integer numeral){
+        if (numeral == null) {
+            return null;
+        }
         for(UserAge ds : UserAge.values()){
             if(ds.ordinal() == numeral){
                 return ds;
