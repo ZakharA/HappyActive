@@ -17,6 +17,6 @@ public abstract class PreferencesDao {
     @Update(onConflict = OnConflictStrategy.REPLACE, entity = UserPref.class)
     public abstract void updatePreferences(UserPref userPref);
 
-    @Query("SELECT * FROM UserPref WHERE id = 1")
-    public abstract LiveData<UserPref> fetchUserPreferences();
+    @Query("SELECT * FROM UserPref WHERE id = :id")
+    public abstract LiveData<UserPref> fetchUserPreferences(long id);
 }

@@ -13,15 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import edu.monash.student.happyactive.Preferences.PreferencesViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.UserPref;
+import edu.monash.student.happyactive.data.enumerations.ArthritisCondition;
 import edu.monash.student.happyactive.data.enumerations.PrefAccess;
 import edu.monash.student.happyactive.data.enumerations.PrefFrequency;
+import edu.monash.student.happyactive.data.enumerations.UserAge;
+import edu.monash.student.happyactive.data.enumerations.UserGender;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,14 +31,18 @@ import edu.monash.student.happyactive.data.enumerations.PrefFrequency;
  */
 public class PreferencesFragment extends Fragment {
 
-    private CheckBox cookingCheckBox;
+    private CheckBox bakingCheckBox;
     private CheckBox gardeningCheckBox;
     private CheckBox walkingCheckBox;
-    private EditText otherEditText;
-    private RadioGroup radioGroupExercise;
-    private RadioGroup radioGroupGrandparentFreq;
+    private CheckBox playingCheckBox;
+    private CheckBox shoppingCheckBox;
+    private RadioGroup parkRadioGroup;
+    private RadioGroup arthritisConditionRadioGroup;
     private RadioGroup backyardRadioGroup;
-    private RadioGroup dogRadioGroup;
+    private RadioGroup activityTimeRadioGroup;
+    private RadioGroup activityDistanceRadioGroup;
+    private RadioGroup userAgeRadioGroup;
+    private RadioGroup userGenderRadioGroup;
     private Button submitPrefFormButton;
     private View prefView;
 
@@ -46,14 +52,18 @@ public class PreferencesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         prefView = inflater.inflate(R.layout.fragment_preferences, container, false);
-        cookingCheckBox = prefView.findViewById(R.id.cookingCheckBox);
+        bakingCheckBox = prefView.findViewById(R.id.bakingCheckBox);
         gardeningCheckBox = prefView.findViewById(R.id.gardeningCheckBox);
         walkingCheckBox = prefView.findViewById(R.id.walkingCheckBox);
-        otherEditText = prefView.findViewById(R.id.otherEditText);
-        radioGroupExercise = prefView.findViewById(R.id.radioGroupExercise);
-        radioGroupGrandparentFreq = prefView.findViewById(R.id.radioGroupGrandparentFreq);
+        playingCheckBox = prefView.findViewById(R.id.playingCheckBox);
+        shoppingCheckBox = prefView.findViewById(R.id.shoppingCheckBox);
+        parkRadioGroup = prefView.findViewById(R.id.parkRadioGroup);
+        arthritisConditionRadioGroup = prefView.findViewById(R.id.arthritisCondtionRadioGroup);
         backyardRadioGroup = prefView.findViewById(R.id.backyardRadioGroup);
-        dogRadioGroup = prefView.findViewById(R.id.dogRadioGroup);
+        activityTimeRadioGroup = prefView.findViewById(R.id.activityTimeRadioGroup);
+        activityDistanceRadioGroup = prefView.findViewById(R.id.activityDistanceRadioGroup);
+        userAgeRadioGroup = prefView.findViewById(R.id.userAgeRadioGroup);
+        userGenderRadioGroup = prefView.findViewById(R.id.userGenderRadioGroup);
         submitPrefFormButton = prefView.findViewById(R.id.submitPrefFormButton);
         return prefView;
     }
@@ -70,9 +80,10 @@ public class PreferencesFragment extends Fragment {
             public void onClick(View v) {
                 UserPref userPref = new UserPref(1);
                 String hobby = "";
-                if (cookingCheckBox.isChecked() || walkingCheckBox.isChecked() || gardeningCheckBox.isChecked() || otherEditText.getText() != null) {
-                    if (cookingCheckBox.isChecked()) {
-                        hobby += cookingCheckBox.getText() + ",";
+                if (bakingCheckBox.isChecked() || walkingCheckBox.isChecked() || gardeningCheckBox.isChecked() ||
+                        playingCheckBox.isChecked() || shoppingCheckBox.isChecked()) {
+                    if (bakingCheckBox.isChecked()) {
+                        hobby += bakingCheckBox.getText() + ",";
                     }
                     if (walkingCheckBox.isChecked()) {
                         hobby += walkingCheckBox.getText() + ",";
@@ -80,39 +91,14 @@ public class PreferencesFragment extends Fragment {
                     if (gardeningCheckBox.isChecked()) {
                         hobby += gardeningCheckBox.getText() + ",";
                     }
-                    if(otherEditText.getText() != null || !otherEditText.getText().equals("Others?")) {
-                        hobby += otherEditText.getText() + ",";
+                    if (playingCheckBox.isChecked()) {
+                        hobby += playingCheckBox.getText() + ",";
+                    }
+                    if (shoppingCheckBox.isChecked()) {
+                        hobby += shoppingCheckBox.getText() + ",";
                     }
                 }
                 userPref.setHobbyList(hobby);
-
-                if (radioGroupExercise.getCheckedRadioButtonId() != -1){
-                    int selectedId = radioGroupExercise.getCheckedRadioButtonId();
-                    RadioButton radioButtonExercise = prefView.findViewById(selectedId);
-                    for (PrefFrequency freq : PrefFrequency.values()) {
-                        if (freq.getValue().equals(radioButtonExercise.getText())) {
-                            userPref.setExerciseFreq(freq);
-                            break;
-                        }
-                    }
-                }
-                else {
-                    userPref.setExerciseFreq(null);
-                }
-
-                if (radioGroupGrandparentFreq.getCheckedRadioButtonId() != -1) {
-                    int selectedId = radioGroupGrandparentFreq.getCheckedRadioButtonId();
-                    RadioButton radioButtonGrandParentFreq = prefView.findViewById(selectedId);
-                    for (PrefFrequency freq : PrefFrequency.values()) {
-                        if (freq.getValue().equals(radioButtonGrandParentFreq.getText())) {
-                            userPref.setGrandparentInteractionFreq(freq);
-                            break;
-                        }
-                    }
-                }
-                else {
-                    userPref.setGrandparentInteractionFreq(null);
-                }
 
                 if (backyardRadioGroup.getCheckedRadioButtonId() != -1) {
                     int selectedId = backyardRadioGroup.getCheckedRadioButtonId();
@@ -128,18 +114,88 @@ public class PreferencesFragment extends Fragment {
                     userPref.setGardenAccess(null);
                 }
 
-                if (dogRadioGroup.getCheckedRadioButtonId() != -1) {
-                    int selectedId = dogRadioGroup.getCheckedRadioButtonId();
-                    RadioButton radioButtonDogAccess= prefView.findViewById(selectedId);
+                if (parkRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = parkRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonParkAccess= prefView.findViewById(selectedId);
                     for (PrefAccess access : PrefAccess.values()) {
-                        if (access.getValue().equals(radioButtonDogAccess.getText())) {
-                            userPref.setDogAccess(access);
+                        if (access.getValue().equals(radioButtonParkAccess.getText())) {
+                            userPref.setParkAccess(access);
                             break;
                         }
                     }
                 }
                 else {
-                    userPref.setDogAccess(null);
+                    userPref.setParkAccess(null);
+                }
+
+                if (arthritisConditionRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = arthritisConditionRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonArthritis = prefView.findViewById(selectedId);
+                    for (ArthritisCondition condition : ArthritisCondition.values()) {
+                        if (condition.getValue().equals(radioButtonArthritis.getText())) {
+                            userPref.setArthritisCondition(condition);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    userPref.setArthritisCondition(null);
+                }
+
+                if (activityTimeRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = activityTimeRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonActivityTime = prefView.findViewById(selectedId);
+                    for (PrefFrequency freq : PrefFrequency.values()) {
+                        if (freq.getValue().equals(radioButtonActivityTime.getText().subSequence(0, radioButtonActivityTime.getText().length() - 6))) {
+                            userPref.setActivityTime(freq);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    userPref.setActivityTime(null);
+                }
+
+                if (activityDistanceRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = activityDistanceRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonDistance = prefView.findViewById(selectedId);
+                    for (PrefFrequency freq : PrefFrequency.values()) {
+                        if (freq.getValue().equals(radioButtonDistance.getText().subSequence(0, radioButtonDistance.getText().length() - 3))) {
+                            userPref.setActivityDistance(freq);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    userPref.setActivityDistance(null);
+                }
+
+                if (userAgeRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = userAgeRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonAge = prefView.findViewById(selectedId);
+                    for (UserAge age : UserAge.values()) {
+                        if (age.getValue().equals(radioButtonAge.getText())) {
+                            userPref.setUserAge(age);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    userPref.setUserAge(null);
+                }
+
+                if (userGenderRadioGroup.getCheckedRadioButtonId() != -1) {
+                    int selectedId = userGenderRadioGroup.getCheckedRadioButtonId();
+                    RadioButton radioButtonDistance = prefView.findViewById(selectedId);
+                    for (UserGender gender : UserGender.values()) {
+                        if (gender.getValue().equals(radioButtonDistance.getText())) {
+                            userPref.setUserGender(gender);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    userPref.setUserGender(null);
                 }
 
                 preferencesViewModel.updatePreferences(userPref);
