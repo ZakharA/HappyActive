@@ -76,6 +76,7 @@
     <string name="tab_text_1">In Progress</string>
     <string name="tab_text_2">Recommended</string>
     <string name="tab_text_3">All Activities</string>
+    <string name="memoryReeltabTitle">Memory reel</string>
 
 
 </resources>
