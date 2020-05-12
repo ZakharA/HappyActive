@@ -70,7 +70,7 @@ public class PackageDetailsFragment extends Fragment {
             ((TextView) view.findViewById(R.id.activity_description)).setText(activity.description);
             if (activity.getMaterials() != null)
                 ((TextView) view.findViewById(R.id.activity_requirements)).setText("Materials required: " + activity.getMaterials());
-            ((TextView) view.findViewById(R.id.time_for_activity)).setText("Approximate time for activity: "+ Long.toString(activity.getApproxTimeToComplete()) + "minutes");
+            ((TextView) view.findViewById(R.id.time_for_activity)).setText("Approximate time for activity: "+ Long.toString(activity.getApproxTimeToComplete()) + " minutes");
         });
     }
 
