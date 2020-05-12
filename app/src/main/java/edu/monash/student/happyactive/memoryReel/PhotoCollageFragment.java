@@ -20,6 +20,7 @@ import java.util.List;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
 
 public class PhotoCollageFragment extends Fragment {
@@ -62,15 +63,15 @@ public class PhotoCollageFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        mSessionViewModel.getSessionWithPhotoBy(String.format("%02d", cal.get(Calendar.MONTH) + 1)
+        mSessionViewModel.getSessionWithPhotoAndPromptsBy(String.format("%02d", cal.get(Calendar.MONTH) + 1)
         ).observe(getViewLifecycleOwner(), collageObserver);
         layoutManager = new LinearLayoutManager(getContext());
         return view;
     }
 
-    Observer<List<ActivitySessionWithPhotos>> collageObserver = new Observer<List<ActivitySessionWithPhotos>>() {
+    Observer<List<ActivitySessionWithPhotosAndPrompts>> collageObserver = new Observer<List<ActivitySessionWithPhotosAndPrompts>>() {
         @Override
-        public void onChanged(List<ActivitySessionWithPhotos> sessions) {
+        public void onChanged(List<ActivitySessionWithPhotosAndPrompts> sessions) {
             mCollageAdapter = new CollageAdapter(sessions);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(mCollageAdapter);

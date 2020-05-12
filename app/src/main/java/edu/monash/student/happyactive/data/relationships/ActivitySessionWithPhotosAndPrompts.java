@@ -5,12 +5,12 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-import edu.monash.student.happyactive.data.entities.ActivityJournal;
+import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
-public class SessionWithPhotoAndJournal {
+public class ActivitySessionWithPhotosAndPrompts {
     @Embedded
     public ActivitySession activitySession;
 
@@ -18,15 +18,15 @@ public class SessionWithPhotoAndJournal {
             parentColumn = "id",
             entityColumn = "sessionId"
     )
-    public ActivityJournal activityJournal;
-    @Relation(
-            parentColumn = "id",
-            entityColumn = "sessionId"
-    )
-    public SessionPhoto sessionPhoto;
+    public List<SessionPhoto> sessionPhoto;
     @Relation(
             parentColumn = "id",
             entityColumn = "sessionId"
     )
     public List<InteractivePrompt> interactivePrompts;
+    @Relation(
+            parentColumn = "activityId",
+            entityColumn = "id"
+    )
+    public ActivityPackage activityPackage;
 }

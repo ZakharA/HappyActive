@@ -1,5 +1,7 @@
 package edu.monash.student.happyactive.memoryReel;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,9 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +33,8 @@ public class MemoryReelItemFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private ActivitySessionViewModel mSessionViewModel;
     private ReelItemAdapter mItemAdapter;
+    private TextView titleView;
+    private ImageView imageView;
 
     public MemoryReelItemFragment() {
         // Required empty public constructor
@@ -51,6 +58,8 @@ public class MemoryReelItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_memory_reel_item, container, false);
+        titleView = (TextView) view.findViewById(R.id.reel_session_activity);
+        imageView = (ImageView) view.findViewById(R.id.reel_session_image);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_rv_reel_item);
         recyclerView.setHasFixedSize(true);
         long sessionId = MemoryReelItemFragmentArgs.fromBundle(getArguments()).getSessionId();
@@ -63,9 +72,20 @@ public class MemoryReelItemFragment extends Fragment {
 
         @Override
         public void onChanged(SessionWithPhotoAndJournal sessions) {
-            mItemAdapter = new ReelItemAdapter(sessions);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(mItemAdapter);
+            titleView.setText(sessions.activityJournal.entry);
+
+            if(sessions.sessionPhoto != null){
+                String photoPath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessions.sessionPhoto.path;
+                Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+                imageView.setImageBitmap(bitmap);
+            }
+
+            if(sessions.interactivePrompts.size() > 0) {
+                mItemAdapter = new ReelItemAdapter(sessions.interactivePrompts);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(mItemAdapter);
+            }
+
         }
     };
 

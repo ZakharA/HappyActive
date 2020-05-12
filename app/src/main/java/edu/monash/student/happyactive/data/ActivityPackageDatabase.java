@@ -35,7 +35,7 @@ import edu.monash.student.happyactive.data.entities.UserPref;
 import edu.monash.student.happyactive.data.entities.UserScore;
 
 
-@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 5)
+@Database(entities = {ActivitySession.class, ActivityPackage.class, ActivityJournal.class, SessionPhoto.class, Task.class, UserPref.class, UserScore.class, InteractivePrompt.class}, exportSchema = true, version = 6)
 @TypeConverters({DateConverters.class, StatusConverters.class, PrefAccessConverter.class, PrefFrequencyConverter.class,  PromptConverters.class, ArthritisConditionConverter.class, UserAgeConverter.class, UserGenderConverter.class})
 public abstract class ActivityPackageDatabase extends RoomDatabase {
 
@@ -58,7 +58,6 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ActivityPackageDatabase.class, "happyActiveDB")
-                            .fallbackToDestructiveMigration()
                             .createFromAsset("database/happyActiveDB.db")
                             .build();
                 }

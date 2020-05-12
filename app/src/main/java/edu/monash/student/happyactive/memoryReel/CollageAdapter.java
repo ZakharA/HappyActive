@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.stfalcon.multiimageview.MultiImageView;
 
 import java.io.File;
@@ -28,10 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
 public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageViewHolder>  {
-    List<ActivitySessionWithPhotos> sessionWithPhotosList;
+    List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
 
     public static class CollageViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -42,7 +46,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         }
     }
 
-    public CollageAdapter(List<ActivitySessionWithPhotos> myDataSet) {
+    public CollageAdapter(List<ActivitySessionWithPhotosAndPrompts> myDataSet) {
         sessionWithPhotosList = myDataSet;
     }
 
@@ -68,11 +72,19 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
 
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+            //Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
             imageView.clear();
-            imageView.addImage(bitmap);
-
+           // imageView.addImage(bitmap);
+            Picasso.get().load(photoPath).into(imageView);
         }
+
+        for(InteractivePrompt prompt: sessionWithPhotosList.get(position).interactivePrompts) {
+            if(prompt.promptType == PromptType.PHOTO){
+                //Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
+                Picasso.get().load(prompt.answer).into(imageView);
+            }
+        }
+
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

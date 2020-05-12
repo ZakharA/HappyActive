@@ -14,6 +14,7 @@ import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivitySessio
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
 public class ActivitySessionRepository {
@@ -63,6 +64,10 @@ public class ActivitySessionRepository {
 
     public ActivitySession checkInProgress(long activityId) throws ExecutionException, InterruptedException {
         return new setAsyncTask(activitySessionDao).execute(activityId, ActivityPackageStatus.STARTED).get();
+    }
+
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPhotoAndPromptsBy(String format) {
+        return activitySessionDao.getSessionWithPhotoAndPromptsBy(format);
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {

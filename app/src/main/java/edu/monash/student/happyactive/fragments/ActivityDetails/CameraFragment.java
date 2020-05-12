@@ -26,6 +26,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -179,8 +180,7 @@ public class CameraFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            mPhotoImageView.setImageBitmap(bitmap);
+            Picasso.get().load(photoURI).into(mPhotoImageView);
             changeCameraButton();
         }
     }
