@@ -12,15 +12,19 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
 public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelItemViewHolder>  {
 
-    private SessionWithPhotoAndJournal mDataSet;
+    private List<InteractivePrompt> mDataSet;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -35,7 +39,7 @@ public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelIt
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ReelItemAdapter(SessionWithPhotoAndJournal myDataSet) {
+    public ReelItemAdapter(List<InteractivePrompt> myDataSet) {
         mDataSet = myDataSet;
     }
 
@@ -55,16 +59,14 @@ public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelIt
     public void onBindViewHolder(ReelItemViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        TextView titleView = (TextView) holder.view.findViewById(R.id.reel_session_activity);
-        titleView.setText(mDataSet.activityJournal.entry);
-        ImageView imageView = (ImageView) holder.view.findViewById(R.id.reel_session_image);
 
-        if(mDataSet.sessionPhoto != null){
-            String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + mDataSet.sessionPhoto.path;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            imageView.setImageBitmap(bitmap);
+        if(mDataSet.get(position).promptType == PromptType.PHOTO) {
+            ImageView imageView = (ImageView) holder.view.findViewById(R.id.reel_session_image);
+            Picasso.get().load(mDataSet.get(position).answer).into(imageView);
+        } else {
+            TextView titleView = (TextView) holder.view.findViewById(R.id.reel_session_activity);
+            titleView.setText(mDataSet.get(position).answer);
         }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

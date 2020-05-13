@@ -22,6 +22,7 @@ import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
+import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
 
@@ -134,6 +135,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public void setActivitySession(ActivitySession activitySession) {
         this.activitySession = activitySession;
+    }
+
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPhotoAndPromptsBy(String format) {
+        return activitySessionRepository.getSessionWithPhotoAndPromptsBy(format);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
