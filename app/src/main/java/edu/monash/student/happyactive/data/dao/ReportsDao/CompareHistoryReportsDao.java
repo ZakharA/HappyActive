@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.relationships.SessionsWithActivity;
 
 /**
  * DAO class for Compare History reports screen.
@@ -22,4 +23,7 @@ public abstract class CompareHistoryReportsDao {
      */
     @Query("Select * from ActivitySession where status == :status")
     public abstract LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status);
+
+    @Query("Select * from ActivitySession where status == :status")
+    public abstract List<SessionsWithActivity> getDataForCompletedActivityCharts(ActivityPackageStatus status);
 }

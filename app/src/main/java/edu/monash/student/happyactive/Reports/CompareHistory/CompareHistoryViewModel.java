@@ -11,10 +11,11 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.Reports.ReportsRepositories.CompareHistoryRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.relationships.SessionsWithActivity;
 
 /**
  * View Model class for Compare History Stats Screen.
@@ -22,12 +23,10 @@ import edu.monash.student.happyactive.data.entities.ActivitySession;
 public class CompareHistoryViewModel extends AndroidViewModel {
 
     private CompareHistoryRepository compareHistoryRepository;
-    private LiveData<List<ActivitySession>> dataForCompletedActivities;
 
     public CompareHistoryViewModel(@NonNull Application application) {
         super(application);
         compareHistoryRepository = new CompareHistoryRepository(application);
-        dataForCompletedActivities = compareHistoryRepository.getDataForCompletedActivity();
     }
 
     /**
@@ -74,7 +73,11 @@ public class CompareHistoryViewModel extends AndroidViewModel {
      * @return
      */
     public LiveData<List<ActivitySession>> getDataForCompletedActivities() {
-        return dataForCompletedActivities;
+        return compareHistoryRepository.getDataForCompletedActivity();
+    }
+
+    public List<SessionsWithActivity> getDataForCompletedActivityCharts() throws ExecutionException, InterruptedException {
+        return compareHistoryRepository.getDataForCompletedActivityCharts();
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

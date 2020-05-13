@@ -22,4 +22,12 @@ public abstract class CompareAverageReportsDao {
      */
     @Query("Select * from ActivitySession where status == :status")
     public abstract LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status);
+
+    /**
+     * Method for fetching activity sessions which are completed.
+     * @param status
+     * @return
+     */
+    @Query("Select * from ActivitySession where status == :status")
+    public abstract List<ActivitySession> getDataForCompletedActivitiesForChart(ActivityPackageStatus status);
 }

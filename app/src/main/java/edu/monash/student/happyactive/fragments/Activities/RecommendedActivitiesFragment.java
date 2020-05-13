@@ -87,8 +87,6 @@ public class RecommendedActivitiesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mActivityPackageViewModel = new ViewModelProvider(this,
-                new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
         ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback, false);
         mActivityPackageViewModel.getRecommendedActivityPackagesPages().observe(getViewLifecycleOwner(), activityPackagesPagedAdapter::submitList);
