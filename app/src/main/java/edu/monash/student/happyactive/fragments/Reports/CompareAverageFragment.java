@@ -73,7 +73,7 @@ public class CompareAverageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText( view.getContext(), "You can swipe across the charts to view them.", Toast.LENGTH_LONG);
+        Toast.makeText( view.getContext(), "You can swipe across the charts to view them.", Toast.LENGTH_LONG).show();
         compareAverageViewModel = new ViewModelProvider(this,
                 new CompareAverageViewModel.Factory(getActivity().getApplication())).get(CompareAverageViewModel.class);
 

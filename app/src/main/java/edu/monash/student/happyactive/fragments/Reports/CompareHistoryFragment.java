@@ -50,7 +50,7 @@ public class CompareHistoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getContext(), "You can swipe across the charts to view them.", Toast.LENGTH_LONG);
+        Toast.makeText(getContext(), "You can swipe across the charts to view them.", Toast.LENGTH_LONG).show();
         compareHistoryViewModel = new ViewModelProvider(this,
                 new CompareHistoryViewModel.Factory(getActivity().getApplication())).get(CompareHistoryViewModel.class);
 
