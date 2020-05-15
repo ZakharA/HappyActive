@@ -28,7 +28,6 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
  * create an instance of this fragment.
  */
 public class InProgressActivitiesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String TAB_POS = "Tab Position";
 
@@ -49,7 +48,6 @@ public class InProgressActivitiesFragment extends Fragment {
      * @param tabPosition Tab Position.
      * @return A new instance of fragment InProgressFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static InProgressActivitiesFragment newInstance(Integer tabPosition) {
         InProgressActivitiesFragment fragment = new InProgressActivitiesFragment();
         Bundle args = new Bundle();
@@ -89,8 +87,6 @@ public class InProgressActivitiesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mActivityPackageViewModel = new ViewModelProvider(this,
-                new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
         ActivityPackagesPagedAdapter activityPackagesPagedAdapter = new ActivityPackagesPagedAdapter(diffCallback, true);
         mActivityPackageViewModel.getInProgressActivityPackagesAsPagedList().observe(getViewLifecycleOwner(), activityPackagesPagedAdapter::submitList);

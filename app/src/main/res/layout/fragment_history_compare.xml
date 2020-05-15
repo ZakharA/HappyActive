@@ -8,16 +8,27 @@
     android:orientation="vertical"
     tools:context=".fragments.Reports.CompareHistoryFragment">
 
-
-    <TextView
-        android:id="@+id/chartStepsCompareLabel3"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarHistoryCompare"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/step_count_of_each_activity"
-        app:layout_constraintEnd_toEndOf="@+id/chartStepCompare"
-        app:layout_constraintStart_toStartOf="@+id/chartStepCompare"
-        app:layout_constraintTop_toBottomOf="@+id/chartStepCompare" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:padding="@dimen/appbar_padding"
+            android:text="@string/history_statistics"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/avgStepsLabel"
@@ -61,39 +72,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chartTimeCompare"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/historyCompareViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintWidth_percent="1"/>
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chartStepCompare"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintWidth_percent="1">
-
-    </com.github.mikephil.charting.charts.BarChart>
-
-    <TextView
-        android:id="@+id/chartTimeCompareLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time_spent_on_all_activities"
-        app:layout_constraintEnd_toEndOf="@+id/chartTimeCompare"
-        app:layout_constraintStart_toStartOf="@+id/chartTimeCompare"
-        app:layout_constraintTop_toBottomOf="@+id/chartTimeCompare" />
+        app:layout_constraintWidth_percent="1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -125,7 +112,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -133,21 +120,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <TextView
-        android:id="@+id/historyStatsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="@string/history_statistics"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"/>
-
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

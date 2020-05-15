@@ -8,6 +8,28 @@
     android:orientation="vertical"
     tools:context=".fragments.Reports.HomeReportFragment">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarHistoryCompare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:padding="@dimen/appbar_padding"
+            android:text="@string/main_report_title"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:id="@+id/compareHistoryImg"
         android:layout_width="wrap_content"
@@ -39,25 +61,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/main_report_title"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeMinTextSize="16sp"
-        app:autoSizeStepGranularity="1sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

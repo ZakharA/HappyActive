@@ -3,18 +3,26 @@ package edu.monash.student.happyactive.Reports.CompareAverage;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.Reports.ReportsRepositories.CompareAverageRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.entities.UserPref;
+import edu.monash.student.happyactive.data.enumerations.UserAge;
+import edu.monash.student.happyactive.data.enumerations.UserGender;
 
 /**
  * View Model class for Compare Average Stats Screen.
@@ -22,12 +30,11 @@ import edu.monash.student.happyactive.data.entities.ActivitySession;
 public class CompareAverageViewModel extends AndroidViewModel {
 
     private CompareAverageRepository compareAverageRepository;
-    private LiveData<List<ActivitySession>> dataForCompletedActivities;
+    private static final String STEPS_AGE_GENDER = "statisticsFiles/steps_by_age_gender_20170508.csv";
 
     public CompareAverageViewModel(@NonNull Application application) {
         super(application);
         compareAverageRepository = new CompareAverageRepository(application);
-        dataForCompletedActivities = compareAverageRepository.getDataForCompletedActivity();
     }
 
     /**
@@ -67,11 +74,65 @@ public class CompareAverageViewModel extends AndroidViewModel {
     }
 
     /**
+     * Method to process user age and gender to find suitable suggestions.
+     * @param activity
+     * @return [step count aus, ]
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public ArrayList<String> processStepsByAgeFile(FragmentActivity activity) throws ExecutionException, InterruptedException {
+        UserPref userPref = compareAverageRepository.fetchUserAgeGender();
+        UserGender userGender = userPref.getUserGender();
+        UserAge userAge = userPref.getUserAge();
+        String[] record = null;
+        ArrayList<String> result = new ArrayList<String>();
+        try {
+            InputStream inputStream = activity.getAssets().open(STEPS_AGE_GENDER);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            String line = "";
+            while((line = br.readLine()) != null) {
+                record = line.split(",");
+                if (userAge != null && userGender != null) {
+                    if (userAge == UserAge.SIXTY_SEVENTY &&
+                            record[1].replace("\"", "").startsWith("[60") &&
+                            record[0].replace("\"", "").equalsIgnoreCase(userGender.getValue()) ) {
+                        result.add(record[3]);
+                        result.add("Avg Steps/Day 60-70 " + userGender.getValue().toLowerCase());
+                        break;
+                    }
+                    else if (userAge == UserAge.SEVENTY_PLUS &&
+                            record[1].replace("\"", "").startsWith("[70") &&
+                            record[0].replace("\"", "").equalsIgnoreCase(userGender.getValue()) ){
+                        result.add(record[3]);
+                        result.add("Avg Steps/Day 70+ " + userGender.getValue().toLowerCase());
+                        break;
+                    }
+                }
+                else {
+                    if (record[1].contains("[70")) {
+                        result.add(record[3]);
+                        result.add("Avg Steps/Day 70+ male");
+                        break;
+                    }
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
      * Method for fetching activity sessions which are completed.
      * @return
      */
     public LiveData<List<ActivitySession>> getDataForCompletedActivities() {
-        return dataForCompletedActivities;
+        return compareAverageRepository.getDataForCompletedActivity();
+    }
+
+    public List<ActivitySession> getDataForCompletedActivitiesForChart() throws ExecutionException, InterruptedException {
+        return compareAverageRepository.getDataForCompletedActivitiesForChart();
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

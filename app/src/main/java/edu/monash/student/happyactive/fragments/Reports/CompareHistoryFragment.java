@@ -5,26 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+import edu.monash.student.happyactive.Adapters.HistoryChartsSlidePagerAdapter;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.CompareHistory.CompareHistoryViewModel;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
@@ -39,8 +32,8 @@ public class CompareHistoryFragment extends Fragment {
     protected CompareHistoryViewModel compareHistoryViewModel;
     private TextView avgSteps;
     private TextView avgTime;
-    private BarChart chartTime;
-    private BarChart chartSteps;
+    private HistoryChartsSlidePagerAdapter historyChartsSlidePagerAdapter;
+    private ViewPager2 historyChartsViewPager;
 
     @Nullable
     @Override
@@ -48,14 +41,16 @@ public class CompareHistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history_compare, container, false);
         avgSteps = view.findViewById(R.id.avgStepsActivity);
         avgTime = view.findViewById(R.id.avgTimeActivity);
-        chartSteps = view.findViewById(R.id.chartStepCompare);
-        chartTime = view.findViewById(R.id.chartTimeCompare);
+        historyChartsSlidePagerAdapter = new HistoryChartsSlidePagerAdapter(this, getContext());
+        historyChartsViewPager = view.findViewById(R.id.historyCompareViewPager);
+        historyChartsViewPager.setAdapter(historyChartsSlidePagerAdapter);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Toast.makeText(getContext(), "You can swipe across the charts to view them.", Toast.LENGTH_LONG).show();
         compareHistoryViewModel = new ViewModelProvider(this,
                 new CompareHistoryViewModel.Factory(getActivity().getApplication())).get(CompareHistoryViewModel.class);
 
@@ -63,76 +58,8 @@ public class CompareHistoryFragment extends Fragment {
             @Override
             public void onChanged(List<ActivitySession> activitySession) {
                 calculateAvgStepsAndTime(activitySession);
-                if (activitySession != null && !activitySession.isEmpty()) {
-                    generateHistoryCharts(activitySession);
-                }
             }
         });
-    }
-
-    /**
-     * Method to generate history charts for the user.
-     * @param activitySession
-     */
-    private void generateHistoryCharts(List<ActivitySession> activitySession) {
-        List<BarEntry> entriesSteps = new ArrayList<BarEntry>();
-        List<BarEntry> entriesTime = new ArrayList<BarEntry>();
-        List<String> xAxisLabels = new ArrayList<String>();
-
-        for (int i=0 ; i<activitySession.size(); i++){
-            entriesSteps.add(new BarEntry(i, activitySession.get(i).getStepCount()));
-            long diffInMillis = Math.abs(activitySession.get(i).getCompletedDateTime().getTime() - activitySession.get(i).getStartDateTime().getTime());
-            float seconds = diffInMillis / 1000;
-            float minutes = seconds / 60;
-            float hours =  minutes / 60;
-            entriesTime.add(new BarEntry(i, minutes));
-            xAxisLabels.add(Long.toString(activitySession.get(i).getActivityId()));
-        }
-        //setXAxisForCharts(xAxisLabels);
-        generateChart(entriesSteps, "Step Count of each activity", chartSteps);
-        generateChart(entriesTime, "Time Spent (minutes) on each activity", chartTime);
-    }
-
-    /**
-     * Method to set X-axis for charts
-     * @param xAxisLabels
-     */
-    private void setXAxisForCharts(List<String> xAxisLabels) {
-        XAxis xAxisSteps = chartSteps.getXAxis();
-        XAxis xAxisTime = chartTime.getXAxis();
-        setValueFormatterForXAxis(xAxisLabels, xAxisSteps);
-        setValueFormatterForXAxis(xAxisLabels, xAxisTime);
-    }
-
-    /**
-     * Method to set value formatter to the xaxis labels.
-     * @param xAxisLabels
-     * @param xAxisTime
-     */
-    private void setValueFormatterForXAxis(List<String> xAxisLabels, XAxis xAxisTime) {
-        xAxisTime.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return xAxisLabels.get((int) value);
-            }
-        });
-    }
-
-    /**
-     * Method to generate bar charts based on parameter dataset.
-     * @param entries
-     * @param label
-     * @param chart
-     */
-    private void generateChart(List<BarEntry> entries, String label, BarChart chart) {
-        BarDataSet dataSet = new BarDataSet(entries, label);
-        BarData barData = new BarData();
-        barData.addDataSet(dataSet);
-        barData.setBarWidth(0.8f);
-        chart.setData(barData);
-        chart.setFitBars(true);
-        chart.animateXY(3000, 3000);
-        chart.invalidate();
     }
 
     /**
