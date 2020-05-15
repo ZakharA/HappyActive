@@ -49,7 +49,7 @@ public class PackageSessionManager {
             currentTaskOnDisplay = tasks.get(currentTaskIndex - 1);
             return currentTaskOnDisplay;
         } else {
-            return null; // TODO replace null with something better
+            return tasks.get(0);
         }
 
     }
@@ -119,5 +119,17 @@ public class PackageSessionManager {
                 break;
             }
         }
+    }
+
+    public boolean isFirstTask(Task task) {
+        return tasks.get(0) == task ? true : false;
+    }
+
+    public boolean isPreviousTaskOnDisplay() {
+        return tasks.indexOf(currentTaskOnDisplay) < tasks.indexOf(taskInProgress);
+    }
+
+    public void setTaskOnDisplay(Task taskToDisplay) {
+        currentTaskOnDisplay = taskToDisplay;
     }
 }

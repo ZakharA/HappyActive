@@ -39,6 +39,7 @@ public class SessionFragment extends Fragment {
     private long activityId;
     private TextView mTaskCompleteView;
     private Button doneButton;
+    private Button previousButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +55,7 @@ public class SessionFragment extends Fragment {
         mTaskDescription = view.findViewById(R.id.task_description_session);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         doneButton = view.findViewById(R.id.done_task_button);
+        previousButton = view.findViewById(R.id.previous_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
         activity.setCheckUpNotification(activityId);
 
@@ -66,18 +68,40 @@ public class SessionFragment extends Fragment {
              */
             @Override
             public void onClick(View v) {
-                mProgressBar.incrementProgressBy(1);
-                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
-                if(!mSessionViewModel.isActivityCompleted()) {
-                    updateTaskCard(mSessionViewModel.completeCurrentTask());
-                    if (mSessionViewModel.isActivityCompleted())
-                        doneButton.setText(R.string.complete_activity_text);
+                if(mSessionViewModel.isPreviousTaskOnDisplay()) {
+                    Task taskToDisplay = mSessionViewModel.getTaskAfter(mSessionViewModel.getTaskOnDisplay());
+                    mSessionViewModel.setTaskOnDisplay(taskToDisplay);
+                    updateTaskCard(taskToDisplay);
+                    previousButton.setEnabled(true);
                 } else {
-                    mSessionViewModel.saveSessionAfterActivityIsCompleted();
-                    activity.cancelCheckUpNotification();
-                    Navigation.findNavController(view).navigate(
-                            SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
-                    );
+                    mProgressBar.incrementProgressBy(1);
+                    mSessionViewModel.updateSteps(activity.getNumberOfSteps());
+                    previousButton.setEnabled(true);
+                    if(!mSessionViewModel.isActivityCompleted()) {
+                        updateTaskCard(mSessionViewModel.completeCurrentTask());
+                        if (mSessionViewModel.isActivityCompleted())
+                            doneButton.setText(R.string.complete_activity_text);
+                    } else {
+                        mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                        activity.cancelCheckUpNotification();
+                        Navigation.findNavController(view).navigate(
+                                SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
+                        );
+                    }
+                }
+
+            }
+        });
+
+        previousButton.setEnabled(false);
+
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Task task = mSessionViewModel.getPreviousTasK();
+                updateTaskCard(task);
+                if(mSessionViewModel.isFirstTask(task)) {
+                    previousButton.setEnabled(false);
                 }
             }
         });
@@ -194,5 +218,6 @@ public class SessionFragment extends Fragment {
     private void updateProgressTextView(int numberOfTasks){
         mTaskCompleteView.setText("Total number of tasks: " + numberOfTasks );
     }
+
 
 }
