@@ -11,6 +11,7 @@ public class CheckUpReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Intent checkUpService = new Intent(context, CheckUpService.class);
         checkUpService.setData((Uri.parse("happyActive://"+System.currentTimeMillis())));
+        checkUpService.putExtra("activity_id", intent.getLongExtra("activity_id", 0));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(checkUpService);
         } else {
