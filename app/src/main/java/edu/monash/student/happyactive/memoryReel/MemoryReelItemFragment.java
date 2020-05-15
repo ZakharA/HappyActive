@@ -62,6 +62,7 @@ public class MemoryReelItemFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.reel_session_image);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_rv_reel_item);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
         long sessionId = MemoryReelItemFragmentArgs.fromBundle(getArguments()).getSessionId();
         mSessionViewModel.getSessionWIthPhotoAndJournalBy(sessionId).observe(getViewLifecycleOwner(), itemObserver);
         layoutManager = new LinearLayoutManager(getContext());

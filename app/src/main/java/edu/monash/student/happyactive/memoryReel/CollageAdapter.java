@@ -3,6 +3,7 @@ package edu.monash.student.happyactive.memoryReel;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.stfalcon.multiimageview.MultiImageView;
 
 import java.io.File;
@@ -36,6 +38,8 @@ import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhot
 
 public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageViewHolder>  {
     List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
+    private Target target;
+    private MultiImageView imageView;
 
     public static class CollageViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -63,7 +67,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
     public void onBindViewHolder(@NonNull CollageAdapter.CollageViewHolder holder, int position) {
         TextView titleView = (TextView) holder.view.findViewById(R.id.collage_activity);
         TextView dateView = (TextView) holder.view.findViewById(R.id.collage_date);
-        MultiImageView imageView = (MultiImageView) holder.view.findViewById(R.id.collage_image);
+        imageView = (MultiImageView) holder.view.findViewById(R.id.collage_image);
         String pattern = " dd MMMM yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);
@@ -72,16 +76,14 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
 
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
-            //Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            imageView.clear();
-           // imageView.addImage(bitmap);
-            Picasso.get().load(photoPath).into(imageView);
+            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+            imageView.addImage(bitmap);
         }
 
         for(InteractivePrompt prompt: sessionWithPhotosList.get(position).interactivePrompts) {
             if(prompt.promptType == PromptType.PHOTO){
-                //Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
-                Picasso.get().load(prompt.answer).into(imageView);
+                Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
+                imageView.addImage(bitmap);
             }
         }
 
