@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -73,12 +75,14 @@ public class MemoryReelItemFragment extends Fragment {
 
         @Override
         public void onChanged(SessionWithPhotoAndJournal sessions) {
-            titleView.setText(sessions.activityJournal.entry);
 
             if(sessions.sessionPhoto != null){
                 String photoPath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessions.sessionPhoto.path;
-                Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-                imageView.setImageBitmap(bitmap);
+                Glide.with(getContext()).asBitmap().load(photoPath).into(imageView);
+            }
+
+            if(sessions.activityJournal != null) {
+                titleView.setText(sessions.activityJournal.entry);
             }
 
             if(sessions.interactivePrompts.size() > 0) {
