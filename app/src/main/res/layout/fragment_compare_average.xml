@@ -27,6 +27,7 @@
             android:padding="@dimen/appbar_padding"
             android:text="@string/population_statistics"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textColor="@color/primaryTextColor"
             android:textSize="20sp"
             android:textStyle="bold" />
     </com.google.android.material.appbar.AppBarLayout>
