@@ -1,5 +1,6 @@
 package edu.monash.student.happyactive.memoryReel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,17 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
+import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.stfalcon.multiimageview.MultiImageView;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.DateFormatSymbols;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,11 @@ import java.util.List;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.enumerations.PromptType;
-import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
 public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageViewHolder>  {
     List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
-    private Target target;
-    private MultiImageView imageView;
+    private CollageView imageView;
 
     public static class CollageViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -63,11 +63,14 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         return vh;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(@NonNull CollageAdapter.CollageViewHolder holder, int position) {
         TextView titleView = (TextView) holder.view.findViewById(R.id.collage_activity);
         TextView dateView = (TextView) holder.view.findViewById(R.id.collage_date);
-        imageView = (MultiImageView) holder.view.findViewById(R.id.collage_image);
+        imageView = (CollageView) holder.view.findViewById(R.id.collage_image);
+        List<String> bitmaps = new ArrayList<>();
+        imageView.photoMargin(1).photoPadding(3);
         String pattern = " dd MMMM yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);
@@ -76,17 +79,16 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
 
         if(sessionWithPhotosList.get(position).sessionPhoto.size() > 0){
             String photoPath = holder.view.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessionWithPhotosList.get(position).sessionPhoto.get(0).path;
-            Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-            imageView.addImage(bitmap);
+            bitmaps.add(photoPath);
         }
 
         for(InteractivePrompt prompt: sessionWithPhotosList.get(position).interactivePrompts) {
             if(prompt.promptType == PromptType.PHOTO){
-                Bitmap bitmap = BitmapFactory.decodeFile(prompt.answer);
-                imageView.addImage(bitmap);
+               bitmaps.add(prompt.answer);
             }
         }
 
+        imageView.loadPhotos(bitmaps);
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

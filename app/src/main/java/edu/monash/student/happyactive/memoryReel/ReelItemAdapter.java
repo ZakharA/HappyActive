@@ -11,8 +11,9 @@ package edu.monash.student.happyactive.memoryReel;
         import androidx.annotation.NonNull;
         import androidx.recyclerview.widget.RecyclerView;
 
-        import com.squareup.picasso.Picasso;
 
+        import com.bumptech.glide.Glide;
+        import com.bumptech.glide.RequestManager;
 
         import java.io.File;
         import java.util.List;
@@ -52,15 +53,17 @@ public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         final ImageView imageView;
         private TextView textView;
+        private RequestManager glide;
 
         public PhotoViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.reel_session_image);
             textView = itemView.findViewById(R.id.reel_session_activity);
+            glide = Glide.with(itemView.getContext());
         }
 
         public void setPhotoDetails(InteractivePrompt interactivePrompt) {
-            Picasso.get().load(new File(interactivePrompt.answer)).rotate(90).fit().into(imageView);
+            glide.load(new File(interactivePrompt.answer)).into(imageView);
         }
     }
 

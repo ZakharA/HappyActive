@@ -24,9 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -180,7 +180,7 @@ public class CameraFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Picasso.get().load(photoURI).into(mPhotoImageView);
+            Glide.with(this).load(photoURI).into(mPhotoImageView);
             changeCameraButton();
         }
     }
