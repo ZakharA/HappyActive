@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
+import androidx.core.content.ContextCompat;
+
 public class CheckUpReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -13,7 +15,7 @@ public class CheckUpReceiver extends BroadcastReceiver {
         checkUpService.setData((Uri.parse("happyActive://"+System.currentTimeMillis())));
         checkUpService.putExtra("activity_id", intent.getLongExtra("activity_id", 0));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(checkUpService);
+            ContextCompat.startForegroundService(context, checkUpService);
         } else {
             context.startService(checkUpService);
         }

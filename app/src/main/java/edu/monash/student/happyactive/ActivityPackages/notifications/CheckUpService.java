@@ -54,6 +54,7 @@ public class CheckUpService extends IntentService {
         pendingIntent.putExtra("incompleteActivity", activity_id);
 
         Notification notification = new NotificationCompat.Builder(this, "test")
+                .setAutoCancel(true)
                 .setContentTitle("Happy Active")
                 .setContentText("You have not been active for some time!")
                 .setContentIntent(
@@ -62,6 +63,14 @@ public class CheckUpService extends IntentService {
                 .setSound(soundUri).setSmallIcon(R.drawable.happy_active_home)
                 .setChannelId(id)
                 .build();
-        NotificationManagerCompat.from(this).notify(0, notification);
+
+        NotificationManagerCompat.from(this).notify(1, notification);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startForeground(1, notification);
+        }
+        else {
+            NotificationManagerCompat.from(this).notify(1, notification);
+        }
     }
 }
