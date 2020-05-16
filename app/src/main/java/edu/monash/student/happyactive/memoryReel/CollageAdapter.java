@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -70,7 +71,13 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         TextView dateView = (TextView) holder.view.findViewById(R.id.collage_date);
         imageView = (CollageView) holder.view.findViewById(R.id.collage_image);
         List<String> bitmaps = new ArrayList<>();
-        imageView.photoMargin(1).photoPadding(3);
+        imageView
+                .photoMargin(1)
+                .photoPadding(3)
+                .useFirstAsHeader(true)
+                .defaultPhotosForLine(3)
+                .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE)
+                .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT);
         String pattern = " dd MMMM yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);
