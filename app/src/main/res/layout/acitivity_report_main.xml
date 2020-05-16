@@ -26,6 +26,7 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/main_report_title"
+            android:textColor="@color/primaryTextColor"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textSize="20sp"
             android:textStyle="bold" />
