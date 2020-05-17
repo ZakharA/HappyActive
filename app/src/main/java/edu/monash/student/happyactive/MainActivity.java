@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements ShowPrefFormDialo
         alarmManager.cancel(pendingIntent);
 
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.SECOND, 2);
+        now.add(Calendar.HOUR, 2);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), pendingIntent);
     }

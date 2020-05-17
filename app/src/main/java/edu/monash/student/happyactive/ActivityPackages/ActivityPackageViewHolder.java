@@ -9,6 +9,13 @@ import android.widget.TextView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Picasso;
+
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.fragments.Activities.ActivitiesHomeFragmentDirections;
@@ -56,7 +63,10 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
         this.activityPackage = activityPackage;
         mIdView.setText(String.valueOf( activityPackage.title));
         mContentView.setText(activityPackage.description);
-        mImageView.setImageResource(res.getIdentifier(activityPackage.imagePath.split("[.]")[0],  "drawable", mPackageName));
+        Picasso.get().load(res.getIdentifier(activityPackage.imagePath.split("[.]")[0],  "drawable", mPackageName))
+                .centerInside()
+                .resize(250, 100)
+                .into(mImageView);
         mLevelImageView.setImageResource(res.getIdentifier("level_" + activityPackage.getActivityLevel() + "_activity", "mipmap", mPackageName));
         itemView.setOnClickListener(mOnClickListener);
     }
