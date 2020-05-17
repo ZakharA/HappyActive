@@ -56,6 +56,7 @@ public class ReminderService extends IntentService {
 
         Notification notification = new NotificationCompat.Builder(this, "test")
                 .setContentTitle("Happy Active")
+                .setAutoCancel(true)
                 .setContentText("Let's plan an activity for tomorrow!")
                 .setContentIntent(
                         PendingIntent.getActivity(this, 0, new Intent(this,
