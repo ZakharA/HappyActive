@@ -163,6 +163,7 @@ public class SessionFragment extends Fragment {
             if (activitySession != null) {
                 mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList, activitySession.getCurrentTaskId());
                 mSessionViewModel.setActivitySession(activitySession);
+                previousButton.setEnabled(true);
                 for (Task task : activityPackageWithTasks.tasksList) {
                     if (task.getId() == activitySession.getCurrentTaskId()) {
                         break;
