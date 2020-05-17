@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 public class SessionFragment extends Fragment {
@@ -200,8 +203,11 @@ public class SessionFragment extends Fragment {
     private void updateTaskCard(Task task){
         mTaskTitle.setText(task.getTitle());
         mTaskDescription.setText(task.getDescription());
-        mImageView.setImageResource(getResources()
-                .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
+
+        Glide.with(this)
+                .load(getResources().getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(3, 2)))
+                .into(mImageView);
         if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") == null)) {
             getChildFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
