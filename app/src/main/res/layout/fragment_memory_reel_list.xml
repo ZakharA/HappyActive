@@ -49,9 +49,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:autoText="false"
+        android:gravity="center"
         android:text="@string/empty_memory_reel"
         android:textStyle="bold"
         app:autoSizeMaxTextSize="100sp"

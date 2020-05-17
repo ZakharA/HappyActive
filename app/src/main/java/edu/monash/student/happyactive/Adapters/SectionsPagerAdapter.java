@@ -19,7 +19,7 @@ import edu.monash.student.happyactive.fragments.Activities.RecommendedActivities
 public class SectionsPagerAdapter extends FragmentStateAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_3, R.string.tab_text_2, R.string.tab_text_1};
     private Context mContext;
 
     public SectionsPagerAdapter(@NonNull Fragment fragment, Context mContext) {
@@ -33,11 +33,11 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         // getItem is called to instantiate the fragment for the given page.
         switch(position){
             case 0:
-                return InProgressActivitiesFragment.newInstance(position);
+                return AllActivitiesFragment.newInstance(position);
             case 1:
                 return RecommendedActivitiesFragment.newInstance(position);
             case 2:
-                return AllActivitiesFragment.newInstance(position);
+                return InProgressActivitiesFragment.newInstance(position);
             default:
                 return null;
         }

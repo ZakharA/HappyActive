@@ -1,5 +1,6 @@
 package edu.monash.student.happyactive.fragments.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -17,6 +19,9 @@ import android.view.ViewGroup;
 
 import edu.monash.student.happyactive.Adapters.SectionsPagerAdapter;
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.Reports.OverallActivity.OverallActivityViewModel;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ActivitiesHomeFragment extends Fragment {
 
