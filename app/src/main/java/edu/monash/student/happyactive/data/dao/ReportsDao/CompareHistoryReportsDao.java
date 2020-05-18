@@ -24,6 +24,6 @@ public abstract class CompareHistoryReportsDao {
     @Query("Select * from ActivitySession where status == :status")
     public abstract LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status);
 
-    @Query("Select * from ActivitySession where status == :status order by completedDateTime desc limit 10")
+    @Query("Select * from ActivitySession where status == :status order by completedDateTime desc limit 5")
     public abstract List<SessionsWithActivity> getDataForCompletedActivityCharts(ActivityPackageStatus status);
 }
