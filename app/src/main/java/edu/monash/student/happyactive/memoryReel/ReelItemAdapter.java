@@ -1,28 +1,28 @@
 package edu.monash.student.happyactive.memoryReel;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.ImageView;
+        import android.widget.TextView;
 
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
 
-import java.util.List;
+        import com.bumptech.glide.Glide;
+        import com.bumptech.glide.RequestManager;
 
-import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.data.entities.InteractivePrompt;
-import edu.monash.student.happyactive.data.enumerations.PromptType;
-import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
-import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
+        import java.io.File;
+        import java.util.List;
 
-public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelItemViewHolder>  {
+        import edu.monash.student.happyactive.R;
+        import edu.monash.student.happyactive.data.entities.InteractivePrompt;
+        import edu.monash.student.happyactive.data.enumerations.PromptType;
+
+public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<InteractivePrompt> mDataSet;
 
@@ -38,40 +38,82 @@ public class ReelItemAdapter extends RecyclerView.Adapter<ReelItemAdapter.ReelIt
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return mDataSet.get(position).promptType.ordinal();
+    }
+
     // Provide a suitable constructor (depends on the kind of dataset)
     public ReelItemAdapter(List<InteractivePrompt> myDataSet) {
         mDataSet = myDataSet;
     }
 
-    // Create new views (invoked by the layout manager)
-    @Override
-    public ReelItemAdapter.ReelItemViewHolder onCreateViewHolder(ViewGroup parent,
-                                                               int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_reel_session_item, parent, false);
-        ReelItemViewHolder vh = new ReelItemViewHolder(v);
-        return vh;
+
+    class PhotoViewHolder extends RecyclerView.ViewHolder {
+
+        final ImageView imageView;
+        private TextView textView;
+        private RequestManager glide;
+
+        public PhotoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.reel_session_image);
+            textView = itemView.findViewById(R.id.reel_session_activity);
+            glide = Glide.with(itemView.getContext());
+        }
+
+        public void setPhotoDetails(InteractivePrompt interactivePrompt) {
+            glide.load(new File(interactivePrompt.answer)).into(imageView);
+        }
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ReelItemViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
+    class TextViewHolder extends RecyclerView.ViewHolder {
+        private TextView promptTextView;
+        private TextView textView;
 
-        if(mDataSet.get(position).promptType == PromptType.PHOTO) {
-            ImageView imageView = (ImageView) holder.view.findViewById(R.id.reel_session_image);
-            Picasso.get().load(mDataSet.get(position).answer).into(imageView);
+        public TextViewHolder(@NonNull View itemView) {
+            super(itemView);
+            promptTextView = itemView.findViewById(R.id.reel_session_activity);
+            textView = itemView.findViewById(R.id.reel_session_date);
+        }
+
+        public void setTextDetails(InteractivePrompt interactivePrompt) {
+            promptTextView.setText(interactivePrompt.answer);
+        }
+    }
+
+    // Create new views (invoked by the layout manager)
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view;
+        if (viewType == PromptType.PHOTO.ordinal()) { // for photo layout
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_reel_session_item_photo, viewGroup, false);
+            return new PhotoViewHolder(view);
+
+        } else { // for text layout
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_reel_session_item_text, viewGroup, false);
+            return new TextViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) ==  PromptType.PHOTO.ordinal()) {
+            ((PhotoViewHolder) holder).setPhotoDetails(mDataSet.get(position));
         } else {
-            TextView titleView = (TextView) holder.view.findViewById(R.id.reel_session_activity);
-            titleView.setText(mDataSet.get(position).answer);
+            ((TextViewHolder) holder).setTextDetails(mDataSet.get(position));
         }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return 1;
+        return mDataSet.size();
+    }
+
+    public void addData(List<InteractivePrompt> myDataSet) {
+        mDataSet = myDataSet;
     }
 }
+

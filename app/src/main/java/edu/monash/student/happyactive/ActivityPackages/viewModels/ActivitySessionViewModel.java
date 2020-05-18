@@ -141,6 +141,26 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         return activitySessionRepository.getSessionWithPhotoAndPromptsBy(format);
     }
 
+    public Task getPreviousTasK() {
+        return sessionManager.getPreviousTask();
+    }
+
+    public boolean isFirstTask(Task task) {
+        return sessionManager.isFirstTask(task);
+    }
+
+    public boolean isPreviousTaskOnDisplay() {
+        return sessionManager.isPreviousTaskOnDisplay();
+    }
+
+    public Task getTaskAfter(Task taskOnDisplay) {
+        return sessionManager.getTaskAfter(taskOnDisplay);
+    }
+
+    public void setTaskOnDisplay(Task taskToDisplay) {
+        sessionManager.setTaskOnDisplay(taskToDisplay);
+    }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
         private final Application application;

@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,6 +64,7 @@ public class MemoryReelItemFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.reel_session_image);
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_rv_reel_item);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
         long sessionId = MemoryReelItemFragmentArgs.fromBundle(getArguments()).getSessionId();
         mSessionViewModel.getSessionWIthPhotoAndJournalBy(sessionId).observe(getViewLifecycleOwner(), itemObserver);
         layoutManager = new LinearLayoutManager(getContext());
@@ -72,12 +75,14 @@ public class MemoryReelItemFragment extends Fragment {
 
         @Override
         public void onChanged(SessionWithPhotoAndJournal sessions) {
-            titleView.setText(sessions.activityJournal.entry);
 
             if(sessions.sessionPhoto != null){
                 String photoPath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES) +"/" + sessions.sessionPhoto.path;
-                Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
-                imageView.setImageBitmap(bitmap);
+                Glide.with(getContext()).asBitmap().load(photoPath).into(imageView);
+            }
+
+            if(sessions.activityJournal != null) {
+                titleView.setText(sessions.activityJournal.entry);
             }
 
             if(sessions.interactivePrompts.size() > 0) {

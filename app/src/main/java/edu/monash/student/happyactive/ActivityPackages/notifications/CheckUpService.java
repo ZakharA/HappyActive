@@ -31,10 +31,10 @@ public class CheckUpService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        showCompleteActivityNotification();
+        showCompleteActivityNotification(intent.getExtras().getLong("activity_id"));
     }
 
-    private void showCompleteActivityNotification() {
+    private void showCompleteActivityNotification(long activity_id) {
         String id = "Happy Active";
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         Uri soundUri = RingtoneManager
@@ -50,16 +50,27 @@ public class CheckUpService extends IntentService {
             notificationManagerCompat.createNotificationChannel(mChannel);
         }
 
+        Intent pendingIntent = new Intent(this, MainActivity.class);
+        pendingIntent.putExtra("incompleteActivity", activity_id);
+
         Notification notification = new NotificationCompat.Builder(this, "test")
+                .setAutoCancel(true)
                 .setContentTitle("Happy Active")
                 .setContentText("You have not been active for some time!")
                 .setContentIntent(
-                        PendingIntent.getActivity(this, 0, new Intent(this,
-                                        MainActivity.class),
+                        PendingIntent.getActivity(this, 0, pendingIntent,
                                 PendingIntent.FLAG_UPDATE_CURRENT))
                 .setSound(soundUri).setSmallIcon(R.drawable.happy_active_home)
                 .setChannelId(id)
                 .build();
-        NotificationManagerCompat.from(this).notify(0, notification);
+
+        NotificationManagerCompat.from(this).notify(1, notification);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startForeground(1, notification);
+        }
+        else {
+            NotificationManagerCompat.from(this).notify(1, notification);
+        }
     }
 }

@@ -124,7 +124,7 @@ public class OverallHomeFragment extends Fragment {
                     long seconds = sumTime / 1000;
                     long minutes = seconds / 60;
                     long hours =  minutes / 60;
-                    overallTimeSpent.setText(hours + " hours " + minutes + " minutes");
+                    overallTimeSpent.setText(hours + " hours " +( minutes >= 60 ?  minutes/hours : minutes )  + " minutes");
                 }
                 else {
                     overallTimeSpent.setText("0 hours 0 minutes");

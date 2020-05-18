@@ -176,7 +176,7 @@ public class AverageChartSliderCommonFragment extends Fragment {
         List<BarEntry> entriesTime = new ArrayList<BarEntry>();
 
         entriesTime.add(new BarEntry(0, 13.07f));
-        entriesTime.add(new BarEntry(1, dataMap.get("AvgTime")));
+        entriesTime.add(new BarEntry(1, dataMap.size() == 0 ? 0 : dataMap.get("AvgTime")));
 
         BarDataSet dataSet = new BarDataSet(entriesTime, "Avg Time-Australia vs User");
         BarData barData = new BarData();

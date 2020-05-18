@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.Task;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 public class SessionFragment extends Fragment {
@@ -39,6 +42,7 @@ public class SessionFragment extends Fragment {
     private long activityId;
     private TextView mTaskCompleteView;
     private Button doneButton;
+    private Button previousButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +58,7 @@ public class SessionFragment extends Fragment {
         mTaskDescription = view.findViewById(R.id.task_description_session);
         mProgressBar = view.findViewById(R.id.task_progress_bar);
         doneButton = view.findViewById(R.id.done_task_button);
+        previousButton = view.findViewById(R.id.previous_task_button);
         Button cancelButton = view.findViewById(R.id.cancel_session_button);
         activity.setCheckUpNotification(activityId);
 
@@ -66,18 +71,40 @@ public class SessionFragment extends Fragment {
              */
             @Override
             public void onClick(View v) {
-                mProgressBar.incrementProgressBy(1);
-                mSessionViewModel.updateSteps(activity.getNumberOfSteps());
-                if(!mSessionViewModel.isActivityCompleted()) {
-                    updateTaskCard(mSessionViewModel.completeCurrentTask());
-                    if (mSessionViewModel.isActivityCompleted())
-                        doneButton.setText(R.string.complete_activity_text);
+                if(mSessionViewModel.isPreviousTaskOnDisplay()) {
+                    Task taskToDisplay = mSessionViewModel.getTaskAfter(mSessionViewModel.getTaskOnDisplay());
+                    mSessionViewModel.setTaskOnDisplay(taskToDisplay);
+                    updateTaskCard(taskToDisplay);
+                    previousButton.setEnabled(true);
                 } else {
-                    mSessionViewModel.saveSessionAfterActivityIsCompleted();
-                    activity.cancelCheckUpNotification();
-                    Navigation.findNavController(view).navigate(
-                            SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
-                    );
+                    mProgressBar.incrementProgressBy(1);
+                    mSessionViewModel.updateSteps(activity.getNumberOfSteps());
+                    previousButton.setEnabled(true);
+                    if(!mSessionViewModel.isActivityCompleted()) {
+                        updateTaskCard(mSessionViewModel.completeCurrentTask());
+                        if (mSessionViewModel.isActivityCompleted())
+                            doneButton.setText(R.string.complete_activity_text);
+                    } else {
+                        mSessionViewModel.saveSessionAfterActivityIsCompleted();
+                        activity.cancelCheckUpNotification();
+                        Navigation.findNavController(view).navigate(
+                                SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
+                        );
+                    }
+                }
+
+            }
+        });
+
+        previousButton.setEnabled(false);
+
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Task task = mSessionViewModel.getPreviousTasK();
+                updateTaskCard(task);
+                if(mSessionViewModel.isFirstTask(task)) {
+                    previousButton.setEnabled(false);
                 }
             }
         });
@@ -136,6 +163,7 @@ public class SessionFragment extends Fragment {
             if (activitySession != null) {
                 mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList, activitySession.getCurrentTaskId());
                 mSessionViewModel.setActivitySession(activitySession);
+                previousButton.setEnabled(true);
                 for (Task task : activityPackageWithTasks.tasksList) {
                     if (task.getId() == activitySession.getCurrentTaskId()) {
                         break;
@@ -176,8 +204,11 @@ public class SessionFragment extends Fragment {
     private void updateTaskCard(Task task){
         mTaskTitle.setText(task.getTitle());
         mTaskDescription.setText(task.getDescription());
-        mImageView.setImageResource(getResources()
-                .getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
+
+        Glide.with(this)
+                .load(getResources().getIdentifier(task.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(3, 2)))
+                .into(mImageView);
         if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") == null)) {
             getChildFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
@@ -194,5 +225,6 @@ public class SessionFragment extends Fragment {
     private void updateProgressTextView(int numberOfTasks){
         mTaskCompleteView.setText("Total number of tasks: " + numberOfTasks );
     }
+
 
 }

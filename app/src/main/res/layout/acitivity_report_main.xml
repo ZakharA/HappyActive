@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView"
@@ -25,6 +26,7 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/main_report_title"
+            android:textColor="@color/primaryTextColor"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textSize="20sp"
             android:textStyle="bold" />

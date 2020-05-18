@@ -22,6 +22,9 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/memoryReeltabTitle"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryTextColor"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,16 +37,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbarActivities">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -56,7 +60,7 @@
                     <ImageView
                         android:id="@+id/reel_session_image"
                         android:layout_width="match_parent"
-                        android:layout_height="194dp"
+                        android:layout_height="wrap_content"
                         android:contentDescription="@string/content_description_media"
                         android:scaleType="centerCrop" />
 
@@ -84,7 +88,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/fragment_rv_reel_item"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -92,7 +96,7 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 

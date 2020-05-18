@@ -13,6 +13,9 @@
         <action
             android:id="@+id/showPreferencesFragment"
             app:destination="@+id/preferencesFragment"/>
+        <action
+            android:id="@+id/resumeSession"
+            app:destination="@id/sessionFragment" />
     </fragment>
     <fragment
         android:id="@+id/packageDetailsFragment"

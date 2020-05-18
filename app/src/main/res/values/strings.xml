@@ -63,7 +63,7 @@
     <string name="pref_dialog_title">Add Preferences</string>
     <string name="pref_dialog_negative">No. I\'ll set them later!</string>
     <string name="pref_dialog_set_later">You can always set your preferences in the Activities tab</string>
-    <string name="empty_memory_reel">It\'s empty in your Memory reel</string>
+    <string name="empty_memory_reel">Your memory reel is empty</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tab_text_1">In Progress</string>
     <string name="tab_text_2">Recommended</string>
@@ -95,6 +95,7 @@
     <string name="what_is_your_grandparents_approximate_age">What is your grandparents approximate age?</string>
     <string name="what_is_your_grandparents_gender">What is your grandparents gender?</string>
     <string name="score">Total Score</string>
+    <string name="previous_task">Previous Task</string>
 
 
 </resources>
