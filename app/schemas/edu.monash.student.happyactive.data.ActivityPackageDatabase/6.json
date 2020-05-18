@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "ed2c96179c4456544b2966bec6cdf348",
+    "identityHash": "c97b328b60c954872b60cda03f0bf444",
     "entities": [
       {
         "tableName": "ActivitySession",
@@ -62,7 +62,7 @@
       },
       {
         "tableName": "ActivityPackage",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `materials` TEXT, `type` TEXT, `approxTimeToComplete` INTEGER NOT NULL, `activityLevel` INTEGER NOT NULL, `parkAccess` INTEGER, `gardenAccess` INTEGER, `distance` INTEGER, `suitMaxArthritisCondition` INTEGER, `isUserPreferred` INTEGER NOT NULL, `imagePath` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `materials` TEXT, `type` TEXT, `approxTimeToComplete` INTEGER NOT NULL DEFAULT 0, `activityLevel` INTEGER NOT NULL, `parkAccess` INTEGER, `gardenAccess` INTEGER, `distance` INTEGER, `suitMaxArthritisCondition` INTEGER, `isUserPreferred` INTEGER NOT NULL DEFAULT 0, `imagePath` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -98,7 +98,8 @@
             "fieldPath": "approxTimeToComplete",
             "columnName": "approxTimeToComplete",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0"
           },
           {
             "fieldPath": "activityLevel",
@@ -134,7 +135,8 @@
             "fieldPath": "isUserPreferred",
             "columnName": "isUserPreferred",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "0"
           },
           {
             "fieldPath": "imagePath",
@@ -414,7 +416,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ed2c96179c4456544b2966bec6cdf348')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c97b328b60c954872b60cda03f0bf444')"
     ]
   }
 }
