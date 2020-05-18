@@ -2,10 +2,13 @@ package edu.monash.student.happyactive.data;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import edu.monash.student.happyactive.data.converters.ArthritisConditionConverter;
 import edu.monash.student.happyactive.data.converters.DateConverters;
@@ -52,6 +55,22 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     
     private static ActivityPackageDatabase INSTANCE;
 
+    static final Migration MIGRATION_2_6 = new Migration(2, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `ActivitySession` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `activityId` INTEGER NOT NULL, `currentTaskId` INTEGER NOT NULL, `status` INTEGER, `stepCount` INTEGER NOT NULL, `startDateTime` INTEGER, `completedDateTime` INTEGER)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `ActivityPackage` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `materials` TEXT, `type` TEXT, `approxTimeToComplete` INTEGER NOT NULL, `activityLevel` INTEGER NOT NULL, `parkAccess` INTEGER, `gardenAccess` INTEGER, `distance` INTEGER, `suitMaxArthritisCondition` INTEGER, `isUserPreferred` INTEGER NOT NULL, `imagePath` TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `ActivityJournal` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` INTEGER NOT NULL, `entry` TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `SessionPhoto` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` INTEGER NOT NULL, `path` TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Task` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `activityId` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `imagePath` TEXT, `promptType` INTEGER)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `UserPref` (`id` INTEGER NOT NULL, `hobbyList` TEXT, `gardenAccess` INTEGER, `parkAccess` INTEGER, `arthritisCondition` INTEGER, `activityTime` INTEGER, `activityDistance` INTEGER, `userAge` INTEGER, `userGender` INTEGER, PRIMARY KEY(`id`))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `UserScore` (`id` INTEGER NOT NULL, `currentScore` INTEGER NOT NULL, `oldScore` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `InteractivePrompt` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` INTEGER NOT NULL, `taskId` INTEGER NOT NULL, `answer` TEXT, `promptType` INTEGER)");
+            database.execSQL("ALTER TABLE `Task` ADD COLUMN `promptType` INTEGER");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `materials` TEXT, `type` TEXT, `approxTimeToComplete` INTEGER NOT NULL, `activityLevel` INTEGER NOT NULL, `parkAccess` INTEGER, `gardenAccess` INTEGER, `distance` INTEGER, `suitMaxArthritisCondition` INTEGER, `isUserPreferred` INTEGER NOT NULL");
+        }
+    };
+
     public static ActivityPackageDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ActivityPackageDatabase.class) {
@@ -59,6 +78,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ActivityPackageDatabase.class, "happyActiveDB")
                             .createFromAsset("database/happyActiveDB.db")
+                            .addMigrations(MIGRATION_2_6)
                             .build();
                 }
             }
