@@ -52,10 +52,6 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     }
 
     public void saveSessionAfterActivityIsCompleted(){
-        activitySession.status = ActivityPackageStatus.COMPLETED;
-        activitySession.completedDateTime = new Date();
-        activitySession.currentTaskId = sessionManager.getLastTaskId();
-        activitySessionRepository.updateSession(activitySession);
         activitySessionRepository.savePromptResults(interactivePrompts);
     }
 

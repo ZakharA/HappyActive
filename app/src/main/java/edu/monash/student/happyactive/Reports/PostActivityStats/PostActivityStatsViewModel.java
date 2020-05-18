@@ -8,8 +8,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Date;
+
 import edu.monash.student.happyactive.Reports.ReportsRepositories.PostActivityStatsRepository;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
+import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 
 /**
  * View Model class for Post Activity Stats Screen.
@@ -37,6 +40,8 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
      * @param activitySession
      */
     public void setStatusCompletedPostActivity(ActivitySession activitySession) {
+        activitySession.completedDateTime = new Date();
+        activitySession.status = ActivityPackageStatus.COMPLETED;
         postActivityStatsRepository.setStatusCompletedPostActivity(activitySession);
     }
 

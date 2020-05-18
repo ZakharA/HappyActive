@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.Reports.PostActivityStats.PostActivityStatsViewModel;
 import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
@@ -72,6 +74,7 @@ public class PostActivityStatsFragment extends Fragment {
             public void onChanged(ActivitySession activitySession) {
                 if(activitySession != null) {
                     currentActivitySession = activitySession;
+                    currentActivitySession.completedDateTime = new Date();
                     stepCountPostActivity.setText(Long.toString(activitySession.getStepCount()));
                     long diffInMillis = Math.abs(activitySession.getCompletedDateTime().getTime() - activitySession.getStartDateTime().getTime());
                     long seconds = diffInMillis / 1000;
