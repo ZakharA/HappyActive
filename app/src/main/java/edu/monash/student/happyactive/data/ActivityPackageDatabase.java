@@ -55,6 +55,13 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
     
     private static ActivityPackageDatabase INSTANCE;
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE ActivityPackage ADD COLUMN activityLevel INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
     static final Migration MIGRATION_2_6 = new Migration(2, 6) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
@@ -67,7 +74,16 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
             database.execSQL("CREATE TABLE IF NOT EXISTS `UserScore` (`id` INTEGER NOT NULL, `currentScore` INTEGER NOT NULL, `oldScore` INTEGER NOT NULL, PRIMARY KEY(`id`))");
             database.execSQL("CREATE TABLE IF NOT EXISTS `InteractivePrompt` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` INTEGER NOT NULL, `taskId` INTEGER NOT NULL, `answer` TEXT, `promptType` INTEGER)");
             database.execSQL("ALTER TABLE `Task` ADD COLUMN `promptType` INTEGER");
-            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `materials` TEXT, `type` TEXT, `approxTimeToComplete` INTEGER NOT NULL, `activityLevel` INTEGER NOT NULL, `parkAccess` INTEGER, `gardenAccess` INTEGER, `distance` INTEGER, `suitMaxArthritisCondition` INTEGER, `isUserPreferred` INTEGER NOT NULL");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `materials` TEXT");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `type` TEXT");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `approxTimeToComplete` INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `parkAccess` INTEGER");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `gardenAccess` INTEGER");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `distance` INTEGER");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `suitMaxArthritisCondition` INTEGER");
+            database.execSQL("ALTER TABLE `ActivityPackage` ADD COLUMN `isUserPreferred` INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("INSERT INTO UserPref (id) VALUES (1)");
+            database.execSQL("INSERT INTO UserScore (id, currentScore, oldScore) VALUES (1, 0, 0)");
         }
     };
 
@@ -78,7 +94,7 @@ public abstract class ActivityPackageDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ActivityPackageDatabase.class, "happyActiveDB")
                             .createFromAsset("database/happyActiveDB.db")
-                            .addMigrations(MIGRATION_2_6)
+                            .addMigrations(MIGRATION_1_2,MIGRATION_2_6)
                             .build();
                 }
             }

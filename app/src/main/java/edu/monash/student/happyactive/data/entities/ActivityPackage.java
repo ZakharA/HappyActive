@@ -1,5 +1,6 @@
 package edu.monash.student.happyactive.data.entities;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -16,12 +17,14 @@ public class ActivityPackage {
     public String description;
     public String materials;
     public String type;
+    @ColumnInfo(defaultValue = "0")
     public long approxTimeToComplete;
     public long activityLevel;
     public PrefAccess parkAccess;
     public PrefAccess gardenAccess;
     public PrefFrequency distance;
     public ArthritisCondition suitMaxArthritisCondition;
+    @ColumnInfo(defaultValue = "0")
     public boolean isUserPreferred;
     public String imagePath;
 
