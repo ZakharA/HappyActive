@@ -82,8 +82,8 @@ public class CompareAverageViewModel extends AndroidViewModel {
      */
     public ArrayList<String> processStepsByAgeFile(FragmentActivity activity) throws ExecutionException, InterruptedException {
         UserPref userPref = compareAverageRepository.fetchUserAgeGender();
-        UserGender userGender = userPref.getUserGender();
-        UserAge userAge = userPref.getUserAge();
+        UserGender userGender = userPref != null ? userPref.getUserGender() : null;
+        UserAge userAge = userPref != null ? userPref.getUserAge() : null;
         String[] record = null;
         ArrayList<String> result = new ArrayList<String>();
         try {

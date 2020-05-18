@@ -65,7 +65,7 @@ public class PreferenceRepository {
         }
 
         private void makeRecommendationsForUser(ActivityPackage activityPackage, UserPref userPref, long userLevel) {
-            if (activityPackage.getActivityLevel() <= userLevel) {
+            if (activityPackage.getActivityLevel() == userLevel) {
                 if (userPref.getArthritisCondition() != null && userPref.getArthritisCondition().ordinal() <= activityPackage.getSuitMaxArthritisCondition().ordinal()){
                     activityPackage.setUserPreferred(true);
                 }
