@@ -66,8 +66,12 @@ public class ActivitySessionRepository {
         return new setAsyncTask(activitySessionDao).execute(activityId, ActivityPackageStatus.STARTED).get();
     }
 
-    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPhotoAndPromptsBy(String format) {
-        return activitySessionDao.getSessionWithPhotoAndPromptsBy(format);
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionsWithPhotoAndPrompts() {
+        return activitySessionDao.getSessionsWithPhotoAndPrompts();
+    }
+
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPromptsInRange(Long first, Long second) {
+        return  activitySessionDao.getSessionWithPromptsInRange(first, second);
     }
 
     private static class updateAsyncTask extends AsyncTask<ActivitySession, Void, Void> {

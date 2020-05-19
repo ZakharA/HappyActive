@@ -216,7 +216,7 @@ public class SessionFragment extends Fragment {
                 .into(mImageView);
         if(task.promptType != PromptType.NONE && (getChildFragmentManager().findFragmentByTag("prompt") == null)) {
             getChildFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
+                    .replace(R.id.fragment_container_view_prompt, PromptFragment.newInstance(activityId, task.id, mSessionViewModel.getTaskOnDisplay().promptType), "prompt")
                     .commit();
         } else {
             if(getChildFragmentManager().findFragmentByTag("prompt") != null) {

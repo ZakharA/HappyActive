@@ -56,4 +56,8 @@ public class ActivityPackageRepository {
     public DataSource.Factory<Integer, ActivityPackage> getRecommendedActivityPackagesAsPagedList() {
         return activityPackageDao.getRecommendedActivityPackagesAsPagedList(1);
     }
+
+    public LiveData<Task> getTaskById(long taskId) {
+        return activityPackageDao.getTaskById(taskId);
+    }
 }

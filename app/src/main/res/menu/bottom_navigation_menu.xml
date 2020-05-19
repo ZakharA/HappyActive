@@ -15,7 +15,7 @@
         />
 
     <item
-        android:id="@+id/memoryReelFragment2"
+        android:id="@+id/photoCollageFragment"
         android:enabled="true"
         android:icon="@drawable/ic_photo_library_black_24dp"
         android:title="Memory Reel"

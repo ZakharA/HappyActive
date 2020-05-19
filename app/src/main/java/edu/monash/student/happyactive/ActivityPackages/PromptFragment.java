@@ -32,6 +32,7 @@ import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
+import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 
@@ -49,6 +50,7 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     private String currentPhotoPath;
     private Uri photoURI;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private long mTaskId;
 
     public PromptFragment() {
         // Required empty public constructor
@@ -56,10 +58,11 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
 
 
     // TODO: Rename and change types and number of parameters
-    public static PromptFragment newInstance(long activityId, PromptType promptType) {
+    public static PromptFragment newInstance(long activityId, long taskId, PromptType promptType) {
         PromptFragment fragment = new PromptFragment();
         Bundle args = new Bundle();
         args.putLong("activityId", activityId);
+        args.putLong("taskId", taskId);
         args.putSerializable("promptType", promptType);
         fragment.setArguments(args);
         return fragment;
@@ -68,9 +71,9 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mInteractivePrompt = new InteractivePrompt();
         if (getArguments() != null) {
             mActivityId = getArguments().getLong("activityId");
+            mTaskId = getArguments().getLong("taskId");
             mPromptType = (PromptType) getArguments().getSerializable("promptType");
         }
     }
@@ -79,10 +82,16 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = null;
+        mSessionViewModel = new ViewModelProvider(requireActivity(),
+                new ActivitySessionViewModel.Factory(getActivity().getApplication(), mActivityId)).get(ActivitySessionViewModel.class);
+        List<InteractivePrompt> promptList = mSessionViewModel.getSessionWithPrompts();
         switch (mPromptType){
             case TEXT:
                 view = inflater.inflate(R.layout.fragment_text_prompt, container, false);
                 mTextPrompt = (TextInputEditText) view.findViewById(R.id.textPrompt);
+                if(taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
+                    mTextPrompt.setText(getTaskById(promptList, mTaskId).answer);
+                }
                 mTextPrompt.addTextChangedListener(this);
                 break;
             case PHOTO:
@@ -98,7 +107,21 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     private boolean taskExistsIn(List<InteractivePrompt> promptList, long id) {
         boolean result = false;
         for(InteractivePrompt prompt: promptList){
-             result = prompt.taskId == id ?  true :  false;
+            if( prompt.taskId == id ){
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private InteractivePrompt getTaskById(List<InteractivePrompt> promptList, long id) {
+        InteractivePrompt result = null;
+        for(InteractivePrompt prompt: promptList){
+            if( prompt.taskId == id ){
+                result = prompt;
+                break;
+            }
         }
         return result;
     }
@@ -106,8 +129,7 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSessionViewModel = new ViewModelProvider(requireActivity(),
-                new ActivitySessionViewModel.Factory(getActivity().getApplication(), mActivityId)).get(ActivitySessionViewModel.class);
+
     }
 
     @Override
@@ -129,13 +151,14 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     public void afterTextChanged(Editable s) {
         List<InteractivePrompt> promptList = mSessionViewModel.getSessionWithPrompts();
         if(!taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
+            mInteractivePrompt = new InteractivePrompt();
             mInteractivePrompt.sessionId = mSessionViewModel.getSessionId();
             mInteractivePrompt.taskId = mSessionViewModel.getTaskOnDisplay().id;
             mInteractivePrompt.promptType = mSessionViewModel.getTaskOnDisplay().promptType;
             mInteractivePrompt.answer = s.toString();
             mSessionViewModel.getSessionWithPrompts().add(mInteractivePrompt);
         } else {
-            promptList.get( promptList.indexOf(mInteractivePrompt)).answer = s.toString();
+            getTaskById(promptList, mSessionViewModel.getTaskOnDisplay().id).answer = s.toString();
         }
     }
 
@@ -197,6 +220,7 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             List<InteractivePrompt> promptList = mSessionViewModel.getSessionWithPrompts();
             if(!taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
+                mInteractivePrompt = new InteractivePrompt();
                 mInteractivePrompt.sessionId = mSessionViewModel.getSessionId();
                 mInteractivePrompt.taskId = mSessionViewModel.getTaskOnDisplay().id;
                 mInteractivePrompt.promptType = mSessionViewModel.getTaskOnDisplay().promptType;

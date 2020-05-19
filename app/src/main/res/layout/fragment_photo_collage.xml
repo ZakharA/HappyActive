@@ -30,15 +30,74 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collageMemoryReelContainer"
-        android:layout_width="0dp"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbarActivities"
-        tools:context=".memoryReel."
-        tools:listitem="@layout/fragment_memory_reel_collage" />
+        app:layout_constraintTop_toBottomOf="@+id/appbarActivities">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterChip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="@string/filter"
+                android:textColor="#FFFFFF"
+                app:checkedIcon="@drawable/ic_check_black_24dp"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipStrokeColor="#ffff"
+                app:chipSurfaceColor="@color/secondaryLightColor"
+                app:closeIcon="@drawable/ic_filter_list_black_24dp"
+                app:closeIconTint="#F1EEEE"
+                app:closeIconVisible="true" />
+
+            <edu.monash.student.happyactive.memoryReel.CollageRecyclerView
+                android:id="@+id/collageMemoryReelContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".memoryReel."
+                tools:listitem="@layout/fragment_memory_reel_collage" />
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbarActivities"
+        tools:context=".memoryReel.PhotoCollageFragment">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="154dp"
+            android:layout_height="159dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/smileys" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/empty_memory_reel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

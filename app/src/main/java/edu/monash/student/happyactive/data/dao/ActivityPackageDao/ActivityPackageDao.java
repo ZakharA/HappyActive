@@ -72,4 +72,7 @@ public abstract class ActivityPackageDao {
 
     @Query("SELECT * FROM ActivityPackage WHERE isUserPreferred = :value")
     public abstract DataSource.Factory<Integer, ActivityPackage> getRecommendedActivityPackagesAsPagedList(long value);
+
+    @Query("SELECT * FROM task WHERE id = :taskId")
+    public abstract LiveData<Task> getTaskById(long taskId);
 }
