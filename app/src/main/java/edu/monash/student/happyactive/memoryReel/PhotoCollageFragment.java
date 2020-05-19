@@ -26,8 +26,7 @@ import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhot
 
 public class PhotoCollageFragment extends Fragment {
 
-
-    private RecyclerView recyclerView;
+    private CollageRecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private CollageAdapter mCollageAdapter;
     private ActivitySessionViewModel mSessionViewModel;
@@ -55,13 +54,14 @@ public class PhotoCollageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_photo_collage, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.collageMemoryReelContainer);
+        recyclerView = (CollageRecyclerView) view.findViewById(R.id.collageMemoryReelContainer);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setEmptyView(view.findViewById(R.id.emptyLayout));
         datePicker = MaterialDatePicker.Builder.dateRangePicker().build();
         Chip chip = (Chip) view.findViewById(R.id.filterChip);
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
-           mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second).observe(getViewLifecycleOwner(), filterObserver);
+           mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second).observe(getViewLifecycleOwner(), collageObserver);
         });
 
         datePicker.addOnNegativeButtonClickListener(selection -> {
@@ -90,14 +90,6 @@ public class PhotoCollageFragment extends Fragment {
             mCollageAdapter = new CollageAdapter(sessions);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(mCollageAdapter);
-        }
-    };
-
-
-    Observer<List<ActivitySessionWithPhotosAndPrompts>> filterObserver = new Observer<List<ActivitySessionWithPhotosAndPrompts>>() {
-        @Override
-        public void onChanged(List<ActivitySessionWithPhotosAndPrompts> sessions) {
-            mCollageAdapter.updateData(sessions);
             mCollageAdapter.notifyDataSetChanged();
         }
     };
