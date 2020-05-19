@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.concurrent.ExecutionException;
+
 import edu.monash.student.happyactive.data.entities.UserPref;
 
 public class PreferencesViewModel extends AndroidViewModel {
@@ -20,6 +22,10 @@ public class PreferencesViewModel extends AndroidViewModel {
 
     public void updatePreferences(UserPref userPref) {
         preferenceRepository.updatePreferences(userPref);
+    }
+
+    public UserPref getPreferences() throws ExecutionException, InterruptedException {
+        return preferenceRepository.getPreferences();
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
