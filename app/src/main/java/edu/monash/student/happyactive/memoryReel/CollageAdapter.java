@@ -42,6 +42,10 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
     List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
     private CollageView imageView;
 
+    public void updateData(List<ActivitySessionWithPhotosAndPrompts> sessions) {
+        sessionWithPhotosList = sessions;
+    }
+
     public static class CollageViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public View view;

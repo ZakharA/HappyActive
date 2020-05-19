@@ -2,6 +2,7 @@ package edu.monash.student.happyactive.memoryReel;
 
 import android.os.Bundle;
 
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.datepicker.MaterialDatePicker;
+
 import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
 import edu.monash.student.happyactive.R;
-import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
 
@@ -30,7 +31,7 @@ public class PhotoCollageFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private CollageAdapter mCollageAdapter;
     private ActivitySessionViewModel mSessionViewModel;
-    private String mSelectedMonth;
+    private MaterialDatePicker<Pair<Long, Long>> datePicker;
 
     public PhotoCollageFragment() {
         // Required empty public constructor
@@ -46,7 +47,6 @@ public class PhotoCollageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSelectedMonth = PhotoCollageFragmentArgs.fromBundle(getArguments()).getSelectedMonth();
         mSessionViewModel = new ViewModelProvider(requireActivity(),
                 new ActivitySessionViewModel.Factory(getActivity().getApplication())).get(ActivitySessionViewModel.class);
     }
@@ -57,14 +57,25 @@ public class PhotoCollageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_photo_collage, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.collageMemoryReelContainer);
         recyclerView.setHasFixedSize(true);
-        Calendar cal = Calendar.getInstance();
-        try {
-            cal.setTime(new SimpleDateFormat("MMM").parse(mSelectedMonth));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        mSessionViewModel.getSessionWithPhotoAndPromptsBy(String.format("%02d", cal.get(Calendar.MONTH) + 1)
-        ).observe(getViewLifecycleOwner(), collageObserver);
+        datePicker = MaterialDatePicker.Builder.dateRangePicker().build();
+        Chip chip = (Chip) view.findViewById(R.id.filterChip);
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+           mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second).observe(getViewLifecycleOwner(), filterObserver);
+        });
+
+        chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    datePicker.show(getParentFragmentManager(), "date");
+                } else {
+                    mSessionViewModel.getSessionsWithPhotoAndPrompts().observe(getViewLifecycleOwner(), collageObserver);
+                }
+            }
+        });
+
+        mSessionViewModel.getSessionsWithPhotoAndPrompts().observe(getViewLifecycleOwner(), collageObserver);
         layoutManager = new LinearLayoutManager(getContext());
         return view;
     }
@@ -78,4 +89,12 @@ public class PhotoCollageFragment extends Fragment {
         }
     };
 
+
+    Observer<List<ActivitySessionWithPhotosAndPrompts>> filterObserver = new Observer<List<ActivitySessionWithPhotosAndPrompts>>() {
+        @Override
+        public void onChanged(List<ActivitySessionWithPhotosAndPrompts> sessions) {
+            mCollageAdapter.updateData(sessions);
+            mCollageAdapter.notifyDataSetChanged();
+        }
+    };
 }

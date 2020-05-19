@@ -136,8 +136,8 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         this.activitySession = activitySession;
     }
 
-    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPhotoAndPromptsBy(String format) {
-        return activitySessionRepository.getSessionWithPhotoAndPromptsBy(format);
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionsWithPhotoAndPrompts() {
+        return activitySessionRepository.getSessionsWithPhotoAndPrompts();
     }
 
     public Task getPreviousTasK() {
@@ -167,6 +167,10 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public LiveData<Task> getTaskById(long taskId) {
         return activityPackageRepository.getTaskById(taskId);
+    }
+
+    public LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPromptsInRange(Long first, Long second) {
+        return  activitySessionRepository.getSessionWithPromptsInRange(first, second);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

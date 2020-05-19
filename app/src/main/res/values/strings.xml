@@ -97,6 +97,7 @@
     <string name="score">Total Score</string>
     <string name="previous_task">Previous Task</string>
     <string name="feelingsTitle">Our feelings</string>
+    <string name="filter">Filter</string>
 
 
 </resources>

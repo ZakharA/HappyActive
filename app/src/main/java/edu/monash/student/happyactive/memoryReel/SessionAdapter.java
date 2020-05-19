@@ -76,9 +76,9 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.SessionV
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(holder.view).navigate(
-                        MemoryReelFragmentDirections.showSelectedCollage(mDataSet.keySet().toArray()[position].toString())
-                );
+//                Navigation.findNavController(holder.view).navigate(
+//                        MemoryReelFragmentDirections.showSelectedCollage(mDataSet.keySet().toArray()[position].toString())
+//                );
             }
         });
     }

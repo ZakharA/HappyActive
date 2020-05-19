@@ -66,4 +66,12 @@ public abstract class ActivitySessionDao {
     @Transaction
     @Query("SELECT * FROM activitySession WHERE strftime('%m', datetime(completedDateTime/1000, 'unixepoch')) = :mSelectedMonth")
     public abstract LiveData<List<ActivitySessionWithPhotosAndPrompts>>  getSessionWithPhotoAndPromptsBy(String mSelectedMonth);
+
+    @Transaction
+    @Query("SELECT * FROM activitySession WHERE status = 1")
+    public abstract LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionsWithPhotoAndPrompts();
+
+    @Transaction
+    @Query("SELECT * FROM activitySession WHERE completedDateTime BETWEEN :first AND :second")
+    public abstract LiveData<List<ActivitySessionWithPhotosAndPrompts>> getSessionWithPromptsInRange(Long first, Long second);
 }

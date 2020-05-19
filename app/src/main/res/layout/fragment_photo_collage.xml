@@ -30,15 +30,36 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/collageMemoryReelContainer"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbarActivities"
-        tools:context=".memoryReel."
-        tools:listitem="@layout/fragment_memory_reel_collage" />
+        app:layout_constraintTop_toBottomOf="@+id/appbarActivities">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterChip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="right"
+                android:text="@string/filter" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/collageMemoryReelContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".memoryReel."
+                tools:listitem="@layout/fragment_memory_reel_collage" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
