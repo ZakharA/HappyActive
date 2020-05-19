@@ -64,6 +64,10 @@ public class PhotoCollageFragment extends Fragment {
            mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second).observe(getViewLifecycleOwner(), filterObserver);
         });
 
+        datePicker.addOnNegativeButtonClickListener(selection -> {
+            chip.setChecked(false);
+        });
+
         chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
