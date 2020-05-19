@@ -74,10 +74,10 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
         imageView
                 .photoMargin(1)
                 .photoPadding(3)
-                .useFirstAsHeader(true)
-                .defaultPhotosForLine(3)
-                .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE)
-                .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT);
+                .useFirstAsHeader(false)
+                .defaultPhotosForLine(2)
+                .photosForm(CollageView.ImageForm.IMAGE_FORM_SQUARE);
+
         String pattern = " dd MMMM yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(sessionWithPhotosList.get(position).activitySession.completedDateTime);

@@ -81,6 +81,8 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
     public void initSession(long activityPackageId, long currentTaskId) throws ExecutionException, InterruptedException {
         activitySession = new ActivitySession(activityPackageId, currentTaskId, ActivityPackageStatus.STARTED);
         activitySession.setId(activitySessionRepository.insertNewSession(activitySession));
+        interactivePrompts = new ArrayList<>();
+
     }
 
     public void cancelSession() {
@@ -88,6 +90,7 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
         activitySession.status = ActivityPackageStatus.CANCELED;
         activitySession.completedDateTime = new Date();
         activitySessionRepository.cancelSession(activitySession);
+        interactivePrompts = new ArrayList<>();
     }
 
     public void updateSteps(int numberOfSteps) {
