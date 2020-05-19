@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 import edu.monash.student.happyactive.ActivityPackages.PackageSessionManager;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
+import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.enumerations.ActivityPackageStatus;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 import edu.monash.student.happyactive.data.entities.InteractivePrompt;
@@ -24,7 +25,6 @@ import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTask
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotos;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
-import edu.monash.student.happyactive.data.relationships.SessionWithPrompts;
 
 
 public class ActivitySessionViewModel  extends AndroidViewModel {
@@ -158,6 +158,15 @@ public class ActivitySessionViewModel  extends AndroidViewModel {
 
     public void setTaskOnDisplay(Task taskToDisplay) {
         sessionManager.setTaskOnDisplay(taskToDisplay);
+    }
+
+
+    public LiveData<ActivityPackage> getActivityById(long id) {
+        return  activityPackageRepository.getActivityPackageById(id);
+    }
+
+    public LiveData<Task> getTaskById(long taskId) {
+        return activityPackageRepository.getTaskById(taskId);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

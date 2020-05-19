@@ -1,7 +1,5 @@
 package edu.monash.student.happyactive.memoryReel;
 
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -9,6 +7,7 @@ package edu.monash.student.happyactive.memoryReel;
         import android.widget.TextView;
 
         import androidx.annotation.NonNull;
+        import androidx.lifecycle.LifecycleOwner;
         import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -18,6 +17,7 @@ package edu.monash.student.happyactive.memoryReel;
         import java.io.File;
         import java.util.List;
 
+        import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
         import edu.monash.student.happyactive.R;
         import edu.monash.student.happyactive.data.entities.InteractivePrompt;
         import edu.monash.student.happyactive.data.enumerations.PromptType;
@@ -25,6 +25,8 @@ package edu.monash.student.happyactive.memoryReel;
 public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<InteractivePrompt> mDataSet;
+    private ActivitySessionViewModel mSessionViewModel;
+    LifecycleOwner mViewLifecycleOwner;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -44,8 +46,10 @@ public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ReelItemAdapter(List<InteractivePrompt> myDataSet) {
+    public ReelItemAdapter(List<InteractivePrompt> myDataSet, ActivitySessionViewModel sessionViewModel, LifecycleOwner viewLifecycleOwner) {
         mDataSet = myDataSet;
+        mSessionViewModel  = sessionViewModel;
+        mViewLifecycleOwner = viewLifecycleOwner;
     }
 
 
@@ -64,6 +68,9 @@ public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public void setPhotoDetails(InteractivePrompt interactivePrompt) {
             glide.load(new File(interactivePrompt.answer)).into(imageView);
+            mSessionViewModel.getTaskById(interactivePrompt.taskId).observe(mViewLifecycleOwner, task -> {
+                textView.setText(task.description);
+            });
         }
     }
 
@@ -74,11 +81,14 @@ public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextViewHolder(@NonNull View itemView) {
             super(itemView);
             promptTextView = itemView.findViewById(R.id.reel_session_activity);
-            textView = itemView.findViewById(R.id.reel_session_date);
+            textView = itemView.findViewById(R.id.reel_session_title);
         }
 
         public void setTextDetails(InteractivePrompt interactivePrompt) {
             promptTextView.setText(interactivePrompt.answer);
+            mSessionViewModel.getTaskById(interactivePrompt.taskId).observe(mViewLifecycleOwner, task -> {
+                textView.setText(task.description);
+            });;
         }
     }
 
