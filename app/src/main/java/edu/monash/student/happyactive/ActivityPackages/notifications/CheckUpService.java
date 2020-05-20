@@ -19,6 +19,11 @@ import edu.monash.student.happyactive.MainActivity;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivitySession;
 
+
+/**
+ * Service actually build a check up notification, android api higher than 26 it's is required
+ * that notification channel is explicitly defined.
+ */
 public class CheckUpService extends IntentService {
 
     public CheckUpService() {

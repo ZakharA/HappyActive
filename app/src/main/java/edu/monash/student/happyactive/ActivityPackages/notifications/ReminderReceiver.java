@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 
+/**
+ * Receives the "trigger" for showing notification and initiate the notification
+ * base on the version of the android, since on android api higher 26 it is required
+ * that the notification executed in the foreground.
+ */
 public class ReminderReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

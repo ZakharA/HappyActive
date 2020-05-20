@@ -8,6 +8,11 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
+/**
+ * Receives the "trigger" for showing notification and initiate the notification
+ * base on the version of the android, since on android api higher 23 it is required
+ * that the notification executed in the foreground.
+ */
 public class CheckUpReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

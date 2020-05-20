@@ -18,6 +18,10 @@ import androidx.core.app.NotificationManagerCompat;
 import edu.monash.student.happyactive.MainActivity;
 import edu.monash.student.happyactive.R;
 
+/**
+ * Service actually build a daily notification, android api higher than 26 it's is required
+ * that notification channel is explicitly defined.
+ */
 public class ReminderService extends IntentService {
 
     /**
