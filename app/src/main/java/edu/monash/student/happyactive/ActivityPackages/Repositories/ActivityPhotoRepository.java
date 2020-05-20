@@ -9,6 +9,10 @@ import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPhotoDao;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
+/**
+ * This class serves as an intermediate between ROOM and LiveModels
+ * and responsible form executing request in the background
+ */
 public class ActivityPhotoRepository {
 
     ActivityPhotoDao activityPhotoDao;

@@ -14,6 +14,10 @@ import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.Task;
 import edu.monash.student.happyactive.data.relationships.ActivityPackageWithTasks;
 
+/**
+ * This class serves as an intermediate between ROOM and LiveModels
+ * and responsible form executing request in the background
+ */
 public class ActivityPackageRepository {
 
     private ActivityPackageDao activityPackageDao;

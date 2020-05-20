@@ -12,6 +12,10 @@ import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityJourna
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 
+/**
+ * This class serves as an intermediate between ROOM and LiveModels
+ * and responsible form executing request in the background
+ */
 public class ActivityJournalRepository {
     private ActivityJournalDao activityJournalDao;
     private LiveData<List<ActivityJournal>> activityJournals;

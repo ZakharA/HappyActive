@@ -17,6 +17,10 @@ import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhot
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
+/**
+ * This class serves as an intermediate between ROOM and LiveModels
+ * and responsible form executing request in the background
+ */
 public class ActivitySessionRepository {
     private ActivitySessionDao activitySessionDao;
 
