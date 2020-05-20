@@ -52,7 +52,6 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
         app:srcCompat="@drawable/avarageimage"
         tools:ignore="VectorDrawableCompat" />
 
