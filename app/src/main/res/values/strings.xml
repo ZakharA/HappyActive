@@ -98,6 +98,8 @@
     <string name="previous_task">Previous Task</string>
     <string name="feelingsTitle">Our feelings</string>
     <string name="filter">Date Filter</string>
+    <string name="signature_has_been_changed">The application was modified.\nPlease uninstall the application.</string>
+    <string name="uninstall">Unistall</string>
 
 
 </resources>

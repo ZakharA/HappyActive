@@ -1,10 +1,14 @@
 package edu.monash.student.happyactive;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -57,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements ShowPrefFormDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            validateSignature();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_main);
 
         // binding navigation bar with nav graph
@@ -78,6 +87,34 @@ public class MainActivity extends AppCompatActivity implements ShowPrefFormDialo
 
         }
 
+    }
+
+    private void validateSignature() throws PackageManager.NameNotFoundException {
+        String appUri = getApplicationInfo().publicSourceDir;
+        Signature[] sig = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+        Signature[] releaseSig = this.getPackageManager().getPackageArchiveInfo(appUri, PackageManager.GET_SIGNATURES).signatures;
+        if(sig[0].hashCode() != releaseSig[0].hashCode()) {
+            showDeleteDialog();   
+        }
+    }
+
+    private void showDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.signature_has_been_changed)
+                .setPositiveButton(R.string.uninstall, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        uninstallApp();
+                    }
+                });
+        builder.create().show();
+    }
+
+
+    private void uninstallApp() {
+        String appUri = getApplicationInfo().publicSourceDir;
+        Intent intent = new Intent(Intent.ACTION_DELETE, Uri.fromParts("package",
+                getPackageManager().getPackageArchiveInfo(appUri, 0).packageName,null));
+        startActivity(intent);
     }
 
     /**

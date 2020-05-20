@@ -3,6 +3,7 @@ package edu.monash.student.happyactive.data.dao.ReportsDao;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public abstract class CompareHistoryReportsDao {
     @Query("Select * from ActivitySession where status == :status")
     public abstract LiveData<List<ActivitySession>> getDataForCompletedActivity(ActivityPackageStatus status);
 
+    @Transaction
     @Query("Select * from ActivitySession where status == :status order by completedDateTime desc limit 5")
     public abstract List<SessionsWithActivity> getDataForCompletedActivityCharts(ActivityPackageStatus status);
 }
