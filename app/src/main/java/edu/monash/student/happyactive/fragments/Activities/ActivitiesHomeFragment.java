@@ -29,7 +29,6 @@ public class ActivitiesHomeFragment extends Fragment {
     private ViewPager2 viewPager;
     private SectionsPagerAdapter sectionsPagerAdapter;
     private TabLayout tabs;
-    private FloatingActionButton floatingActionButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

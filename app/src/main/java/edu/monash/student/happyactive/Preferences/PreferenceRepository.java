@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.ActivityPackageDatabase;
 import edu.monash.student.happyactive.data.dao.ActivityPackageDao.ActivityPackageDao;
@@ -26,16 +27,37 @@ public class PreferenceRepository {
     }
 
     public void updatePreferences(UserPref userPref) {
-        new PreferenceRepository.setAsyncTask(preferencesDao, activityPackageDao, userScoreDao).execute(userPref);
+        new PreferenceRepository.updatePrefAsyncTask(preferencesDao, activityPackageDao, userScoreDao).execute(userPref);
     }
 
-    private static class setAsyncTask extends AsyncTask<UserPref, Void, Void> {
+    public UserPref getPreferences() throws ExecutionException, InterruptedException {
+        return new PreferenceRepository.getPreferencesAsyncTask(preferencesDao).execute().get();
+    }
+
+    private static class getPreferencesAsyncTask extends AsyncTask<Void, Void, UserPref> {
         private PreferencesDao mPreferencesDao;
         private ActivityPackageDao mActivityPackageDao;
         private UserScoreDao mUserScoreDao;
         private ArrayList<Long> levelScores;
 
-        public setAsyncTask(PreferencesDao mPreferencesDao, ActivityPackageDao mActivityPackageDao, UserScoreDao mUserScoreDao) {
+        public getPreferencesAsyncTask(PreferencesDao mPreferencesDao) {
+            this.mPreferencesDao = mPreferencesDao;
+        }
+
+        @Override
+        protected UserPref doInBackground(Void... voids) {
+            return mPreferencesDao.getPreferences(1);
+        }
+    }
+
+
+    private static class updatePrefAsyncTask extends AsyncTask<UserPref, Void, Void> {
+        private PreferencesDao mPreferencesDao;
+        private ActivityPackageDao mActivityPackageDao;
+        private UserScoreDao mUserScoreDao;
+        private ArrayList<Long> levelScores;
+
+        public updatePrefAsyncTask(PreferencesDao mPreferencesDao, ActivityPackageDao mActivityPackageDao, UserScoreDao mUserScoreDao) {
             this.mPreferencesDao = mPreferencesDao;
             this.mActivityPackageDao = mActivityPackageDao;
             this.mUserScoreDao = mUserScoreDao;

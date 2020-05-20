@@ -75,6 +75,13 @@ public class PreferencesFragment extends Fragment {
         PreferencesViewModel preferencesViewModel = new ViewModelProvider(this,
                 new PreferencesViewModel.Factory(getActivity().getApplication())).get(PreferencesViewModel.class);
 
+        UserPref userPref = null;
+        try {
+            userPref = preferencesViewModel.getPreferences();
+            addPreferencesValues(userPref);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         submitPrefFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,5 +212,90 @@ public class PreferencesFragment extends Fragment {
 
             }
         });
+    }
+
+    private void addPreferencesValues(UserPref userPref) {
+        if (userPref != null) {
+            // Hobby List
+            if (userPref.getHobbyList() != null) {
+                String[] hobbies = userPref.getHobbyList().split(",");
+                for (String hobby : hobbies) {
+                    if(hobby.equals(bakingCheckBox.getText()))
+                        bakingCheckBox.setChecked(true);
+                    else if (hobby.equals(walkingCheckBox.getText()))
+                        walkingCheckBox.setChecked(true);
+                    else if (hobby.equals(gardeningCheckBox.getText()))
+                        gardeningCheckBox.setChecked(true);
+                    else if (hobby.equals(playingCheckBox.getText()))
+                        playingCheckBox.setChecked(true);
+                    else if (hobby.equals(shoppingCheckBox.getText()))
+                        shoppingCheckBox.setChecked(true);
+                }
+            }
+            // Garden Access
+            if (userPref.getGardenAccess() != null) {
+                if (userPref.getGardenAccess() == PrefAccess.YES)
+                    backyardRadioGroup.check(R.id.yesBackyardRadioButton);
+                else
+                    backyardRadioGroup.check(R.id.noBackyardRadioButton);
+            }
+            // User Gender
+            if (userPref.getUserGender() != null) {
+                if (userPref.getUserGender() == UserGender.MALE)
+                    userGenderRadioGroup.check(R.id.maleRadioButton);
+                else if (userPref.getUserGender() == UserGender.FEMALE)
+                    userGenderRadioGroup.check(R.id.femaleRadioButton);
+                else
+                    userGenderRadioGroup.check(R.id.otherGenderRadioButton);
+            }
+            // User Age
+            if (userPref.getUserAge() != null) {
+                if (userPref.getUserAge() == UserAge.SIXTY_SEVENTY)
+                    userAgeRadioGroup.check(R.id.sixtySeventyRadioButton);
+                else
+                    userAgeRadioGroup.check(R.id.seventyPlusRadioButton);
+            }
+            // Park Access
+            if (userPref.getParkAccess() != null) {
+                if (userPref.getParkAccess() == PrefAccess.YES)
+                    parkRadioGroup.check(R.id.yesParkRadioButton);
+                else
+                    parkRadioGroup.check(R.id.noParkRadioButton);
+            }
+            // Arthritis Condition
+            if (userPref.getArthritisCondition() != null) {
+                if (userPref.getArthritisCondition() == ArthritisCondition.MILD)
+                    arthritisConditionRadioGroup.check(R.id.mildRadioButton);
+                else if (userPref.getArthritisCondition() == ArthritisCondition.MODERATE)
+                    arthritisConditionRadioGroup.check(R.id.moderateRadioButton);
+                else
+                    arthritisConditionRadioGroup.check(R.id.severeRadioButton);
+            }
+            // Activity Time
+            if (userPref.getActivityTime() != null) {
+                if (userPref.getActivityTime() == PrefFrequency.LESS_THAN_ONE)
+                    activityTimeRadioGroup.check(R.id.lessThanOneRadioButton);
+                else if (userPref.getActivityTime() == PrefFrequency.ONCE_TWICE)
+                    activityTimeRadioGroup.check(R.id.oneToTwoRadioButton);
+                else if (userPref.getActivityTime() == PrefFrequency.MORE_THAN_TWICE)
+                    activityTimeRadioGroup.check(R.id.moreThanTwoRadioButton);
+            }
+            else {
+                activityTimeRadioGroup.check(R.id.doesntMatterRadioButton);
+            }
+            // Activity Distance
+            if (userPref.getActivityDistance() != null) {
+                if (userPref.getActivityDistance() == PrefFrequency.LESS_THAN_ONE)
+                    activityDistanceRadioGroup.check(R.id.lessThanOneKMRadioButton);
+                else if (userPref.getActivityDistance() == PrefFrequency.ONCE_TWICE)
+                    activityDistanceRadioGroup.check(R.id.oneToTwoKMRadioButton);
+                else if (userPref.getActivityDistance() == PrefFrequency.MORE_THAN_TWICE)
+                    activityDistanceRadioGroup.check(R.id.moreThanTwoKMRadioButton);
+            }
+            else {
+                activityDistanceRadioGroup.check(R.id.doesntMatterKMRadioButton);
+            }
+        }
+
     }
 }
