@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.monash.student.happyactive">
 
     <uses-feature
@@ -23,7 +24,9 @@
         <activity android:name=".fragments.Preferences.PreferencesFragment" />
         <activity android:name=".fragments.Home.OverallHomeFragment" />
         <activity android:name=".fragments.ActivityDetails.SessionFragment" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
