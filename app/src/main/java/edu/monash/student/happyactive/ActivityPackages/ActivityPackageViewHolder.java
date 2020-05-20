@@ -67,8 +67,7 @@ public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
         mIdView.setText(String.valueOf( activityPackage.title));
         mContentView.setText(activityPackage.description);
         Picasso.get().load(res.getIdentifier(activityPackage.imagePath.split("[.]")[0],  "drawable", mPackageName))
-                .centerInside()
-                .resize(250, 100)
+                .fit()
                 .into(mImageView);
         mLevelImageView.setImageResource(res.getIdentifier("level_" + activityPackage.getActivityLevel() + "_activity", "mipmap", mPackageName));
         itemView.setOnClickListener(mOnClickListener);
