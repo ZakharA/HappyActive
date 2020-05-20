@@ -20,6 +20,9 @@ import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.fragments.Activities.ActivitiesHomeFragmentDirections;
 
+/**
+ * responsible for displaying view for each activity packages in the activtiy package recyclerview
+ */
 public class ActivityPackageViewHolder extends RecyclerView.ViewHolder{
     final TextView mIdView;
     final TextView mContentView;

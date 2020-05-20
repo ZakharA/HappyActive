@@ -26,7 +26,10 @@ import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhot
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
-
+/**
+ *  ViewModel for interacting with session repository and hold current session manager is a session
+ *  is started.
+ */
 public class ActivitySessionViewModel  extends AndroidViewModel {
     private ActivitySessionRepository activitySessionRepository;
     private ActivityPackageRepository activityPackageRepository;

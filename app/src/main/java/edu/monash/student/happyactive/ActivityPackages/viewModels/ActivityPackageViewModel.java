@@ -16,6 +16,9 @@ import java.util.List;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPackageRepository;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
+/**
+ *  ViewModel for interacting with activity package repository
+ */
 public class ActivityPackageViewModel extends AndroidViewModel {
 
     private ActivityPackageRepository activityPackageRepository;

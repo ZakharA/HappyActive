@@ -22,7 +22,9 @@ import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.relationships.SessionWithPhotoAndJournal;
 
-
+/**
+ * responsible for rendering individual activity session in form of a memory reel
+ */
 public class MemoryReelItemFragment extends Fragment {
 
 

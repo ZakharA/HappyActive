@@ -38,7 +38,9 @@ import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 
 import static android.app.Activity.RESULT_OK;
 
-
+/**
+ * Responsible for show interactive prompts during the activity session
+ */
 public class PromptFragment extends Fragment implements TextWatcher, View.OnClickListener {
 
     private ActivitySessionViewModel mSessionViewModel;

@@ -23,7 +23,9 @@ import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessio
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
-
+/**
+ * responsible for bootstrapping  collages
+ */
 public class PhotoCollageFragment extends Fragment {
 
     private CollageRecyclerView recyclerView;
@@ -35,7 +37,6 @@ public class PhotoCollageFragment extends Fragment {
     public PhotoCollageFragment() {
         // Required empty public constructor
     }
-
 
     public static PhotoCollageFragment newInstance(String param1, String param2) {
         PhotoCollageFragment fragment = new PhotoCollageFragment();

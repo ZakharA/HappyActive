@@ -7,7 +7,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+/**
+ * recyclerview for collage data, additionally shows an empty view if there is no data to display
+ */
 public class CollageRecyclerView extends RecyclerView {
     private View mEmptyView;
 

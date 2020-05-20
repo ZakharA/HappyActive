@@ -13,6 +13,9 @@ import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityJour
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivitySessionRepository;
 import edu.monash.student.happyactive.data.entities.ActivityJournal;
 
+/**
+ *  ViewModel for interacting with journal repository
+ */
 public class ActivityJournalViewModel extends AndroidViewModel {
 
     private ActivityJournalRepository activityJournalRepository;

@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import edu.monash.student.happyactive.ActivityPackages.stepCounter.SimpleStepDetector;
 import edu.monash.student.happyactive.ActivityPackages.stepCounter.StepListener;
 
+/**
+ * Service for calculating steps from acceleration sensor
+ */
 public class StepCounterService extends Service implements SensorEventListener, StepListener {
 
     private SimpleStepDetector simpleStepDetector;

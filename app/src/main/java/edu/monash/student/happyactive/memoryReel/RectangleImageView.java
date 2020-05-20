@@ -5,9 +5,9 @@ import android.util.AttributeSet;
 
 
 /**
- * Created by alan on 08.12.16.
+ * Original implementation https://github.com/lopei/collageview
+ *
  */
-
 public class RectangleImageView extends androidx.appcompat.widget.AppCompatImageView {
     private CollageView.ImageForm imageForm = CollageView.ImageForm.IMAGE_FORM_SQUARE;
 

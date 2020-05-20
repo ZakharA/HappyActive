@@ -22,6 +22,9 @@ package edu.monash.student.happyactive.memoryReel;
         import edu.monash.student.happyactive.data.entities.InteractivePrompt;
         import edu.monash.student.happyactive.data.enumerations.PromptType;
 
+/**
+ * responsible for managing individual activity session view
+ */
 public class ReelItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<InteractivePrompt> mDataSet;

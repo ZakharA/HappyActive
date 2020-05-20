@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 
+/**
+ * Manages data binding for activity package recyclerview
+ */
 public class ActivityPackagesPagedAdapter extends PagedListAdapter<ActivityPackage, ActivityPackageViewHolder> {
 
     private boolean isInProgress;

@@ -13,6 +13,9 @@ import java.util.concurrent.ExecutionException;
 import edu.monash.student.happyactive.ActivityPackages.Repositories.ActivityPhotoRepository;
 import edu.monash.student.happyactive.data.entities.SessionPhoto;
 
+/**
+ *  ViewModel for interacting with photo repository
+ */
 public class ActivityPhotoLiveModel extends AndroidViewModel {
 
     private ActivityPhotoRepository activityPhotoRepository;

@@ -38,6 +38,9 @@ import edu.monash.student.happyactive.data.entities.InteractivePrompt;
 import edu.monash.student.happyactive.data.enumerations.PromptType;
 import edu.monash.student.happyactive.data.relationships.ActivitySessionWithPhotosAndPrompts;
 
+/**
+ * responsible for managing individual collage view and the date for the collagerecyclerview
+ */
 public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageViewHolder>  {
     List<ActivitySessionWithPhotosAndPrompts> sessionWithPhotosList;
     private CollageView imageView;

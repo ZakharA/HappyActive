@@ -5,6 +5,10 @@ import java.util.List;
 
 import edu.monash.student.happyactive.data.entities.Task;
 
+/**
+ * Mangers current activity package session, including managing tasks on display, marking
+ * tasks as completed.
+ */
 public class PackageSessionManager {
     private Task currentTaskOnDisplay;
     private Task taskInProgress ;

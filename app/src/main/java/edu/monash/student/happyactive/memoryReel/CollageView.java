@@ -23,9 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by alan on 08.12.16.
+ * Created by alan on 08.12.16. https://github.com/lopei/collageview
+ *  Modified collage view for showing an image collage for images form the files.
  */
-
 public class CollageView extends LinearLayout {
     public static final int INVALID_ICON = -1;
     private List<String> urls;
