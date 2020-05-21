@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import edu.monash.student.happyactive.ActivityPackages.ActivityPackagesPagedAdapter;
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
@@ -71,7 +72,9 @@ public class InProgressActivitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activitypackage_list, container, false);
         recyclerView = (HappyActiveRecyclerView) view.findViewById(R.id.activitypackage_list);
-        recyclerView.setEmptyView(view.findViewById(R.id.emptyRecyclerView));
+        TextView emptyView = view.findViewById(R.id.emptyRecyclerView);
+        emptyView.setText("Awesome.\nYou have no incomplete activities.");
+        recyclerView.setEmptyView(emptyView);
         editPreferencesButton = view.findViewById(R.id.editPreferencesButton);
 
         editPreferencesButton.setOnClickListener(new View.OnClickListener() {

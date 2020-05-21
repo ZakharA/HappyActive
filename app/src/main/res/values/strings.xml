@@ -100,7 +100,7 @@
     <string name="filter">Date Filter</string>
     <string name="signature_has_been_changed">The application was modified.\nPlease uninstall the application.</string>
     <string name="uninstall">Uninstall</string>
-    <string name="empty_activity_list">Sorry, It\'s empty.\nYou can try to complete an activity first.</string>
+    <string name="empty_activity_list">Sorry, It\'s empty.\nPlease fill in the preferences.</string>
 
 
 </resources>
