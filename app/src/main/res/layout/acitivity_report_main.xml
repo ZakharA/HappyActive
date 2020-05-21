@@ -34,26 +34,33 @@
 
     <ImageView
         android:id="@+id/compareHistoryImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/compares_history_data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
-        app:srcCompat="@drawable/historyimage"
-        tools:ignore="VectorDrawableCompat" />
+        app:srcCompat="@drawable/history_reports_img"
+        tools:ignore="VectorDrawableCompat"
+        android:scaleType="centerCrop"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintWidth_percent="0.9"/>
 
     <ImageView
         android:id="@+id/compareAverageImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/compares_average_data"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/avarageimage"
-        tools:ignore="VectorDrawableCompat" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:srcCompat="@drawable/comparison_image"
+        tools:ignore="VectorDrawableCompat"
+        android:scaleType="centerCrop"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintHeight_percent="0.3"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
