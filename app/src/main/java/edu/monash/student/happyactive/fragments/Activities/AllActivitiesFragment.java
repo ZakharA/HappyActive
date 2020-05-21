@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import edu.monash.student.happyactive.ActivityPackages.ActivityPackagesPagedAdap
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.R;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
+import edu.monash.student.happyactive.memoryReel.HappyActiveRecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +34,7 @@ public class AllActivitiesFragment extends Fragment {
     private Integer tabPosition;
     protected ActivityPackageViewModel mActivityPackageViewModel;
     private View view;
-    private RecyclerView recyclerView;
+    private HappyActiveRecyclerView recyclerView;
     private Button editPreferencesButton;
 
     public AllActivitiesFragment() {
@@ -70,7 +70,8 @@ public class AllActivitiesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activitypackage_list, container, false);
-        recyclerView = view.findViewById(R.id.activitypackage_list);
+        recyclerView = (HappyActiveRecyclerView) view.findViewById(R.id.activitypackage_list);
+        recyclerView.setEmptyView(view.findViewById(R.id.emptyRecyclerView));
         editPreferencesButton = view.findViewById(R.id.editPreferencesButton);
 
         editPreferencesButton.setOnClickListener(new View.OnClickListener() {

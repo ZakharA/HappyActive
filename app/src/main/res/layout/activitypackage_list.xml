@@ -6,19 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <edu.monash.student.happyactive.memoryReel.HappyActiveRecyclerView
         android:id="@+id/activitypackage_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHeight_percent="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activitypackage_list_content"
-        app:layout_constraintHeight_percent="1.0"
-        app:layout_constraintWidth_percent="1.0"/>
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="1.0"
+        tools:listitem="@layout/activitypackage_list_content" />
 
     <Button
         android:id="@+id/editPreferencesButton"
@@ -38,5 +39,17 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.9"/>
+
+    <TextView
+        android:id="@+id/emptyRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_activity_list"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:lineSpacingExtra="10dp"
+        app:layout_constraintTop_toTopOf="@+id/activitypackage_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

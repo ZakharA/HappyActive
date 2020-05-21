@@ -10,18 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * recyclerview for collage data, additionally shows an empty view if there is no data to display
  */
-public class CollageRecyclerView extends RecyclerView {
+public class HappyActiveRecyclerView extends RecyclerView {
     private View mEmptyView;
 
-    public CollageRecyclerView(Context context) {
+    public HappyActiveRecyclerView(Context context) {
         super(context);
     }
 
-    public CollageRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public HappyActiveRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CollageRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public HappyActiveRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -29,7 +29,7 @@ public class CollageRecyclerView extends RecyclerView {
         if (mEmptyView != null) {
             mEmptyView.setVisibility(
                     getAdapter() == null || getAdapter().getItemCount() == 0 ? VISIBLE : GONE);
-            CollageRecyclerView.this.setVisibility(
+            HappyActiveRecyclerView.this.setVisibility(
                     getAdapter() == null || getAdapter().getItemCount() == 0 ? GONE : VISIBLE);
         }
     }

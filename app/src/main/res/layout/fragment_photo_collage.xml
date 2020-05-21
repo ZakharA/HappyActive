@@ -63,7 +63,7 @@
                 app:closeIconTint="#F1EEEE"
                 app:closeIconVisible="true" />
 
-            <edu.monash.student.happyactive.memoryReel.CollageRecyclerView
+            <edu.monash.student.happyactive.memoryReel.HappyActiveRecyclerView
                 android:id="@+id/collageMemoryReelContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -73,10 +73,12 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/emptyLayout"
+        android:id="@+id/emptyActivityLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbarActivities"
         tools:context=".memoryReel.PhotoCollageFragment">
 
@@ -91,12 +93,14 @@
             app:srcCompat="@drawable/smileys" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/emptyRecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/empty_memory_reel"
             app:layout_constraintEnd_toEndOf="parent"
+            android:lineSpacingExtra="10dp"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
