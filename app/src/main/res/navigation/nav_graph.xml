@@ -42,9 +42,6 @@
         <action
             android:id="@+id/showPostActivityStats"
             app:destination="@id/postActivityStatsFragment" />
-        <action
-            android:id="@+id/backHome"
-            app:destination="@id/overallHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/sessionFragment"

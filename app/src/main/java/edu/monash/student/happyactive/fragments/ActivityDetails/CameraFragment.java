@@ -87,15 +87,6 @@ public class CameraFragment extends Fragment {
         photoButton = view.findViewById(R.id.camera_button);
         feelingsTextView = view.findViewById(R.id.feelingTextField);
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                NavHostFragment.findNavController(getParentFragment()).navigate(
-                        CameraFragmentDirections.backHome()
-                );
-            }
-        });
-
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

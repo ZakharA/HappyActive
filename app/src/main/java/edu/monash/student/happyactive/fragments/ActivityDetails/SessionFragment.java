@@ -163,11 +163,7 @@ public class SessionFragment extends Fragment {
             if (activitySession != null) {
                 mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList, activitySession.getCurrentTaskId());
                 mSessionViewModel.setActivitySession(activitySession);
-                if(mSessionViewModel.isActivityCompleted()) {
-                    Navigation.findNavController(view).navigate(
-                            SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
-                    );
-                }
+
                 previousButton.setEnabled(true);
                 for (Task task : activityPackageWithTasks.tasksList) {
                     if (task.getId() == activitySession.getCurrentTaskId()) {
