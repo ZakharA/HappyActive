@@ -42,7 +42,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
         app:srcCompat="@drawable/history_reports_img"
-        tools:ignore="VectorDrawableCompat"
         android:scaleType="centerCrop"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintWidth_percent="0.9"/>
@@ -57,7 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:srcCompat="@drawable/comparison_image"
-        tools:ignore="VectorDrawableCompat"
         android:scaleType="centerCrop"
         app:layout_constraintWidth_percent="0.9"
         app:layout_constraintHeight_percent="0.3"/>
