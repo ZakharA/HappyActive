@@ -11,6 +11,9 @@ import java.util.concurrent.ExecutionException;
 
 import edu.monash.student.happyactive.data.entities.UserPref;
 
+/**
+ * View Model class for Preferences Screen.
+ */
 public class PreferencesViewModel extends AndroidViewModel {
 
     private PreferenceRepository preferenceRepository;
@@ -20,10 +23,20 @@ public class PreferencesViewModel extends AndroidViewModel {
         preferenceRepository = new PreferenceRepository(application);
     }
 
+    /**
+     * Async method for updating current user preferences.
+     * @param userPref
+     */
     public void updatePreferences(UserPref userPref) {
         preferenceRepository.updatePreferences(userPref);
     }
 
+    /**
+     * Async method for fetching current user preferences.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public UserPref getPreferences() throws ExecutionException, InterruptedException {
         return preferenceRepository.getPreferences();
     }

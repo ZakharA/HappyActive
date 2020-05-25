@@ -81,7 +81,9 @@ public class CompareAverageViewModel extends AndroidViewModel {
      * @throws InterruptedException
      */
     public ArrayList<String> processStepsByAgeFile(FragmentActivity activity) throws ExecutionException, InterruptedException {
+        // Fetches user preferences
         UserPref userPref = compareAverageRepository.fetchUserAgeGender();
+        // Extracts user age and gender from preferences
         UserGender userGender = userPref != null ? userPref.getUserGender() : null;
         UserAge userAge = userPref != null ? userPref.getUserAge() : null;
         String[] record = null;
@@ -90,9 +92,13 @@ public class CompareAverageViewModel extends AndroidViewModel {
             InputStream inputStream = activity.getAssets().open(STEPS_AGE_GENDER);
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String line = "";
+            /**
+             * Reads each line of data file and processes users wear time and avg step counts
+             * based on users age and gender. If nothing specified defaults to Male 70+ stats.
+             */
             while((line = br.readLine()) != null) {
                 record = line.split(",");
-                if (userAge != null && userGender != null) {
+                if (userAge != null && userGender != null && userGender != UserGender.OTHER) {
                     if (userAge == UserAge.SIXTY_SEVENTY &&
                             record[1].replace("\"", "").startsWith("[60") &&
                             record[0].replace("\"", "").equalsIgnoreCase(userGender.getValue()) ) {
@@ -131,6 +137,12 @@ public class CompareAverageViewModel extends AndroidViewModel {
         return compareAverageRepository.getDataForCompletedActivity();
     }
 
+    /**
+     * Method for fetching activity sessions which are completed for charts.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<ActivitySession> getDataForCompletedActivitiesForChart() throws ExecutionException, InterruptedException {
         return compareAverageRepository.getDataForCompletedActivitiesForChart();
     }

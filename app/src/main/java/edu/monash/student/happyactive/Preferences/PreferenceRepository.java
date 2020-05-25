@@ -14,6 +14,9 @@ import edu.monash.student.happyactive.data.dao.UserScoreDao.UserScoreDao;
 import edu.monash.student.happyactive.data.entities.ActivityPackage;
 import edu.monash.student.happyactive.data.entities.UserPref;
 
+/**
+ * Repository class for Preferences Screen.
+ */
 public class PreferenceRepository {
     private PreferencesDao preferencesDao;
     private ActivityPackageDao activityPackageDao;
@@ -26,10 +29,20 @@ public class PreferenceRepository {
         userScoreDao = db.userScoreDao();
     }
 
+    /**
+     * Async method for updating current user preferences.
+     * @param userPref
+     */
     public void updatePreferences(UserPref userPref) {
         new PreferenceRepository.updatePrefAsyncTask(preferencesDao, activityPackageDao, userScoreDao).execute(userPref);
     }
 
+    /**
+     * Async method for fetching current user preferences.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public UserPref getPreferences() throws ExecutionException, InterruptedException {
         return new PreferenceRepository.getPreferencesAsyncTask(preferencesDao).execute().get();
     }
@@ -51,6 +64,10 @@ public class PreferenceRepository {
     }
 
 
+    /**
+     * Async task for updating user preferences and setting user preferences against
+     * the activities
+     */
     private static class updatePrefAsyncTask extends AsyncTask<UserPref, Void, Void> {
         private PreferencesDao mPreferencesDao;
         private ActivityPackageDao mActivityPackageDao;
@@ -69,16 +86,21 @@ public class PreferenceRepository {
 
         @Override
         protected Void doInBackground(UserPref... userPref) {
+            // Update preferences
             mPreferencesDao.updatePreferences(userPref[0]);
+            // Fetch all activities
             List<ActivityPackage> activityPackages = mActivityPackageDao.getAllActivityPackagesForPref();
+            // Fetch current user score for checking level
             long currentUserScore = mUserScoreDao.getCurrentUserScoreForPref(1);
             long userLevel = 0;
+            // Finds out users current level
             for (int i = 0; i < levelScores.size(); i++) {
                 if (currentUserScore < levelScores.get(i)) {
                     userLevel = i + 1;
                     break;
                 }
             }
+            // Updates user preference for each activity
             for (ActivityPackage activityPackage : activityPackages) {
                 makeRecommendationsForUser(activityPackage, userPref[0], userLevel);
                 mActivityPackageDao.updateActivityPackageForPref(activityPackage);
@@ -86,8 +108,18 @@ public class PreferenceRepository {
             return null;
         }
 
+        /**
+         * Method to update isUserPreferred field in all the activities
+         * @param activityPackage
+         * @param userPref
+         * @param userLevel
+         */
         private void makeRecommendationsForUser(ActivityPackage activityPackage, UserPref userPref, long userLevel) {
+            // Check for user level against activity level to recommend same level activities
             if (activityPackage.getActivityLevel() == userLevel) {
+                /**
+                 * Checks according to severity and preferences of the user to assign suitability for activity for user
+                 */
                 if (userPref.getArthritisCondition() != null && userPref.getArthritisCondition().ordinal() <= activityPackage.getSuitMaxArthritisCondition().ordinal()){
                     activityPackage.setUserPreferred(true);
                 }

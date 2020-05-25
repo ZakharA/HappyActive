@@ -76,6 +76,12 @@ public class CompareHistoryViewModel extends AndroidViewModel {
         return compareHistoryRepository.getDataForCompletedActivity();
     }
 
+    /**
+     * Method for fetching activity sessions which are completed for charts.
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<SessionsWithActivity> getDataForCompletedActivityCharts() throws ExecutionException, InterruptedException {
         return compareHistoryRepository.getDataForCompletedActivityCharts();
     }

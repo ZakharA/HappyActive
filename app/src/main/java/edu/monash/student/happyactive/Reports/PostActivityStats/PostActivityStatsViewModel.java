@@ -45,6 +45,10 @@ public class PostActivityStatsViewModel extends AndroidViewModel {
         postActivityStatsRepository.setStatusCompletedPostActivity(activitySession);
     }
 
+    /**
+     * Method for updating user score.
+     * @param currentActivitySession
+     */
     public void updateUserScore(ActivitySession currentActivitySession) {
         postActivityStatsRepository.updateUserScore(currentActivitySession);
     }
