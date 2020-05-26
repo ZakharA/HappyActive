@@ -51,7 +51,7 @@ public class CompareAverageViewModel extends AndroidViewModel {
             long diffInMillis = Math.abs(activity.getCompletedDateTime().getTime() - activity.getStartDateTime().getTime());
             totalTime += diffInMillis;
         }
-        if (totalSteps > 0.0) {
+        if (totalSteps >= 0.0) {
             Long avgSteps = totalSteps/dataForCompletedActivities.size();
             Long avgTime = convertMSTimeToHours(totalTime/dataForCompletedActivities.size());
             dataMap.put("AvgSteps", avgSteps);
