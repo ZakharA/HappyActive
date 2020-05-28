@@ -18,6 +18,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
@@ -63,7 +64,9 @@ public class PhotoCollageFragment extends Fragment {
         Chip chip = (Chip) view.findViewById(R.id.filterChip);
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
-           mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second).observe(getViewLifecycleOwner(), collageObserver);
+            Date date = new Date(selection.second);
+
+           mSessionViewModel.getSessionWithPromptsInRange(selection.first, selection.second + 24*60*60*1000).observe(getViewLifecycleOwner(), collageObserver);
         });
 
         datePicker.addOnNegativeButtonClickListener(selection -> {
