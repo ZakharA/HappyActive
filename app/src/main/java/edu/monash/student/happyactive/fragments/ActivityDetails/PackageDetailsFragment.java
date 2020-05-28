@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivityPackageViewModel;
 import edu.monash.student.happyactive.R;
 
@@ -64,8 +66,10 @@ public class PackageDetailsFragment extends Fragment {
                 new ActivityPackageViewModel.Factory(getActivity().getApplication())).get(ActivityPackageViewModel.class);
 
         mPackageViewModel.getActivityPackageById(selectedActivityId).observe(getViewLifecycleOwner(), activity -> {
-            ((ImageView) view.findViewById(R.id.detail_image)).setImageResource(getResources()
-                            .getIdentifier(activity.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive"));
+            Glide.with(this).load(getResources()
+                    .getIdentifier(activity.imagePath.split("[.]")[0], "drawable", "edu.monash.student.happyactive")).centerInside().into(
+                    (ImageView) view.findViewById(R.id.detail_image)
+            );
             ((TextView) view.findViewById(R.id.activity_title)).setText(activity.title);
             ((TextView) view.findViewById(R.id.activity_description)).setText(activity.description);
             //if (activity.getMaterials() != null)
