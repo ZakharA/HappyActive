@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.monash.student.happyactive.ActivityPackages.viewModels.ActivitySessionViewModel;
@@ -87,6 +89,17 @@ public class PhotoCollageFragment extends Fragment {
     Observer<List<ActivitySessionWithPhotosAndPrompts>> collageObserver = new Observer<List<ActivitySessionWithPhotosAndPrompts>>() {
         @Override
         public void onChanged(List<ActivitySessionWithPhotosAndPrompts> sessions) {
+           if(sessions != null || sessions.size() > 1){
+               Collections.sort(sessions, (o1, o2) -> {
+                   if (o1.activitySession.completedDateTime.after(o2.activitySession.completedDateTime)){
+                       return -1;
+                   } else if (o1.activitySession.completedDateTime.before(o2.activitySession.completedDateTime)) {
+                       return 1;
+                   } else {
+                       return 0;
+                   }
+               });
+           }
             mCollageAdapter = new CollageAdapter(sessions);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(mCollageAdapter);
