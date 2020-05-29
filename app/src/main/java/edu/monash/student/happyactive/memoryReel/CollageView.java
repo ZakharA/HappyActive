@@ -187,6 +187,8 @@ public class CollageView extends LinearLayout {
                             } else {
                                 photoFrame = new FrameLayout(getContext());
                             }
+                            photoFrame.setClickable(false);
+                            photoFrame.setFocusable(false);
                             LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
                             layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
                             photoFrame.setLayoutParams(layoutParams);
@@ -195,6 +197,8 @@ public class CollageView extends LinearLayout {
                             imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                             imageView.setAdjustViewBounds(true);
                             imageView.setBackgroundColor(photoFrameColor);
+                            imageView.setClickable(false);
+                            imageView.setFocusable(false);
                             imageView.setPadding(photoPadding, photoPadding, photoPadding, photoPadding);
                             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             photoFrame.addView(imageView);
@@ -250,17 +254,7 @@ public class CollageView extends LinearLayout {
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
-
-                            photoFrame.setOnClickListener(null);
-                            final int finalI = i - (photosInLine - j) + 1;
-                            photoFrame.setOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (onPhotoClickListener != null) {
-                                        onPhotoClickListener.onPhotoClick(finalI);
-                                    }
-                                }
-                            });
+                            
                             photosLine.addView(photoFrame);
                         }
                         addView(photosLine);

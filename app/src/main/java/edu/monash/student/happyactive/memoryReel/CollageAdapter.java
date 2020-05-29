@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.autofill.AutofillValue;
@@ -27,6 +28,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.card.MaterialCardView;
 
 
 import java.text.SimpleDateFormat;
@@ -74,6 +76,7 @@ public class CollageAdapter extends RecyclerView.Adapter<CollageAdapter.CollageV
     @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(@NonNull CollageAdapter.CollageViewHolder holder, int position) {
+        MaterialCardView card = (MaterialCardView) holder.view.findViewById(R.id.card);
         TextView titleView = (TextView) holder.view.findViewById(R.id.collage_activity);
         TextView dateView = (TextView) holder.view.findViewById(R.id.collage_date);
         imageView = (CollageView) holder.view.findViewById(R.id.collage_image);
