@@ -54,7 +54,8 @@
             android:defaultValue="0L" />
         <action
             android:id="@+id/showJournalFor"
-            app:destination="@id/cameraFragment" />
+            app:destination="@id/cameraFragment"
+            app:popUpTo="@id/activitiesHomeFragment" />
         <action
             android:id="@+id/cancelSession"
             app:destination="@id/overallHomeFragment" />

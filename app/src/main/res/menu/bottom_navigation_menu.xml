@@ -24,7 +24,7 @@
     <item
         android:id="@+id/homeReportFragment2"
         android:enabled="true"
-        android:icon="@drawable/ic_history_black_24dp"
+        android:icon="@drawable/ic_assignment_black_24dp"
         android:title="Reports"
         />
 

@@ -164,6 +164,13 @@ public class SessionFragment extends Fragment {
                 mSessionViewModel.setTaskInSessionManger(activityPackageWithTasks.tasksList, activitySession.getCurrentTaskId());
                 mSessionViewModel.setActivitySession(activitySession);
 
+                if (mSessionViewModel.isActivityCompleted()) {
+                    doneButton.setText(R.string.complete_activity_text);
+                    Navigation.findNavController(getView()).navigate(
+                            SessionFragmentDirections.showJournalFor().setSessionId(mSessionViewModel.getSessionId())
+                    );
+                }
+
                 previousButton.setEnabled(true);
                 for (Task task : activityPackageWithTasks.tasksList) {
                     if (task.getId() == activitySession.getCurrentTaskId()) {
@@ -171,9 +178,7 @@ public class SessionFragment extends Fragment {
                     }
                     mProgressBar.incrementProgressBy(1);
                 }
-                if (mSessionViewModel.isActivityCompleted()) {
-                    doneButton.setText(R.string.complete_activity_text);
-                }
+
             }
             // In case of recommended/all activities
             else {
