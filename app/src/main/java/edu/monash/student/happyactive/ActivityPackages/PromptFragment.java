@@ -3,6 +3,7 @@ package edu.monash.student.happyactive.ActivityPackages;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Html;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -152,15 +155,18 @@ public class PromptFragment extends Fragment implements TextWatcher, View.OnClic
     @Override
     public void afterTextChanged(Editable s) {
         List<InteractivePrompt> promptList = mSessionViewModel.getSessionWithPrompts();
+        String text =Html.fromHtml(s.toString()).toString();
+        text = text.replaceAll("\\s+", "");
+        DatabaseUtils.sqlEscapeString(text);
         if(!taskExistsIn(promptList, mSessionViewModel.getTaskOnDisplay().id)) {
             mInteractivePrompt = new InteractivePrompt();
             mInteractivePrompt.sessionId = mSessionViewModel.getSessionId();
             mInteractivePrompt.taskId = mSessionViewModel.getTaskOnDisplay().id;
             mInteractivePrompt.promptType = mSessionViewModel.getTaskOnDisplay().promptType;
-            mInteractivePrompt.answer = s.toString();
+            mInteractivePrompt.answer = text;
             mSessionViewModel.getSessionWithPrompts().add(mInteractivePrompt);
         } else {
-            getTaskById(promptList, mSessionViewModel.getTaskOnDisplay().id).answer = s.toString();
+            getTaskById(promptList, mSessionViewModel.getTaskOnDisplay().id).answer = text;
         }
     }
 
