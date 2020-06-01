@@ -93,9 +93,11 @@ public class PostActivityStatsFragment extends Fragment {
         finishActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentActivitySession.setStatus(ActivityPackageStatus.COMPLETED);
-                postActivityStatsViewModel.updateUserScore(currentActivitySession);
-                postActivityStatsViewModel.setStatusCompletedPostActivity(currentActivitySession);
+                if (currentActivitySession.getStatus() != ActivityPackageStatus.COMPLETED) {
+                    currentActivitySession.setStatus(ActivityPackageStatus.COMPLETED);
+                    postActivityStatsViewModel.updateUserScore(currentActivitySession);
+                    postActivityStatsViewModel.setStatusCompletedPostActivity(currentActivitySession);
+                }
                 Navigation.findNavController(view).navigate(
                         PostActivityStatsFragmentDirections.returnToHome()
                 );
