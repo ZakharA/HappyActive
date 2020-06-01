@@ -71,7 +71,8 @@
             android:defaultValue="0L" />
         <action
             android:id="@+id/returnToHome"
-            app:destination="@id/overallHomeFragment" />
+            app:destination="@id/overallHomeFragment"
+            app:popUpTo="@id/overallHomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeReportFragment2"

@@ -80,7 +80,7 @@ public class PostActivityStatsFragment extends Fragment {
                     long seconds = diffInMillis / 1000;
                     long minutes = seconds / 60;
                     long hours =  minutes / 60;
-                    timePostActivity.setText(hours + " hours " + minutes + " minutes");
+                    timePostActivity.setText(hours + " hours " +( minutes >= 60 ?  minutes/hours : minutes )  + " minutes");
                 }
                 else {
                     stepCountPostActivity.setText("0 steps");
