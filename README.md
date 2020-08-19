@@ -1,5 +1,5 @@
 # HappyActive
-
+![Image](https://github.com/ZakharA/HappyActive/blob/master/happyactive.png)
 ## Table of contents
 * [Project description](#project-description)
 * [Technologies](#technologies)
