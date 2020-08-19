@@ -1,9 +1,12 @@
 # HappyActive
+<a href='https://play.google.com/store/apps/details?id=edu.monash.student.happyactive&hl=en&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='200' /></a>
 ![Image](https://github.com/ZakharA/HappyActive/blob/master/happyactive.png)
 ## Table of contents
 * [Project description](#project-description)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Setup](#google-play)
+* [Team](#team)
+* [Google play](#google-play)
 
 ## Project description
 HappyActive is an android application written using modern tech stack as a capstone project. The main goal is to promote active lifestyle among elderly Austranians with arthritis. By teaming them up with their grandkids to do fun activities together. 
@@ -40,3 +43,6 @@ To run this project:
 2. Mohak Wathare
 3. Shijia Cui
 4. ZhiMeng Chen
+
+### Google play
+<a href='https://play.google.com/store/apps/details?id=edu.monash.student.happyactive&hl=en&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='200' /></a>
