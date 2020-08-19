@@ -9,7 +9,7 @@
 * [Google play](#google-play)
 
 ## Project description
-HappyActive is an android application written using modern tech stack as a capstone project. The main goal is to promote active lifestyle among elderly Austranians with arthritis. By teaming them up with their grandkids to do fun activities together. 
+HappyActive is an android application written using modern tech stack as a capstone project. The main goal is to promote an active lifestyle among elderly Australians with arthritis by teaming them up with their grandkids to do fun activities together. 
 
 Main features:
  * Activities bundles
